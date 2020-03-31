@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>3team_Lib</title>
-<link rel="stylesheet" href="../css/common.css" type="text/css"/>
+<title>3조 도서관</title>
+<link rel="stylesheet" href="../css/userCommon.css" type="text/css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 <script>
 	$(function(){
 		$(".menu").hover(function() {
@@ -27,12 +28,13 @@
 	<header>
 		<div class="menuTop container">
 			<div class="logo">
-				<a href="${pageContext.request.contextPath }/user/home.do"><img src="../images/logo.png" alt="로고" /></a>
+				<a href="${pageContext.request.contextPath}/user/home.do"><img src="../images/logo.png" alt="로고" /></a>
 			</div>
 			<div class="topMenuWrap">
 				<ul class="topMenu">
 					<li><a href="#">로그인</a></li>
 					<li><a href="#">회원가입</a></li>
+					<li class="adminBtn"><a href="${pageContext.request.contextPath}/admin/home.do">관리자</a></li>
 				</ul>
 			</div>
 		</div>

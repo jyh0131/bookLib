@@ -37,6 +37,12 @@ a {
 }
 
 
+/* color class */
+
+
+
+
+
 /* header style */
 div.menuTop {
 	position: relative;
@@ -89,6 +95,19 @@ ul.topMenu li a:hover{
 	text-decoration: underline;
 }
 
+ul.topMenu li.adminBtn {
+	padding: 4px;
+    padding-top: 0;
+    border-radius: 3px;
+	background-color: #E8396F;
+	/* 다 만든 후 관리자아이디로 로그인 되었을 때만 나타나게 해야함 */
+	/* display: none; */
+}
+
+ul.topMenu li.adminBtn a {
+	color: #fff;
+}
+
 nav {
 	border-top: 1px solid #e5e5e5;
 	border-bottom: 1px solid #e5e5e5;
@@ -120,11 +139,12 @@ ul.subMenu {
 }
 
 ul.subMenu > li {
-	padding: 10px 0;
 	text-align: center;
 }
 
 ul.subMenu > li > a {
+	display:block;
+	padding: 10px 0;
 	font-size: 14px;
 	color: #666;
 	letter-spacing: -1px;
@@ -144,8 +164,3 @@ footer {
 footer .copy {
 	font-size: 12px;
 }
-
-
-
-
-
