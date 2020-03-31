@@ -1,0 +1,69 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3team_Lib</title>
+<link rel="stylesheet" href="../css/common.css" type="text/css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+	$(function(){
+		$(".menu").hover(function() {
+			$(this).next().show();
+		}, function() {
+			$(this).next().hide();
+		})
+		
+		$(".subMenu").hover(function() {
+			$(this).show();
+		}, function() {
+			$(this).hide();
+		})
+	})
+</script>
+</head>
+<body>
+	<header>
+		<div class="menuTop container">
+			<div class="logo">
+				<a href="${pageContext.request.contextPath }/user/home.do"><img src="../images/logo.png" alt="로고" /></a>
+			</div>
+			<div class="topMenuWrap">
+				<ul class="topMenu">
+					<li><a href="#">로그인</a></li>
+					<li><a href="#">회원가입</a></li>
+				</ul>
+			</div>
+		</div>
+		<nav class="menuBottom">
+			<ul class="mainMenu container clearfix">
+				<li>
+					<a class="menu" href="#">자료검색</a>
+					<ul class="subMenu">
+						<li><a href="#">자료검색</a></li>
+						<li><a href="#">신착도서</a></li>
+						<li><a href="#">대출베스트</a></li>
+						<li><a href="#">이달의 추천도서</a></li>
+					</ul>
+				</li>
+				<li>
+					<a class="menu" href="#">독서문화강좌</a>
+				</li>
+				<li>
+					<a class="menu" href="#">도서관서비스</a>
+					<ul class="subMenu">
+						<li><a href="#">희망도서신청</a></li>
+					</ul>
+				</li>
+				<li>
+					<a class="menu" href="#">나의도서관</a>
+					<ul class="subMenu">
+						<li><a href="#">내정보수정</a></li>
+						<li><a href="#">이용현황</a></li>
+						<li><a href="#">희망도서신청현황</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	</header>

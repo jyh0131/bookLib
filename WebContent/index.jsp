@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	실행
+	<script>
+		location.href = "user/home.do";
+	</script>	
 </body>
 </html>
