@@ -41,9 +41,17 @@ a {
 
 
 /* color class */
+.orange {
+	color: #ff9900;
+}
 
+.purple {
+	color: #725cc6;
+}
 
-
+.gray {
+	color: gray;
+}
 
 
 /* header style */
