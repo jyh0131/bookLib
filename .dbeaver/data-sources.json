@@ -12,8 +12,22 @@
 				"port": "3306",
 				"url": "jdbc:mysql://localhost:3306/",
 				"home": "C:\\Program Files\\MySQL\\MySQL Server 5.7",
+				"type": "dev"
+			}
+		},
+		"mysql5-17135bc97b3-19d5a10efba7b2d5": {
+			"provider": "mysql",
+			"driver": "mysql5",
+			"name": "MySQL - yi_java3st_3team",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "yi_java3st_3team",
+				"url": "jdbc:mysql://localhost:3306/yi_java3st_3team",
+				"home": "C:\\Program Files\\MySQL\\MySQL Server 5.7",
 				"type": "dev",
-				"auth-model": "native",
 				"handlers": {}
 			}
 		}

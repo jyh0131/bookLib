@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tm:TermDictionary xmlns:tm="http://exerd.com/term-model" version="1.1">
+  <term name="번호" physicalName="no"/>
+  <term name="아이디" physicalName="id">
+    <synonyms>id</synonyms>
+    <synonyms>ID</synonyms>
+  </term>
+  <term name="명" physicalName="name">
+    <synonyms>이름</synonyms>
+    <physicalSynonyms>na</physicalSynonyms>
+  </term>
+  <term name="회원" physicalName="mber">
+    <physicalSynonyms>member</physicalSynonyms>
+    <physicalSynonyms>mb</physicalSynonyms>
+  </term>
+  <term name="비밀번호" description="해시함수로 단방향 암호화" physicalName="pass">
+    <physicalSynonyms>passwd</physicalSynonyms>
+    <physicalSynonyms>pw</physicalSynonyms>
+  </term>
+  <term name="주소" physicalName="adres">
+    <synonyms>주소지</synonyms>
+    <physicalSynonyms>address</physicalSynonyms>
+    <physicalSynonyms>ad</physicalSynonyms>
+  </term>
+  <term name="전화번호" physicalName="tel">
+    <physicalSynonyms>tl</physicalSynonyms>
+  </term>
+  <term name="총" physicalName="total">
+    <synonyms>전체</synonyms>
+    <synonyms>총계</synonyms>
+    <physicalSynonyms>tot</physicalSynonyms>
+  </term>
+  <term name="대여" physicalName="lending">
+    <physicalSynonyms>lend</physicalSynonyms>
+    <physicalSynonyms>le</physicalSynonyms>
+  </term>
+  <term name="수" physicalName="count">
+    <synonyms>권수</synonyms>
+    <synonyms>횟수</synonyms>
+    <physicalSynonyms>cnt</physicalSynonyms>
+  </term>
+  <term name="등급" physicalName="grade">
+    <synonyms>회원등급</synonyms>
+    <physicalSynonyms>grad</physicalSynonyms>
+    <physicalSynonyms>gr</physicalSynonyms>
+  </term>
+  <term name="코드" physicalName="code">
+    <physicalSynonyms>cd</physicalSynonyms>
+  </term>
+  <term name="신청" physicalName="request">
+    <physicalSynonyms>reqst</physicalSynonyms>
+    <physicalSynonyms>re</physicalSynonyms>
+  </term>
+  <term name="도서" physicalName="book">
+    <synonyms>책</synonyms>
+    <physicalSynonyms>bo</physicalSynonyms>
+  </term>
+  <term name="저자" physicalName="author">
+    <synonyms>작가</synonyms>
+    <synonyms>저작자</synonyms>
+    <physicalSynonyms>authr</physicalSynonyms>
+    <physicalSynonyms>au</physicalSynonyms>
+  </term>
+  <term name="역자" physicalName="translator">
+    <synonyms>번역가</synonyms>
+    <physicalSynonyms>trnslr</physicalSynonyms>
+    <physicalSynonyms>tr</physicalSynonyms>
+  </term>
+  <term name="출판사" physicalName="publishing_company">
+    <physicalSynonyms>pls</physicalSynonyms>
+  </term>
+  <term name="날짜" physicalName="date">
+    <synonyms>일</synonyms>
+    <synonyms>일자</synonyms>
+    <physicalSynonyms>dt</physicalSynonyms>
+  </term>
+  <term name="발행" physicalName="publication">
+    <physicalSynonyms>pblicte</physicalSynonyms>
+    <physicalSynonyms>pb</physicalSynonyms>
+  </term>
+  <term name="년도" physicalName="year">
+    <physicalSynonyms>ye</physicalSynonyms>
+  </term>
+  <term name="가능" physicalName="possible">
+    <physicalSynonyms>posbl</physicalSynonyms>
+    <physicalSynonyms>psb</physicalSynonyms>
+  </term>
+  <term name="여부" physicalName="condition">
+    <physicalSynonyms>cdt</physicalSynonyms>
+  </term>
+  <term name="분류" physicalName="classification">
+    <physicalSynonyms>cl</physicalSynonyms>
+  </term>
+  <term name="이미지" physicalName="image">
+    <synonyms>사진</synonyms>
+    <physicalSynonyms>img</physicalSynonyms>
+  </term>
+  <term name="위치" physicalName="location">
+    <physicalSynonyms>lc</physicalSynonyms>
+  </term>
+  <term name="대분류" physicalName="large_classification">
+    <physicalSynonyms>lclas</physicalSynonyms>
+    <physicalSynonyms>lc</physicalSynonyms>
+  </term>
+  <term name="중분류" physicalName="middle_classification">
+    <physicalSynonyms>mlsfc</physicalSynonyms>
+    <physicalSynonyms>ml</physicalSynonyms>
+  </term>
+  <term name="직원" physicalName="employee">
+    <physicalSynonyms>emp</physicalSynonyms>
+  </term>
+  <term name="생년월일" physicalName="birthday">
+    <synonyms>생일</synonyms>
+    <physicalSynonyms>brthdy</physicalSynonyms>
+    <physicalSynonyms>br</physicalSynonyms>
+  </term>
+  <term name="직책" physicalName="title">
+    <physicalSynonyms>tit</physicalSynonyms>
+  </term>
+  <term name="반납" physicalName="reture">
+    <physicalSynonyms>rturn</physicalSynonyms>
+    <physicalSynonyms>rt</physicalSynonyms>
+  </term>
+  <term name="연기" physicalName="postponement">
+    <physicalSynonyms>pstpone</physicalSynonyms>
+    <physicalSynonyms>psm</physicalSynonyms>
+  </term>
+  <term name="연체" physicalName="overdue">
+    <physicalSynonyms>odue</physicalSynonyms>
+    <physicalSynonyms>od</physicalSynonyms>
+  </term>
+  <term name="근무" physicalName="work">
+    <physicalSynonyms>wo</physicalSynonyms>
+  </term>
+  <term name="성별" physicalName="gender">
+    <physicalSynonyms>gend</physicalSynonyms>
+    <physicalSynonyms>ge</physicalSynonyms>
+  </term>
+  <term name="탈퇴" physicalName="withdraw">
+    <physicalSynonyms>wdr</physicalSynonyms>
+  </term>
+  <term name="사서" physicalName="librarian">
+    <physicalSynonyms>lbrrn</physicalSynonyms>
+    <physicalSynonyms>lb</physicalSynonyms>
+  </term>
+  <term name="우편번호" physicalName="zip_code">
+    <physicalSynonyms>zip</physicalSynonyms>
+  </term>
+  <term name="시도" physicalName="city_and_provinces">
+    <physicalSynonyms>ctprvn</physicalSynonyms>
+    <physicalSynonyms>ct</physicalSynonyms>
+  </term>
+  <term name="시군구" physicalName="si_gun_gu">
+    <physicalSynonyms>signgu</physicalSynonyms>
+    <physicalSynonyms>sgg</physicalSynonyms>
+  </term>
+  <term name="읍면" physicalName="eup_myun_dong">
+    <physicalSynonyms>emd</physicalSynonyms>
+  </term>
+  <term name="도로" physicalName="road">
+    <physicalSynonyms>rd</physicalSynonyms>
+  </term>
+  <term name="건물" physicalName="building">
+    <physicalSynonyms>buld</physicalSynonyms>
+    <physicalSynonyms>bu</physicalSynonyms>
+  </term>
+  <term name="행정동명"/>
+  <term name="지번" physicalName="lot_number">
+    <physicalSynonyms>lnm</physicalSynonyms>
+  </term>
+  <term name="본번" physicalName="origin_no">
+    <physicalSynonyms>mnnm</physicalSynonyms>
+  </term>
+  <term name="현황" physicalName="status">
+    <physicalSynonyms>sttus</physicalSynonyms>
+    <physicalSynonyms>st</physicalSynonyms>
+  </term>
+  <term name="추천" physicalName="recommandation">
+    <physicalSynonyms>recomend</physicalSynonyms>
+    <physicalSynonyms>recom</physicalSynonyms>
+  </term>
+  <term name="제목" physicalName="title"/>
+  <term name="내용" physicalName="contents">
+    <synonyms>소개</synonyms>
+    <synonyms>정보</synonyms>
+    <physicalSynonyms>cont</physicalSynonyms>
+  </term>
+  <term name="작성자" physicalName="writer">
+    <physicalSynonyms>wrter</physicalSynonyms>
+    <physicalSynonyms>wt</physicalSynonyms>
+  </term>
+  <term name="범위" physicalName="scope">
+    <physicalSynonyms>sc</physicalSynonyms>
+  </term>
+  <term name="공개" physicalName="opening_to_the_public">
+    <physicalSynonyms>othbc</physicalSynonyms>
+    <physicalSynonyms>ot</physicalSynonyms>
+  </term>
+  <term name="부번" physicalName="vice_no">
+    <physicalSynonyms>slno</physicalSynonyms>
+  </term>
+  <term name="주제" physicalName="thema">
+    <physicalSynonyms>tm</physicalSynonyms>
+  </term>
+  <term name="가입" physicalName="join">
+    <synonyms>입사</synonyms>
+  </term>
+  <term name="폐기" physicalName="disuse">
+    <physicalSynonyms>dsuse</physicalSynonyms>
+    <physicalSynonyms>ds</physicalSynonyms>
+  </term>
+  <term name="입고" physicalName="warehousing">
+    <physicalSynonyms>wrhousng</physicalSynonyms>
+    <physicalSynonyms>wh</physicalSynonyms>
+  </term>
+  <term name="예정일" physicalName="due_date">
+    <physicalSynonyms>due_d</physicalSynonyms>
+  </term>
+  <term name="가격" physicalName="price">
+    <physicalSynonyms>prc</physicalSynonyms>
+  </term>
+  <term name="등록" physicalName="registration">
+    <physicalSynonyms>regist</physicalSynonyms>
+  </term>
+  <term name="기본" physicalName="basis">
+    <physicalSynonyms>bass</physicalSynonyms>
+  </term>
+  <term name="상세" physicalName="detail"/>
+  <term name="경로" physicalName="path"/>
+</tm:TermDictionary>
