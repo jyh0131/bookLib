@@ -3,10 +3,9 @@
 
 <%@ include file="../userInclude/userHeader.jsp" %>
 	
-	<section class="content">
-		<article class="container">
-			test
-		</article>
-	</section>
+<article class="contentWrap">
+	content
+</article>
+
 	
 <%@ include file="../userInclude/userFooter.jsp" %>

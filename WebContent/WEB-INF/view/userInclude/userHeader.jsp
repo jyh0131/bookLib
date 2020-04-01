@@ -43,7 +43,7 @@
 				<li>
 					<a class="menu" href="#">자료검색</a>
 					<ul class="subMenu">
-						<li><a href="#">자료검색</a></li>
+						<li><a href="#">통합자료검색</a></li>
 						<li><a href="#">신착도서</a></li>
 						<li><a href="#">대출베스트</a></li>
 						<li><a href="#">이달의 추천도서</a></li>
@@ -69,3 +69,5 @@
 			</ul>
 		</nav>
 	</header>
+	<section class="content">
+		<div class="container clearfix mainCtn">
