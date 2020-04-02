@@ -79,6 +79,7 @@ div.topMenuWrap {
 
 ul.topMenu {
 	overflow: hidden;
+	font-size: 13px;
 }
 
 ul.topMenu li {
