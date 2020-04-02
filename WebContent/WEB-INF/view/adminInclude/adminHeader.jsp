@@ -13,18 +13,17 @@
 <script>
 	$(function(){
 		$(".menu").click(function() {
-			$(".menu").removeClass("menuView");
-			$(this).addClass("menuView");
+			$(".menu").css("background", "none");
+			$(this).css("background", "#014E9E");
 		})
 	})
 </script>	
 </head>
 <body>
-
 	<header>
 		<nav>
 			<ul>
-				<li><a href="home.do" class="menu menuView"><i class="fas fa-home icon"></i><br>HOME</a></li>
+				<li><a href="#" class="menu"><i class="fas fa-home icon"></i><br>HOME</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-book icon"></i><br>도서관리</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-users icon"></i><br>회원관리</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-window-restore icon"></i><br>대여/반납관리</a></li>
