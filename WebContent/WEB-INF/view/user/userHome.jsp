@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../userInclude/userHeader.jsp" %>
+<%@ include file="../userInclude/userSideMenu1.jsp" %>
 
 <style>
 	article.contentWrap {

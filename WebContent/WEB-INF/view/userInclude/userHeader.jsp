@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>3조 도서관</title>
 <link rel="stylesheet" href="../css/userCommon.css" type="text/css"/>
+<link rel="stylesheet" href="../css/userSideMenu.css" type="text/css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
+<script src="../js/userCommon.js"></script>
 <script>
 	$(function(){
 		$(".menu").hover(function() {
