@@ -11,8 +11,8 @@
 <script>
 	$(function(){
 		$(".menu").click(function() {
-			$(".menu").css("background", "none");
-			$(this).css("background", "#014E9E");
+			$(".menu").removeClass("menuView");
+			$(this).addClass("menuView");
 		})
 	})
 </script>	
@@ -22,7 +22,7 @@
 	<header>
 		<nav>
 			<ul>
-				<li><a href="#" class="menu"><i class="fas fa-home icon"></i><br>HOME</a></li>
+				<li><a href="home.do" class="menu menuView"><i class="fas fa-home icon"></i><br>HOME</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-book icon"></i><br>도서관리</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-users icon"></i><br>회원관리</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-window-restore icon"></i><br>대여/반납관리</a></li>
