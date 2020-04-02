@@ -99,7 +99,8 @@ CREATE TABLE yi_java3st_3team.librarian (
 	lb_img       LONGBLOB     NULL     COMMENT '사서이미지', -- 사서이미지
 	title        INTEGER      NOT NULL COMMENT '직책', -- 직책
 	join_date    DATETIME     NOT NULL COMMENT '입사일', -- 입사일
-	work_cdt     TINYINT      NOT NULL COMMENT '근무여부' -- 근무여부
+	work_cdt     TINYINT      NOT NULL COMMENT '근무여부', -- 근무여부
+	lb_img_path  VARCHAR(100) NULL     COMMENT '사서이미지경로' -- 사서이미지경로
 )
 COMMENT '사서';
 
@@ -127,7 +128,8 @@ CREATE TABLE yi_java3st_3team.member (
 	lend_psb_cdt   TINYINT      NULL     COMMENT '대여가능여부', -- 대여가능여부
 	join_dt        DATETIME     NOT NULL COMMENT '가입일', -- 가입일
 	wdr_cdt        TINYINT      NULL     COMMENT '탈퇴여부', -- 탈퇴여부
-	od_cnt         INTEGER      NULL     COMMENT '연체횟수' -- 연체횟수
+	od_cnt         INTEGER      NULL     COMMENT '연체횟수', -- 연체횟수
+	mber_img_path  VARCHAR(100) NULL     COMMENT '회원이미지경로' -- 회원이미지경로
 )
 COMMENT '회원';
 
