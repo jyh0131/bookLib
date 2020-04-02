@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,20 +31,11 @@
 				<a href="${pageContext.request.contextPath}/user/home.do"><img src="../images/logo.png" alt="로고" /></a>
 			</div>
 			<div class="topMenuWrap">
-				<c:if test="${Auth == null }">
-					<ul class="topMenu">
-						<li><a href="${pageContext.request.contextPath }/user/login.do">로그인</a></li>
-						<li><a href="#">회원가입</a></li>
-						<li class="adminBtn"><a href="${pageContext.request.contextPath}/admin/home.do">관리자</a></li>
-					</ul>
-				</c:if>
-				<c:if test="${Auth !=null }">
-					<ul class="topMenu">
-						<li>[${Auth}]님 환영합니다!</li>
-						<li><a href="${pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>
-						<li class="adminBtn"><a href="${pageContext.request.contextPath}/admin/home.do">관리자</a></li>
-					</ul>
-				</c:if>
+				<ul class="topMenu">
+					<li><a href="#">로그인</a></li>
+					<li><a href="#">회원가입</a></li>
+					<li class="adminBtn"><a href="${pageContext.request.contextPath}/admin/home.do">관리자</a></li>
+				</ul>
 			</div>
 		</div>
 		<nav class="menuBottom">
