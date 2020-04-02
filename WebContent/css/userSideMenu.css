@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.mainCtn {
+	padding-bottom: 5px;
+}
+
+.asideMenu {
+	float: left;
+	background: #fff;
+	width: 21%;
+}
+
+.contentWrap {
+	min-height: 650px;
+	background: #fff;
+}
+
+.contentBg {
+	background-color: #fff;
+}
+
+/* asideMenu */
+aside.asideMenu ul li a {
+	display: block;
+	padding: 15px;
+	font-size: 16px;
+	font-weight: 700;
+	background-color: #F8F8F8;
+	border-bottom: 1px solid #CCC;
+}
+
+aside.asideMenu ul li a.asidView {
+	border-bottom: 1px solid #0060B7;
+	background-color: #fff;
+}
+
+aside.asideMenu ul li.asideTitle {
+	padding: 15px;
+	font-size: 20px;
+	font-weight: 700;
+	background: #7388A7;
+	color: #fff;
+	text-align: center;
+}
+
+
+div.articleBg {
+	float: left;
+    width: 78%;
+    background: #d9d9d9;
+    padding-left: 10px;
+}

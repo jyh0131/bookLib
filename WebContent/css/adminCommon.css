@@ -16,7 +16,7 @@ ul {
 
 a {
 	text-decoration: none;
-	color: #000;
+	color: #383838;
 }
 
 /* float 사용시 overflow: hidden; 사용할 수 없을 시에 적용 */
@@ -94,6 +94,9 @@ nav ul li:hover{
 	padding-bottom: 5px;
 }
 
+.menuView {
+	background: #014E9E;
+}
 
 
 /* footer style */
