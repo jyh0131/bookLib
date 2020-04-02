@@ -124,9 +124,6 @@ character set 'utf8'
 fields terminated by ','
 ignore 1 lines;
 
--- csv 파일의 첫번째줄 삭제(임시 설정)
-delete from librarian where lb_zip = 0;
-
 -- zip_code 우편번호
 -- truncate table zip_code; -- zip_code 전체 삭제
 -- select * from zip_code;
