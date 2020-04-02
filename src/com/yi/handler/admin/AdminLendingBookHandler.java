@@ -12,7 +12,7 @@ import com.yi.jdbc.JDBCUtil;
 import com.yi.model.Book;
 import com.yi.mvc.CommandHandler;
 
-public class AdminLendingRentHandler implements CommandHandler {
+public class AdminLendingBookHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -31,6 +31,7 @@ public class AdminLendingRentHandler implements CommandHandler {
 			JDBCUtil.close(conn);
 		}
 
-		return "/WEB-INF/view/admin/adminLending.jsp";
+		return "/WEB-INF/view/admin/adminLendingBookPop.jsp";
 	}
+
 }

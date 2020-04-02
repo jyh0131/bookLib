@@ -66,8 +66,16 @@
 <script>
 	$(function() {
 		$("#mber_search").click(function() {
-			var s = $("input[name='choiceMemberColums']").val();
+			var s = $("input[name='choiceMemberColums']:checked").val();
 			alert(s);
+		})
+		$("#book_search").click(function() {
+			var choiceValue = $("input[name='choiceBookColums']:checked").val();
+			var searchText = $("input[name='bookSearch']").val();
+			alert(searchText);
+			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no";
+
+			window.open("lendingBook.do", "2",popOption);
 		})
 	})
 </script>
@@ -114,10 +122,10 @@
 			</p>
 		</form> -->
 		<p>
-			<input type="radio" name="choiceBookColums">도서코드
-			<input type="radio" name="choiceBookColums">도서명
-			<input type="text" name="bookSearch" id="bookSearch">
-			<button id="b">검색1</button>
+			<input type="radio" name="choiceBookColums" value="code">도서코드
+			<input type="radio" name="choiceBookColums" value="name">도서명
+			<input type="text" name="bookSearch">
+			<button id="book_search">검색1</button>
 		</p>
 	</div>
 	<table>
