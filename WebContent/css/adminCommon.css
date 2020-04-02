@@ -94,7 +94,9 @@ nav ul li:hover{
 	padding-bottom: 5px;
 }
 
-
+.menuView {
+	background-color: #014E9E;
+}
 
 /* footer style */
 footer {
