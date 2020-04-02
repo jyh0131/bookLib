@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../adminInclude/adminHeader.jsp" %>
+<%@ include file="../adminInclude/adminSideMenu1.jsp" %>
 
-	<section class="content">
-		test
-	</section>
-
+<article class="contentWrap">
+</article>
+	
 <%@ include file="../adminInclude/adminFooter.jsp" %>
