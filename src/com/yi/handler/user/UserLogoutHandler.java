@@ -2,6 +2,7 @@ package com.yi.handler.user;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yi.mvc.CommandHandler;
 
@@ -9,12 +10,12 @@ public class UserLogoutHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if(req.getMethod().equalsIgnoreCase("get")) {
-			
-		}else if(req.getMethod().equalsIgnoreCase("post")) {
-			
-		}
+		//logout 처리
 		
+		HttpSession session = req.getSession();
+		session.invalidate();
+		
+		res.sendRedirect(req.getContextPath() + "/user/home.do");
 		return null;
 	}
 
