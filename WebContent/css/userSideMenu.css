@@ -11,10 +11,12 @@
 }
 
 .contentWrap {
-	float: right;
 	min-height: 650px;
 	background: #fff;
-	width: 78%;
+}
+
+.contentBg {
+	background-color: #fff;
 }
 
 /* asideMenu */
@@ -39,4 +41,12 @@ aside.asideMenu ul li.asideTitle {
 	background: #7388A7;
 	color: #fff;
 	text-align: center;
+}
+
+
+div.articleBg {
+	float: left;
+    width: 78%;
+    background: #d9d9d9;
+    padding-left: 10px;
 }

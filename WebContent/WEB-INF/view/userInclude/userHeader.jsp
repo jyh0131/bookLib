@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>3조 도서관</title>
-<link rel="stylesheet" href="../css/userCommon.css" type="text/css"/>
-<link rel="stylesheet" href="../css/userSideMenu.css" type="text/css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/userCommon.css" type="text/css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/userSideMenu.css" type="text/css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
-<script src="../js/userCommon.js"></script>
+<script src="${pageContext.request.contextPath}/js/userCommon.js"></script>
 <script>
 	$(function(){
 		$(".menu").hover(function() {
@@ -30,7 +30,7 @@
 	<header>
 		<div class="menuTop container">
 			<div class="logo">
-				<a href="${pageContext.request.contextPath}/user/home.do"><img src="../images/logo.png" alt="로고" /></a>
+				<a href="${pageContext.request.contextPath}/user/home.do"><img src="${pageContext.request.contextPath}/images/logo.png" alt="로고" /></a>
 			</div>
 			<div class="topMenuWrap">
 				<ul class="topMenu">
@@ -43,9 +43,9 @@
 		<nav class="menuBottom">
 			<ul class="mainMenu container clearfix">
 				<li>
-					<a class="menu" href="#">자료검색</a>
+					<a class="menu" href="${pageContext.request.contextPath}/user/book/list.do">자료검색</a>
 					<ul class="subMenu">
-						<li><a href="#">통합자료검색</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/book/list.do">통합자료검색</a></li>
 						<li><a href="#">신착도서</a></li>
 						<li><a href="#">대출베스트</a></li>
 						<li><a href="#">이달의 추천도서</a></li>
@@ -72,4 +72,5 @@
 		</nav>
 	</header>
 	<section class="content">
-		<div class="container clearfix mainCtn">
+		<div class="container mainCtn">
+			<div class="contentBg clearfix">

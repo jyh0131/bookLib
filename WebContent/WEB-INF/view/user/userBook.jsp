@@ -4,10 +4,10 @@
 <%@ include file="../userInclude/userHeader.jsp" %>
 <%@ include file="../userInclude/userSideMenu1.jsp" %>
 
-
-<article class="contentWrap">
-	
-</article>
-
+<div class="articleBg">
+	<article class="contentWrap">
+		
+	</article>
+</div>
 	
 <%@ include file="../userInclude/userFooter.jsp" %>

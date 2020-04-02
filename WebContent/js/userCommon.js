@@ -3,8 +3,8 @@
  */
 
 $(function() {
-	var height = $(".content").height();
-	$(".asideMenu").height(height);
+//	var height = $(".content").height();
+//	$(".asideMenu").height(height);
 
 	$(".asideMenuItem").click(function() {
 		$(".asideMenuItem").removeClass("asidView");
