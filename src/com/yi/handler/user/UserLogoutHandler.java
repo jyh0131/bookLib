@@ -5,12 +5,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yi.mvc.CommandHandler;
 
-public class UserBookListHandler implements CommandHandler {
+public class UserLogoutHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		// TODO Auto-generated method stub
-		return "/WEB-INF/view/user/userBook.jsp";
+		if(req.getMethod().equalsIgnoreCase("get")) {
+			
+		}else if(req.getMethod().equalsIgnoreCase("post")) {
+			
+		}
+		
+		return null;
 	}
 
 }
