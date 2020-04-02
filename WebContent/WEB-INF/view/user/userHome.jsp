@@ -8,24 +8,20 @@
 .contentWrap {
 	background-color: transparent;
 }
-
 article.contentWrap {
 	padding: 20px 0;
 }
-
 div.searchBox {
 	background: url("../images/bg1.png") no-repeat;
 	background-size: cover;
 	text-align: center;
 	padding: 30px;
 }
-
 div.searchBox h1 {
 	color: #fff;
 	margin-bottom: 10px;
 	font-size: 36px;
 }
-
 input[name='bookSch'] {
 	width: 60%;
 	border: none;
@@ -33,7 +29,6 @@ input[name='bookSch'] {
 	padding: 10px;
 	margin-right: 10px;
 }
-
 .bookSchbtn {
 	border: none;
 	padding: 10px;
@@ -43,72 +38,59 @@ input[name='bookSch'] {
 	color: #fff;
 	cursor: pointer;
 }
-
 .bookSchbtn:hover {
 	background: #FF9900;
 }
-
 .recomWrap {
 	margin: 20px 0;
 	padding: 20px 45px;
 	background: #fff;
 	overflow: hidden;
 }
-
 .recomWrap p {
 	float: left;
 	font-size: 18px;
 	font-weight: 700;
 }
-
 p.recomTitle {
 	margin-right: 100px;
 }
-
 p.recomPls {
 	margin-left: 100px;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 21px;
 }
-
 div.bookRankWrap, div.box {
 	overflow: hidden;
 }
-
 div.bastBox {
 	float: left;
 	width: 49%;
 	background: #fff;
 }
-
 div.newBox {
 	float: right;
 	width: 49%;
 	background: #fff;
 }
-
 div.box h1 {
 	padding: 20px;
 }
-
 .item {
 	float: left;
 	margin: 0 21px;
 	margin-bottom: 25px;
 }
-
 .item p {
 	text-align: center;
 	font-size: 14px;
 }
-
 .rankImg {
 	width: 90px;
 	height: 135px;
 	margin-bottom: 10px;
 }
-
 .rankImg img {
 	width: 100%;
 	height: 100%;
