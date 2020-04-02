@@ -26,7 +26,7 @@
 				<li><a href="#" class="menu menuView"><i class="fas fa-home icon"></i><br>HOME</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-book icon"></i><br>도서관리</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-users icon"></i><br>회원관리</a></li>
-				<li><a href="#" class="menu"><i class="fas fa-window-restore icon"></i><br>대여/반납관리</a></li>
+				<li><a href="lendingRent.do" class="menu"><i class="fas fa-window-restore icon"></i><br>대여/반납관리</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-user-tie icon"></i><br>직원관리</a></li>
 				<li><a href="#" class="menu"><i class="fas fa-chart-pie icon"></i><br>통계조회</a></li>
 				<li><a href="${pageContext.request.contextPath}/user/home.do" class="menu"><i class="fas fa-door-open icon"></i><br>나가기</a></li>
