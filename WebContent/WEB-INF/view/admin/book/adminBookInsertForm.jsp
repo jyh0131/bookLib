@@ -166,9 +166,9 @@
 					</select>
 					<select name="mlNo" id="mlNo">
 						<option value="">중분류 선택</option>
-						<c:forEach var="list" items="${mlList }">							
+						<%-- <c:forEach var="list" items="${mlList }">							
 							<option value="${list.mlsfcNo }">${list.mlsfcName }</option>
-						</c:forEach>
+						</c:forEach> --%>
 					</select>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">대분류, 중분류 모두 선택해주세요.</span>
