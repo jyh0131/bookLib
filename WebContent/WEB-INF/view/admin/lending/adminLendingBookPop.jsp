@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,10 +28,35 @@
 				alert(searchText);
 			}
 		}) */
+		$("#bookSubmit").click(function() {
+			/* var ch = $("input[name='chk']").length; */
+			var list = [];  
+			var ch = document.getElementsByName("chk");
+			/* alert(checkSize); */
+			for(var i=0; i<ch.length;i++){
+				if(ch[i].checked){
+					/* var parents = ch[i].v */
+					/* alert(i); */
+					var s = $("input[name='chk']").parent().parent().eq(i).children("td").eq(0).html();
+					/* alert(s); */
+					list.push(s);
+				}
+			}
+			/* window.opener. */
+			$.ajax({
+				url:"${pageContext.request.contextPath}/admin/lending/book.do",
+				type:"post",
+				data:{"chk":list},
+				dataType:"json",
+				success:function(res){
+					console.log(res);	
+					
+				}
+			})
+		})
+		
 		var now = new Date();
-		alert(now);
-		var y = now.getFullYear();
-		alert(y);
+		var y = now.getFullYear();		
 		var m = now.getMonth()+1;
 		var d = now.getDate();
 		var d2 = now.getDate()+15;
@@ -38,13 +64,7 @@
 		var lendDate2 = y+"-"+m+"-"+d2;
 		$(".lend_date").html(lendDate);
 		$(".lend_due_date").html(lendDate2);
-		
-		var now2 = new Date(${book.pblicteYear});
-		var y2 = now2.getFullYear();
-		var m2 = now2.getMonth();
-		var d2 = now2.getDate();
-		var publicYear = y2+"-"+m2+"-"+d2;
-		$(".pblicsher_year").html(publicYear);
+
 	})
 </script>
 </head>
@@ -66,11 +86,11 @@
 			<th>반납일</th>
 			<th>선택</th>
 		</tr>
-		<c:forEach var="book" items="${rentBook}">
+		<c:forEach var="book" items="${rentBook}">			
 			<%-- <tr><td>${book.lendPsbCdt }</td></tr> --%>
 			<c:if test="${book.lendPsbCdt==0 }">
 				<tr class="item">
-					<td>${book.bookCode}</td>
+					<td class="book_code">${book.bookCode}</td>
 					<td>${book.bookName }</td>
 					<td>
 						${book.authrName }
@@ -80,15 +100,21 @@
 						</c:if>
 					</td>
 					<%-- <td>${book.pblicteYear }</td> --%>
-					<td class="pblicsher_year"></td>
+					<td><fmt:formatDate value="${book.pblicteYear}"/></td>
+					<!-- <td class="pblicsher_year"></td> -->
 					<td>${book.pls.plsName }</td>
 					<!-- <td>대여일</td> -->
 					<td class="lend_date"></td>
 					<td class="lend_due_date"></td>
-					<td>체크박스</td>
+					<td><input type="checkbox" name="chk"></td>
 				</tr>
 			</c:if>
 		</c:forEach>
 	</table>
+	<div>
+		<p>
+			<button id="bookSubmit">선택</button>
+		</p>
+	</div>
 </body>
 </html>

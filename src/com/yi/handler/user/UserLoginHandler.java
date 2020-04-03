@@ -4,8 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.yi.dao.LibrarianDao;
 import com.yi.dao.MemberDao;
+import com.yi.dao.impl.LibrarianDaoImpl;
 import com.yi.dao.impl.MemberDaoImpl;
+import com.yi.model.Librarian;
 import com.yi.model.Member;
 import com.yi.mvc.CommandHandler;
 
@@ -17,31 +20,69 @@ public class UserLoginHandler implements CommandHandler {
 			return "/WEB-INF/view/user/userLogin.jsp";
 
 		} else if (req.getMethod().equalsIgnoreCase("post")) {
-			String id = req.getParameter("id");
-			String password = req.getParameter("password");
+			try {
+				// input 값 가지고옴
+				String id = req.getParameter("id");
+				String password = req.getParameter("password");
+				
 
-		
-				MemberDao dao = MemberDaoImpl.getInstance();
-
+				// 회원로그인
+				MemberDao userDao = MemberDaoImpl.getInstance();
 				Member member = new Member();
 				member.setMberId(id);
 				member.setMberPass(password);
-				
-				Member loginMember = dao.loginMember(member);
+				Member loginMember = userDao.loginMember(member);
 
-				if (loginMember == null) {
-					req.setAttribute("id", id);
-					req.setAttribute("password", password);
-					HttpSession session = req.getSession();
-					session.setAttribute("error", "notMatchId");
-					return "/WEB-INF/view/user/userLogin.jsp";
-				} else {
+				// 사서로그인
+				LibrarianDao libDao = LibrarianDaoImpl.getInstance();
+				Librarian libratian = new Librarian();
+				libratian.setLbId(id);
+				libratian.setLbPass(password);
+				Librarian loginLib = libDao.loginLibrarian(libratian);
+
+		
+				if(loginLib !=null) {
+					if(loginLib.getWorkCdt()==0) {
+						HttpSession session = req.getSession();
+						session.setAttribute("error", "retire");
+
+						return "/WEB-INF/view/user/userLogin.jsp";
+					}
+					if(loginLib.getTitle().getTitleNo() == 0) {
+						HttpSession session = req.getSession();
+						session.setAttribute("Auth", loginLib.getLbName());
+						res.sendRedirect(req.getContextPath() + "/user/home.do");
+						return null;
+					}
+					if(loginLib.getTitle().getTitleNo() ==1) {
+						HttpSession session = req.getSession();
+						session.setAttribute("Auth", loginLib.getLbName());
+						res.sendRedirect(req.getContextPath() + "/user/home.do");
+						return null;
+					}
+				}else if(loginMember !=null) {
+					if(loginMember.getWdrCdt() ==1) {
+						HttpSession session = req.getSession();
+						session.setAttribute("error", "retire");
+						
+						return "/WEB-INF/view/user/userLogin.jsp";
+					}
+					
 					HttpSession session = req.getSession();
 					session.setAttribute("Auth", loginMember.getMberName());
-
 					res.sendRedirect(req.getContextPath() + "/user/home.do");
 					return null;
 				}
+				else {
+					HttpSession session = req.getSession();
+					session.setAttribute("error", "notMatchId");
+					
+					return "/WEB-INF/view/user/userLogin.jsp";
+				}	
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		return null;
 	}

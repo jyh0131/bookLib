@@ -3,16 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../userInclude/userHeader.jsp" %>
 <style>
-	
 	.contentBg{
 	height: 650px;
 	}
 	.member{
-		width: 580px;
-	    height: 447px;
-	    border: 1px solid black;
-	    margin: 30px auto;
-	    padding-top: 25px;
+	    width: 540px;
+    	height: 480px;
+   		border: 1px solid black;
+    	margin: 35px auto;
+    	padding-top: 25px;
 	}
 	.member p {
 		font-size: 30px;	
@@ -20,24 +19,52 @@
 		padding-left: 25px;
 	}
 	.loginField{
-	    background: white;
-   		width: 410px;
-    	margin: 25px auto;
-    	border: 1px solid black;
-    	height: 335px
+	     background: white;
+	    width: 323px;
+	    margin: 21px auto;
+	    border: 1px solid black;
+	    height: 225px;
 	}
-	
 	#topPoint{
-		font-size: 20px;
-		font-weight:bold;
-	    width: 925px;
-	    padding: 10px;
+		font-size: 24px;
+	    font-weight: bold;
+	    width: 893px;
+	    padding: 15px;
 	    border-bottom: 2px solid #7388a7;
-	    margin-left: 55px;
+	    margin-left: 77px;
 	}
-
+	input[name="id"]{
+		margin:10px;
+		width:300px;
+		height:50px;
+	}
+	input[name="password"]{
+		margin:10px;
+		width:300px;
+		height:50px;
+	}
+	input[type="submit"]{
+		margin:10px;
+		width:300px;
+		height:50px;
+		background: #476fad;
+		color:white;
+		font-size: 20px;
+		
+	}
 	
 </style>
+<script>
+	$(function() {
+		<c:if test="${error == 'retire'}">
+			alert("로그인 권한이 없습니다.");
+		</c:if>
+		<c:if test="${error == 'notMatchId' }">
+			alert("비밀번호가 틀렸거나 등록하지 않은 아이디입니다.");
+		</c:if>
+	})
+</script>
+
 	<article>
 		<div id="topPoint">
 			<p>로그인</p>
@@ -46,24 +73,21 @@
 			<div class="member">
 				<p>MEMBER LOGIN</p>
 			<div class="loginField">
-						<p>
-							<input type="text" name="id">
-						</p>
-						<p>
+			
+						<div class="idText">
+							<i class="far fa-id-badge"><input type="text" name="id"></i>
+							
+						</div>
+						<div class="passText">
 							<input type="password" name="password">
-						</p>
-						<p>
-							<input type="submit" value="로그인">
-						</p>
+						</div>
+					<div class="loginBtn">
+						<input type="submit" value="로그인">
+					</div>
 				</div>	
 			</div>
 		</form>
-		
-		
-		
-			<c:if test="${error == 'notMatchId' }">
-				<span class="error">아이디와 비밀번호가 일치하지 않습니다.</span>
-			</c:if>
+			
 	</article>
 
 <%@ include file="../userInclude/userFooter.jsp" %>

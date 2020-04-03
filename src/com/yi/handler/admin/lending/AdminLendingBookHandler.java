@@ -18,7 +18,11 @@ public class AdminLendingBookHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 //		if (req.getMethod().equalsIgnoreCase("get")) {
+		
 		Connection conn = null;
+		if(req.getMethod().equalsIgnoreCase("post")) {
+			/*String[] code = req.getParameter("chk");*/
+		}
 		try {
 			conn = JDBCUtil.getConnection();
 			BookDao dao = BookDaoImpl.getInstance();
@@ -50,7 +54,7 @@ public class AdminLendingBookHandler implements CommandHandler {
 			JDBCUtil.close(conn);
 		}
 		return "/WEB-INF/view/admin/lending/adminLendingBookPop.jsp";
-
+		
 //		}
 //		return null;
 	}
