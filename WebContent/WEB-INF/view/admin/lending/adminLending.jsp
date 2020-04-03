@@ -73,11 +73,29 @@
 			var searchText = $("input[name='bookSearch']").val();
 			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
 			window.open("lendingBook.do", "2",popOption); */
+			
+/* 			$.ajax({
+				url:"${pageContext.request.contextPath}/cart/add.do",
+				type:"post",
+				data:{"count":count, "no":pNo},
+				dataType:"json",
+				success:function(res){
+					console.log(res);
+					if(res.result == "notLogin"){
+						
+						var choiceValue = $("input[name='choiceBookColums']:checked").val();
+						var searchText = $("input[name='bookSearch']").val();
+						var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
+						var url = "${pageContext.request.contextPath}/admin/lending/Book.do?choice=" + choiceValue + "&text=" + searchText;
+						window.open(url, "2", popOption);						
+					}
+				}
+			})	 */	
 			var choiceValue = $("input[name='choiceBookColums']:checked").val();
 			var searchText = $("input[name='bookSearch']").val();
 			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
 			var url = "${pageContext.request.contextPath}/admin/lending/Book.do?choice=" + choiceValue + "&text=" + searchText;
-			window.open(url, "2", popOption);
+			window.open(url, "2", popOption);	
 		})
 	})
 

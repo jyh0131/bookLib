@@ -28,10 +28,35 @@
 				alert(searchText);
 			}
 		}) */
+		$("#bookSubmit").click(function() {
+			/* var ch = $("input[name='chk']").length; */
+			var list = [];  
+			var ch = document.getElementsByName("chk");
+			/* alert(checkSize); */
+			for(var i=0; i<ch.length;i++){
+				if(ch[i].checked){
+					/* var parents = ch[i].v */
+					/* alert(i); */
+					var s = $("input[name='chk']").parent().parent().eq(i).children("td").eq(0).html();
+					/* alert(s); */
+					list.push(s);
+				}
+			}
+			/* window.opener. */
+			$.ajax({
+				url:"${pageContext.request.contextPath}/admin/lending/book.do",
+				type:"post",
+				data:{"chk":list},
+				dataType:"json",
+				success:function(res){
+					console.log(res);	
+					
+				}
+			})
+		})
+		
 		var now = new Date();
-		
-		var y = now.getFullYear();
-		
+		var y = now.getFullYear();		
 		var m = now.getMonth()+1;
 		var d = now.getDate();
 		var d2 = now.getDate()+15;
@@ -39,6 +64,7 @@
 		var lendDate2 = y+"-"+m+"-"+d2;
 		$(".lend_date").html(lendDate);
 		$(".lend_due_date").html(lendDate2);
+
 	})
 </script>
 </head>
@@ -64,7 +90,7 @@
 			<%-- <tr><td>${book.lendPsbCdt }</td></tr> --%>
 			<c:if test="${book.lendPsbCdt==0 }">
 				<tr class="item">
-					<td>${book.bookCode}</td>
+					<td class="book_code">${book.bookCode}</td>
 					<td>${book.bookName }</td>
 					<td>
 						${book.authrName }
@@ -85,5 +111,10 @@
 			</c:if>
 		</c:forEach>
 	</table>
+	<div>
+		<p>
+			<button id="bookSubmit">º±≈√</button>
+		</p>
+	</div>
 </body>
 </html>
