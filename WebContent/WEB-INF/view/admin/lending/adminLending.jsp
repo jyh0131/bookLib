@@ -73,11 +73,10 @@
 			var searchText = $("input[name='bookSearch']").val();
 			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
 			window.open("lendingBook.do", "2",popOption); */
-			alert("체크");
 			var choiceValue = $("input[name='choiceBookColums']:checked").val();
 			var searchText = $("input[name='bookSearch']").val();
 			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
-			var url = "lending/Book.do?choice=" + choiceValue + "&text=" + searchText;
+			var url = "${pageContext.request.contextPath}/admin/lending/Book.do?choice=" + choiceValue + "&text=" + searchText;
 			window.open(url, "2", popOption);
 		})
 	})
