@@ -11,7 +11,6 @@ public class UserLogoutHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		//logout 처리
-		
 		HttpSession session = req.getSession();
 		session.invalidate();
 		
