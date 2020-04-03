@@ -19,6 +19,14 @@ a {
 	color: #000;
 }
 
+table {
+	border-collapse: collapse;
+}
+
+td {
+	border: 1px solid #383838;
+}
+
 /* float 사용시 overflow: hidden; 사용할 수 없을 시에 적용 */
 .clearfix::after{
 	content: "";
@@ -40,12 +48,34 @@ a {
 .orange {color: #ff9900;}
 .purple {color: #725cc6;}
 .white {color: #fff;}
+.gray {color: #D9D9D9;}
 
 .lightGreyBg {background-color: #D9D9D9;}
 .pinkBg {background-color: #E8396F;}
 .purpleBg {background-color: #725cc6;}
 .orangeBg{background-color: #ff9900;}
 .blueBg {background-color: #014E9E;}
+.lightBlueBg{background-color: #3493DD;}
+
+.btnOrange {
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #ff9900;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.btnPurple {
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #725cc6;
+	border-radius: 3px;
+	cursor: pointer;
+}
 
 /* header style */
 header {

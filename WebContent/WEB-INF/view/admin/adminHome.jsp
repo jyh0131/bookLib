@@ -135,7 +135,7 @@
 	
 	.recomBookBox p {
 		float: left;
-		
+		font-weight: 700;
 	}
 	
 	.recomTitle {
@@ -144,7 +144,6 @@
 	}
 	
 	.recomBook {
-		font-weight: 700;
 		color: #2A3954;
 		line-height: 26px;
 	}
@@ -217,10 +216,10 @@
 	</div>
 	<div class="box recomBookBox">
 		<p class="recomTitle">추천도서</p>	
-		<p class="recomBook">책이름 
-			<span class="recomWriter">작가</span>
+		<p class="recomBook">${recom.bookCode.bookName }
+			<span class="recomWriter">${recom.bookCode.authrName }</span>
 			<span>/</span>
-			<span class="recomPls">출판사</span>
+			<span class="recomPls">${recom.bookCode.pls.plsName }</span>
 		</p>
 		<p class="recomAdd"><a href="#">추천도서 등록</a></p>
 	</div>
