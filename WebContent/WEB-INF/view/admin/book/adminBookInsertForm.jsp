@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../../adminInclude/adminHeader.jsp" %>
 <%@ include file="../../adminInclude/adminSideMenu1.jsp" %>
 
@@ -41,6 +42,10 @@
 	
 	input[type="radio"]:nth-of-type(2) {
 		margin-left: 30px;
+	}
+	
+	.addBox input[type="file"] {
+		font-size: 16px;
 	}
 	
 	.addBox input[type="submit"]{
@@ -119,6 +124,7 @@
 			
 		})
 		
+		
 	})
 </script>
 
@@ -127,7 +133,7 @@
 		<h2>도서등록</h2>
 		
 		<div class="addBox">
-			<form action="">
+			<form action="add.do" method="post" enctype="multipart/form-data">
 				<p>
 					<label>도서명 </label>
 					<input type="text" name="bookName" placeholder="도서명  작성해주세요."/>
@@ -154,11 +160,15 @@
 					<label>카테고리(분류)</label>
 					<select name="lcNo" id="lcNo">
 						<option value="">대분류 선택</option>
-						<option value="번호넣기">데이터 넣기</option>
+						<c:forEach var="list" items="${lcList }">
+							<option value="${list.lclasNo }">${list.lclasName }</option>
+						</c:forEach>
 					</select>
 					<select name="mlNo" id="mlNo">
 						<option value="">중분류 선택</option>
-						<option value="번호넣기">데이터넣기</option>
+						<c:forEach var="list" items="${mlList }">							
+							<option value="${list.mlsfcNo }">${list.mlsfcName }</option>
+						</c:forEach>
 					</select>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">대분류, 중분류 모두 선택해주세요.</span>
@@ -167,7 +177,9 @@
 					<label>출판사</label>
 					<select name="pls" id="pls">
 						<option value="">출판사 선택</option>
-						<option value="번호넣기">데이터넣기</option>
+						<c:forEach var="list" items="${plsList }">
+							<option value="${list.plsNo }">${list.plsName }</option>
+						</c:forEach>
 					</select>
 					<button class="btnOrange plsSearch">검색</button>
 					<i class="fas fa-feather-alt"></i>
@@ -180,9 +192,13 @@
 					<span class="error">출간일을 선택해주세요.</span>
 				</p>
 				<p>
+					<label>도서 이미지</label>
+					<input type="file" name="bookImgPath" />
+				</p>
+				<p>
 					<label>대여가능여부</label>
-					<input type="radio" name="lendPsbCdt" id="lend1"/> 대여 가능
-					<input type="radio" name="lendPsbCdt" id="lend2" /> 대여 불가능
+					<input type="radio" name="lendPsbCdt" id="lend1" value="Yes"/> 대여 가능
+					<input type="radio" name="lendPsbCdt" id="lend2" value="No"/> 대여 불가능
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">대여가능여부를 선택해주세요.</span>
 				</p>

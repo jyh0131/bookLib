@@ -11,8 +11,7 @@ select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.p
 		left join middle_classification m on m.mlsfc_no = b1.ml_no and l.lclas_no = m.lclas_no,
 		(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2
 	where b1.book_name = b2.book_name and b1.authr_name = b2.authr_name and b1.pls = b2.pls and b1.pblicte_year = b2.pblicte_year and 
-			b1.book_price = b2.book_price 
-			
+			b1.book_price = b2.book_price and b1.book_code = '0601.017-1';
 	order by b1.book_code ;
 	
 select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year ,
