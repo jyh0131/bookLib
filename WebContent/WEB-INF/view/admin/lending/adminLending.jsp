@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="../adminInclude/adminHeader.jsp" %>
-<%@ include file="../adminInclude/adminSideMenu3.jsp" %>
+<%@ include file="../../adminInclude/adminHeader.jsp" %>
+<%@ include file="../../adminInclude/adminSideMenu3.jsp" %>
 <style>
 	#mber_form_container{
 		border: 1px solid steelblue;
@@ -65,19 +65,31 @@
 </style>
 <script>
 	$(function() {
-		$("#mber_search").click(function() {
+		/* $("#mber_search").click(function() {
 			var s = $("input[name='choiceMemberColums']:checked").val();
-			alert(s);
-		})
+		})*/
 		$("#book_search").click(function() {
+/* 			var choiceValue = $("input[name='choiceBookColums']:checked").val();
+			var searchText = $("input[name='bookSearch']").val();
+			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
+			window.open("lendingBook.do", "2",popOption); */
+			alert("체크");
 			var choiceValue = $("input[name='choiceBookColums']:checked").val();
 			var searchText = $("input[name='bookSearch']").val();
-			alert(searchText);
-			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no";
-
-			window.open("lendingBook.do", "2",popOption);
+			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
+			var url = "lending/Book.do?choice=" + choiceValue + "&text=" + searchText;
+			window.open(url, "2", popOption);
 		})
 	})
+
+/* 	function bookSearch() {
+		alert("SSSSSSSSSSSSSSSSS");
+		var choiceValue = $("input[name='choiceBookColums']:checked").val();
+		var searchText = $("input[name='bookSearch']").val();
+		var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
+		var url = "lendingBook.do?choice=" + choiceValue + "?text=" + searchText;
+		window.open(url, "2", popOption);
+	} */
 </script>
 <article class="contentWrap">
 	<div id="mber_form_container">
@@ -86,6 +98,7 @@
 				<input type="radio" name="choiceMemberColums" value="name">회원명
 				<input type="text" name="memberSearch">
 				<button id="mber_search">검색</button>
+				<%-- <a href="lendingBook.do?book=${book}"></a> --%>
 			</p>
 	</div>
 	<div id="mber_form_container2">
@@ -121,12 +134,14 @@
 				<input type="submit" value="검색">
 			</p>
 		</form> -->
-		<p>
-			<input type="radio" name="choiceBookColums" value="code">도서코드
-			<input type="radio" name="choiceBookColums" value="name">도서명
-			<input type="text" name="bookSearch">
-			<button id="book_search">검색1</button>
-		</p>
+		
+			<p>
+				<input type="radio" name="choiceBookColums" value="code">도서코드
+				<input type="radio" name="choiceBookColums" value="name">도서명
+				<input type="text" name="bookSearch">
+				<button id="book_search">검색</button>
+			</p>
+		
 	</div>
 	<table>
 		<tr>
@@ -154,4 +169,4 @@
 	</table>
 </article>
 	
-<%@ include file="../adminInclude/adminFooter.jsp" %>
+<%@ include file="../../adminInclude/adminFooter.jsp" %>
