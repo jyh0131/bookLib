@@ -27,7 +27,7 @@ public class RecommendationDaoImpl implements RecommendationDao {
 	public Recommendation selectRecommendationByLastNo() {
 		String sql = "select r.recom_book_no , r.book_code , r.book_cont , "
 					+ "lc.lclas_no , lc.lclas_name , ml.mlsfc_no , ml.mlsfc_name , " 
-					+ "b.authr_name , b.trnslr_name , b.book_name , pls.pls_no , pls.pls_name , b.book_img, b.pblicte_year " 
+					+ "b.authr_name , b.trnslr_name , b.book_name , pls.pls_no , pls.pls_name , b.book_img_path, b.pblicte_year " 
 					+ " from recommendation r join book b on b.book_code = r.book_code  \r\n" 
 					+ "		join large_classification lc on b.lc_no = lc.lclas_no \r\n" 
 					+ "		join middle_classification ml on b.ml_no = ml.mlsfc_no and b.lc_no = ml.lclas_no \r\n" 
@@ -51,7 +51,7 @@ public class RecommendationDaoImpl implements RecommendationDao {
 	public Recommendation selectRecommendationByBookCode(Recommendation recommend) {
 		String sql = "select r.recom_book_no , r.book_code , r.book_cont , "
 				+ "lc.lclas_no , lc.lclas_name , ml.mlsfc_no , ml.mlsfc_name , " 
-				+ "b.authr_name , b.trnslr_name , b.book_name , pls.pls_no , pls.pls_name , b.book_img, b.pblicte_year " 
+				+ "b.authr_name , b.trnslr_name , b.book_name , pls.pls_no , pls.pls_name , b.book_img_path, b.pblicte_year " 
 				+ " from recommendation r join book b on b.book_code = r.book_code  \r\n" 
 				+ "		join large_classification lc on b.lc_no = lc.lclas_no \r\n" 
 				+ "		join middle_classification ml on b.ml_no = ml.mlsfc_no and b.lc_no = ml.lclas_no \r\n" 
@@ -81,7 +81,7 @@ public class RecommendationDaoImpl implements RecommendationDao {
 		bookCode.setTrnslrName(rs.getString("trnslr_name"));
 		bookCode.setBookName(rs.getString("book_name"));
 		bookCode.setPls(new PublishingCompany(rs.getInt("pls_no"), rs.getString("pls_name")));
-		bookCode.setBookImg(rs.getBytes("book_img"));
+		bookCode.setBookImgPath(rs.getString("b.book_img_path"));
 		bookCode.setPblicteYear(rs.getTimestamp("b.pblicte_year"));
 		
 		int recomBookNo = rs.getInt("recom_book_no");

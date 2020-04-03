@@ -552,7 +552,7 @@ public class LendingDaoImpl implements LendingDao {
 
 	@Override
 	public List<Lending> selectLendingBastList() {
-		String sql = "select l1.book_cd , b.book_name, b.book_img , b.authr_name , b.trnslr_name , b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , \r\n"
+		String sql = "select l1.book_cd , b.book_name, b.book_img_path , b.authr_name , b.trnslr_name , b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , \r\n"
 				+ "		b.pls , p.pls_name ,l2.totlaCnt\r\n"
 				+ "	from lending l1 left join book b on l1.book_cd = b.book_code \r\n"
 				+ "					left join large_classification lc on b.lc_no = lc.lclas_no \r\n"
@@ -560,7 +560,7 @@ public class LendingDaoImpl implements LendingDao {
 				+ "					left join publishing_company p on b.pls = p.pls_no ,\r\n"
 				+ "		(select book_cd , count(*) as totlaCnt from lending group by book_cd) l2\r\n"
 				+ "	where l1.book_cd = l2.book_cd\r\n" + "	group by l1.book_cd\r\n"
-				+ "	order by l2.totlaCnt desc limit 5";
+				+ "	order by l2.totlaCnt desc limit 100";
 		List<Lending> list = null;
 		try (Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -581,7 +581,7 @@ public class LendingDaoImpl implements LendingDao {
 	private Lending getBastList(ResultSet rs) throws SQLException {
 		Book bookCd = new Book();
 		bookCd.setBookName(rs.getString("b.book_name"));
-		bookCd.setBookImg(rs.getBytes("b.book_img"));
+		bookCd.setBookImgPath(rs.getString("b.book_img_path"));
 		bookCd.setAuthrName(rs.getString("b.authr_name"));
 		bookCd.setTrnslrName(rs.getString("b.trnslr_name"));
 		bookCd.setLcNo(new LargeClassification(rs.getInt("b.lc_no"), rs.getString("lc.lclas_name")));

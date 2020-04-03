@@ -19,6 +19,7 @@ public class Book {
 	private MiddleClassification mlNo;
 	private Date registDate;
 	private int dsuseCdt;
+	private String bookImgPath;
 
 	public Book() {
 	}
@@ -264,6 +265,14 @@ public class Book {
 	public void setDsuseCdt(int dsuseCdt) {
 		this.dsuseCdt = dsuseCdt;
 	}
+	
+	public String getBookImgPath() {
+		return bookImgPath;
+	}
+
+	public void setBookImgPath(String bookImgPath) {
+		this.bookImgPath = bookImgPath;
+	}
 
 	@Override
 	public int hashCode() {
@@ -273,6 +282,7 @@ public class Book {
 		result = prime * result + bookCnt;
 		result = prime * result + ((bookCode == null) ? 0 : bookCode.hashCode());
 		result = prime * result + Arrays.hashCode(bookImg);
+		result = prime * result + ((bookImgPath == null) ? 0 : bookImgPath.hashCode());
 		result = prime * result + ((bookName == null) ? 0 : bookName.hashCode());
 		result = prime * result + bookPrice;
 		result = prime * result + dsuseCdt;
@@ -309,6 +319,11 @@ public class Book {
 		} else if (!bookCode.equals(other.bookCode))
 			return false;
 		if (!Arrays.equals(bookImg, other.bookImg))
+			return false;
+		if (bookImgPath == null) {
+			if (other.bookImgPath != null)
+				return false;
+		} else if (!bookImgPath.equals(other.bookImgPath))
 			return false;
 		if (bookName == null) {
 			if (other.bookName != null)
@@ -355,13 +370,13 @@ public class Book {
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
 		return String.format(
-				"Book [bookCode=%s, bookName=%s, authrName=%s, trnslrName=%s, pls=%s, pblicteYear=%s, bookPrice=%s, bookCnt=%s, lendPsbCdt=%s, totalLeCnt=%s, bookImg=%s, lcNo=%s, mlNo=%s, registDate=%s, dsuseCdt=%s]",
+				"Book [bookCode=%s, bookName=%s, authrName=%s, trnslrName=%s, pls=%s, pblicteYear=%s, bookPrice=%s, bookCnt=%s, lendPsbCdt=%s, totalLeCnt=%s, bookImg=%s, lcNo=%s, mlNo=%s, registDate=%s, dsuseCdt=%s, bookImgPath=%s]",
 				bookCode, bookName, authrName, trnslrName, pls, pblicteYear, bookPrice, bookCnt, lendPsbCdt, totalLeCnt,
-				Arrays.toString(bookImg), lcNo, mlNo, registDate, dsuseCdt);
+				bookImg.length, lcNo, mlNo, registDate, dsuseCdt, bookImgPath);
 	}
 
 	public String toDebug() {

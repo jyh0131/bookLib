@@ -27,28 +27,30 @@ public class BookDaoImpl implements BookDao {
 	private BookDaoImpl() {
 	}
 
-	private Book getBook(ResultSet rs) throws SQLException {
-		String bookCode = rs.getString("b1.book_code");
-		String bookName = rs.getString("b1.book_name");
-		String authrName = rs.getString("b1.authr_name");
-		String trnslrName = rs.getString("b1.trnslr_name");
-		PublishingCompany pls = new PublishingCompany(rs.getInt("b1.pls"), rs.getString("p.pls_name"));
-		Date pblicteYear = rs.getTimestamp("b1.pblicte_year");
-		int bookPrice = rs.getInt("b1.book_price");
-		int bookCnt = rs.getInt("b2.book_cnt");
-		int lendPsbCdt = rs.getInt("b1.lend_psb_cdt");
-		int totalLeCnt = rs.getInt("b1.total_le_cnt");
-		byte[] bookImg = rs.getBytes("b1.book_img");
-		LargeClassification lcNo = new LargeClassification(rs.getInt("b1.lc_no"), rs.getString("l.lclas_name"));
-		MiddleClassification mlNo = new MiddleClassification(rs.getInt("b1.ml_no"), rs.getString("m.mlsfc_name"));
-		Date registDate = rs.getTimestamp("b1.regist_date");
-		int dsuseCdt = rs.getInt("b1.dsuse_cdt");
-
-		Book book = new Book(bookCode, bookName, authrName, trnslrName, pls, pblicteYear, bookPrice, bookCnt,
-				lendPsbCdt, totalLeCnt, bookImg, lcNo, mlNo, registDate, dsuseCdt);
-
-		return book;
-	}
+//	private Book getBook(ResultSet rs) throws SQLException {
+//		String bookCode = rs.getString("b1.book_code");
+//		String bookName = rs.getString("b1.book_name");
+//		String authrName = rs.getString("b1.authr_name");
+//		String trnslrName = rs.getString("b1.trnslr_name");
+//		PublishingCompany pls = new PublishingCompany(rs.getInt("b1.pls"), rs.getString("p.pls_name"));
+//		Date pblicteYear = rs.getTimestamp("b1.pblicte_year");
+//		int bookPrice = rs.getInt("b1.book_price");
+//		int bookCnt = rs.getInt("b2.book_cnt");
+//		int lendPsbCdt = rs.getInt("b1.lend_psb_cdt");
+//		int totalLeCnt = rs.getInt("b1.total_le_cnt");
+//		byte[] bookImg = rs.getBytes("b1.book_img");
+//		LargeClassification lcNo = new LargeClassification(rs.getInt("b1.lc_no"), rs.getString("l.lclas_name"));
+//		MiddleClassification mlNo = new MiddleClassification(rs.getInt("b1.ml_no"), rs.getString("m.mlsfc_name"));
+//		Date registDate = rs.getTimestamp("b1.regist_date");
+//		int dsuseCdt = rs.getInt("b1.dsuse_cdt");
+//
+//		Book book = new Book(bookCode, bookName, authrName, trnslrName, pls, pblicteYear, bookPrice, bookCnt,
+//				lendPsbCdt, totalLeCnt, bookImg, lcNo, mlNo, registDate, dsuseCdt);
+//		
+//		book.setBookImgPath(rs.getString("b1.book_img_path"));
+//
+//		return book;
+//	}
 	
 	private Book getBookVw(ResultSet rs) throws SQLException {
 		String bookCode = rs.getString("book_code");
@@ -69,27 +71,25 @@ public class BookDaoImpl implements BookDao {
 
 		Book book = new Book(bookCode, bookName, authrName, trnslrName, pls, pblicteYear, bookPrice, bookCnt,
 				lendPsbCdt, totalLeCnt, bookImg, lcNo, mlNo, registDate, dsuseCdt);
+		
+		book.setBookImgPath(rs.getString("book_img_path"));
 
 		return book;
 	}
 
 	@Override
 	public Book selectBookByCode(Book book) {
-		String sql = "select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year , \r\n"
-				+ "	   b1.book_price , b2.book_cnt, b1.lend_psb_cdt , b1.total_le_cnt , b1.book_img , b1.lc_no, l.lclas_name , b1.ml_no , m.mlsfc_name , \r\n"
-				+ "	   b1.regist_date , b1.dsuse_cdt\r\n" + "	from book b1 \r\n"
-				+ "		left join publishing_company p on b1.pls = p.pls_no left join large_classification l on b1.lc_no = l.lclas_no \r\n"
-				+ "		left join middle_classification m on m.mlsfc_no = b1.ml_no and l.lclas_no = m.lclas_no, \r\n"
-				+ "		(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2 \r\n"
-				+ "	where b1.book_name = b2.book_name and b1.authr_name = b2.authr_name and b1.pls = b2.pls and b1.pblicte_year = b2.pblicte_year and b1.book_price = b2.book_price \r\n"
-				+ "		 and b1.book_code = ?";
+		StringBuilder sql = new StringBuilder("select * from vw_book "); 
+		sql.append("where book_code = ? ");
+		sql.append("order by book_code ");
 	
-		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+		try (Connection con = JDBCUtil.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql.toString());) {
 			pstmt.setString(1, book.getBookCode());
 			LogUtil.prnLog(pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					return getBook(rs);
+					return getBookVw(rs);
 				}
 			}
 		} catch (SQLException e) {
@@ -100,14 +100,7 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<Book> selectBookByAll() {
-		String sql = "select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year , \r\n"
-				+ "	   b1.book_price , b2.book_cnt, b1.lend_psb_cdt , b1.total_le_cnt , b1.book_img , b1.lc_no, l.lclas_name , b1.ml_no , m.mlsfc_name , \r\n"
-				+ "	   b1.regist_date , b1.dsuse_cdt\r\n" + "	from book b1 \r\n"
-				+ "		left join publishing_company p on b1.pls = p.pls_no left join large_classification l on b1.lc_no = l.lclas_no \r\n"
-				+ "		left join middle_classification m on m.mlsfc_no = b1.ml_no and l.lclas_no = m.lclas_no, \r\n"
-				+ "		(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2 \r\n"
-				+ "	where b1.book_name = b2.book_name and b1.authr_name = b2.authr_name and b1.pls = b2.pls and b1.pblicte_year = b2.pblicte_year and b1.book_price = b2.book_price \r\n"
-				+ "	order by b1.book_code";
+		String sql = "select * from vw_book ";
 		List<Book> list = null;
 		try (Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -116,7 +109,7 @@ public class BookDaoImpl implements BookDao {
 			if (rs.next()) {
 				list = new ArrayList<>();
 				do {
-					list.add(getBook(rs));
+					list.add(getBookVw(rs));
 				} while (rs.next());
 			}
 		} catch (SQLException e) {
@@ -127,15 +120,6 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<Book> selectBookByCodeAndCat(Book book) {
-//		StringBuilder sql = new StringBuilder(
-//				"select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year , \r\n"
-//						+ "	   b1.book_price , b2.book_cnt, b1.lend_psb_cdt , b1.total_le_cnt , b1.book_img , b1.lc_no, l.lclas_name , b1.ml_no, m.mlsfc_name , \r\n"
-//						+ "	   b1.regist_date , b1.dsuse_cdt \r\n" + "	from book b1 \r\n"
-//						+ "		left join publishing_company p on b1.pls = p.pls_no left join large_classification l on b1.lc_no = l.lclas_no \r\n"
-//						+ "		left join middle_classification m on m.mlsfc_no = b1.ml_no and l.lclas_no = m.lclas_no,\r\n"
-//						+ "		(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2 "
-//						+ "	where b1.book_name = b2.book_name and b1.authr_name = b2.authr_name and b1.pls = b2.pls and b1.pblicte_year = b2.pblicte_year and b1.book_price = b2.book_price and ");
-		
 		StringBuilder sql = new StringBuilder("select * from vw_book "); 
 		StringBuilder where = new StringBuilder("where ");
 		if (book.getBookCode() != null)
@@ -174,20 +158,17 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<Book> selectBookByNameAndCat(Book book) {
-		StringBuilder sql = new StringBuilder(
-				"select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year , \r\n"
-						+ "	   b1.book_price , b2.book_cnt, b1.lend_psb_cdt , b1.total_le_cnt , b1.book_img , b1.lc_no, l.lclas_name , b1.ml_no, m.mlsfc_name , \r\n"
-						+ "	   b1.regist_date , b1.dsuse_cdt \r\n" + "	from book b1 \r\n"
-						+ "		left join publishing_company p on b1.pls = p.pls_no left join large_classification l on b1.lc_no = l.lclas_no \r\n"
-						+ "		left join middle_classification m on m.mlsfc_no = b1.ml_no and l.lclas_no = m.lclas_no,\r\n"
-						+ "		(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2 "
-						+ "	where b1.book_name = b2.book_name and b1.authr_name = b2.authr_name and b1.pls = b2.pls and b1.pblicte_year = b2.pblicte_year and b1.book_price = b2.book_price and ");
+		StringBuilder sql = new StringBuilder("select * from vw_book "); 
+		StringBuilder where = new StringBuilder("where ");
 		if (book.getBookName() != null)
-			sql.append("b1.book_name like ? and ");
-		if (book.getLcNo() != null)
-			sql.append("b1.lc_no = ? and ");
-		sql.replace(sql.lastIndexOf("and"), sql.length(), " ");
-		sql.append("order by b1.book_code");
+			where.append("book_name like ? and ");
+		if (book.getLcNo() != null) {
+			where.append("lc_no = ? and ");
+		}
+		where.replace(where.lastIndexOf("and"), where.length(), " ");
+		
+		sql.append(where);
+		sql.append("order by book_code");
 
 		List<Book> list = null;
 
@@ -204,7 +185,7 @@ public class BookDaoImpl implements BookDao {
 				if (rs.next()) {
 					list = new ArrayList<>();
 					do {
-						list.add(getBook(rs));
+						list.add(getBookVw(rs));
 					} while (rs.next());
 				}
 			}
@@ -216,22 +197,18 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<Book> selectBookOnMber(Book book) {
-		StringBuilder sql = new StringBuilder(
-				"select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year , \r\n"
-						+ "	   b1.book_price , b2.book_cnt, b1.lend_psb_cdt , b1.total_le_cnt , b1.book_img , b1.lc_no, l.lclas_name , b1.ml_no, m.mlsfc_name , \r\n"
-						+ "	   b1.regist_date , b1.dsuse_cdt \r\n" + "	from book b1 \r\n"
-						+ "		left join publishing_company p on b1.pls = p.pls_no left join large_classification l on b1.lc_no = l.lclas_no \r\n"
-						+ "		left join middle_classification m on m.mlsfc_no = b1.ml_no and l.lclas_no = m.lclas_no,\r\n"
-						+ "		(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2 "
-						+ "	where b1.book_name = b2.book_name and b1.authr_name = b2.authr_name and b1.pls = b2.pls and b1.pblicte_year = b2.pblicte_year and b1.book_price = b2.book_price and ");
+		StringBuilder sql = new StringBuilder("select * from vw_book "); 
+		StringBuilder where = new StringBuilder("where ");
 		if (book.getBookName() != null)
-			sql.append("b1.book_name like ? and ");
-		if (book.getAuthrName() != null)
-			sql.append("b1.authr_name like ? and ");
-		if (book.getLcNo() != null)
-			sql.append("b1.lc_no = ? and ");
-		sql.replace(sql.lastIndexOf("and"), sql.length(), " ");
-		sql.append("order by b1.book_name");
+			where.append("book_name like ? and ");
+		if (book.getAuthrName() != null) 
+			where.append("authr_name like ? and ");
+		if (book.getLcNo() != null) 
+			where.append("lc_no = ? and ");
+		where.replace(where.lastIndexOf("and"), where.length(), " ");
+		
+		sql.append(where);
+		sql.append("order by book_code");
 
 		List<Book> list = null;
 
@@ -250,7 +227,7 @@ public class BookDaoImpl implements BookDao {
 				if (rs.next()) {
 					list = new ArrayList<>();
 					do {
-						list.add(getBook(rs));
+						list.add(getBookVw(rs));
 					} while (rs.next());
 				}
 			}
@@ -262,16 +239,7 @@ public class BookDaoImpl implements BookDao {
 	
 	@Override
 	public List<Book> selectBookAllOnMber() {
-		String sql = "select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year ,\r\n" 
-					+ "	   b1.book_price , b2.book_cnt, b1.lend_psb_cdt , b1.total_le_cnt , b1.book_img , b1.lc_no, l.lclas_name , b1.ml_no, m.mlsfc_name,\r\n" 
-					+ "	   b1.regist_date , b1.dsuse_cdt\r\n" 
-					+ "	from book b1 \r\n" 
-					+ "		left join publishing_company p on b1.pls = p.pls_no left join large_classification l on b1.lc_no = l.lclas_no \r\n" 
-					+ "		left join middle_classification m on m.mlsfc_no = b1.ml_no and l.lclas_no = m.lclas_no,\r\n" 
-					+ "		(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2\r\n" 
-					+ "	where b1.book_name = b2.book_name and b1.authr_name = b2.authr_name and b1.pls = b2.pls and b1.pblicte_year = b2.pblicte_year and \r\n" 
-					+ "			b1.book_price = b2.book_price\r\n" 
-					+ "	order by b1.book_code";
+		String sql = "select * from vw_book ";
 
 		List<Book> list = null;
 
@@ -282,7 +250,7 @@ public class BookDaoImpl implements BookDao {
 			if (rs.next()) {
 				list = new ArrayList<>();
 				do {
-					list.add(getBook(rs));
+					list.add(getBookVw(rs));
 				} while (rs.next());
 			}
 		} catch (SQLException e) {
@@ -334,7 +302,7 @@ public class BookDaoImpl implements BookDao {
 	public int insertBook(Book book) {
 		String sql = "insert into book(book_code , book_name , authr_name , trnslr_name , pls , "
 				+ "	pblicte_year , book_price , lend_psb_cdt , total_le_cnt , "
-				+ "	book_img , lc_no , ml_no , regist_date , dsuse_cdt ) values"
+				+ "	lc_no , ml_no , regist_date , dsuse_cdt, book_img_path ) values"
 				+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, book.getBookCode());
@@ -346,13 +314,11 @@ public class BookDaoImpl implements BookDao {
 			pstmt.setInt(7, book.getBookPrice());
 			pstmt.setInt(8, book.getLendPsbCdt());
 			pstmt.setInt(9, book.getTotalLeCnt());
-			if (book.getBookImg() != null) {
-				pstmt.setBytes(10, book.getBookImg());
-			}
-			pstmt.setInt(11, book.getLcNo().getLclasNo());
-			pstmt.setInt(12, book.getMlNo().getMlsfcNo());
-			pstmt.setTimestamp(13, new Timestamp(book.getRegistDate().getTime()));
-			pstmt.setInt(14, book.getDsuseCdt());
+			pstmt.setInt(10, book.getLcNo().getLclasNo());
+			pstmt.setInt(11, book.getMlNo().getMlsfcNo());
+			pstmt.setTimestamp(12, new Timestamp(book.getRegistDate().getTime()));
+			pstmt.setInt(13, book.getDsuseCdt());
+			pstmt.setString(14, book.getBookImgPath());
 			LogUtil.prnLog(pstmt);
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -364,64 +330,40 @@ public class BookDaoImpl implements BookDao {
 	@Override
 	public int updateBook(Book book) {
 		StringBuilder sql = new StringBuilder("update book set ");
-		if (book.getBookName() != null)
-			sql.append("book_name = ?, ");
-		if (book.getAuthrName() != null)
-			sql.append("authr_name = ?, ");
-		if (book.getTrnslrName() != null)
-			sql.append("trnslr_name = ?, ");
-		if (book.getPls() != null)
-			sql.append("pls = ?, ");
-		if (book.getPblicteYear() != null)
-			sql.append("pblicte_year = ?, ");
-		if (book.getBookPrice() != -1)
-			sql.append("book_price = ?, ");
-		if (book.getLendPsbCdt() != -1)
-			sql.append("lend_psb_cdt = ?, ");
-		if (book.getTotalLeCnt() != -1)
-			sql.append("total_le_cnt = ?, ");
-		if (book.getBookImg() != null)
-			sql.append("book_img = ?, ");
-		if (book.getLcNo() != null)
-			sql.append("lc_no = ?, ");
-		if (book.getMlNo() != null)
-			sql.append("ml_no = ?, ");
-		if (book.getRegistDate() != null)
-			sql.append("regist_date = ?, ");
-		if (book.getDsuseCdt() != -1)
-			sql.append("dsuse_cdt = ?, ");
+		if (book.getBookName() != null) sql.append("book_name = ?, ");
+		if (book.getAuthrName() != null) sql.append("authr_name = ?, ");
+		if (book.getTrnslrName() != null) sql.append("trnslr_name = ?, ");
+		if (book.getPls() != null) sql.append("pls = ?, ");
+		if (book.getPblicteYear() != null) sql.append("pblicte_year = ?, ");
+		if (book.getBookPrice() != -1) sql.append("book_price = ?, ");
+		if (book.getLendPsbCdt() != -1) sql.append("lend_psb_cdt = ?, ");
+		if (book.getTotalLeCnt() != -1) sql.append("total_le_cnt = ?, ");
+		if (book.getBookImg() != null) sql.append("book_img = ?, ");
+		if (book.getLcNo() != null) sql.append("lc_no = ?, ");
+		if (book.getMlNo() != null) sql.append("ml_no = ?, ");
+		if (book.getRegistDate() != null) sql.append("regist_date = ?, ");
+		if (book.getDsuseCdt() != -1) sql.append("dsuse_cdt = ?, ");
+		if (book.getBookImgPath() != null) sql.append("book_img_path = ?, ");
 		sql.replace(sql.lastIndexOf(","), sql.length(), " ");
 		sql.append("where book_code = ?");
 
 		try (Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql.toString())) {
 			int argCnt = 1;
-			if (book.getBookName() != null)
-				pstmt.setString(argCnt++, book.getBookName());
-			if (book.getAuthrName() != null)
-				pstmt.setString(argCnt++, book.getAuthrName());
-			if (book.getTrnslrName() != null)
-				pstmt.setString(argCnt++, book.getTrnslrName());
-			if (book.getPls() != null)
-				pstmt.setInt(argCnt++, book.getPls().getPlsNo());
-			if (book.getPblicteYear() != null)
-				pstmt.setTimestamp(argCnt++, new Timestamp(book.getPblicteYear().getTime()));
-			if (book.getBookPrice() != -1)
-				pstmt.setInt(argCnt++, book.getBookPrice());
-			if (book.getLendPsbCdt() != -1)
-				pstmt.setInt(argCnt++, book.getLendPsbCdt());
-			if (book.getTotalLeCnt() != -1)
-				pstmt.setInt(argCnt++, book.getTotalLeCnt());
-			if (book.getBookImg() != null)
-				pstmt.setBytes(argCnt++, book.getBookImg());
-			if (book.getLcNo() != null)
-				pstmt.setInt(argCnt++, book.getLcNo().getLclasNo());
-			if (book.getMlNo() != null)
-				pstmt.setInt(argCnt++, book.getMlNo().getMlsfcNo());
-			if (book.getRegistDate() != null)
-				pstmt.setTimestamp(argCnt++, new Timestamp(book.getRegistDate().getTime()));
-			if (book.getDsuseCdt() != -1)
-				pstmt.setInt(argCnt++, book.getDsuseCdt());
+			if (book.getBookName() != null) pstmt.setString(argCnt++, book.getBookName());
+			if (book.getAuthrName() != null) pstmt.setString(argCnt++, book.getAuthrName());
+			if (book.getTrnslrName() != null) pstmt.setString(argCnt++, book.getTrnslrName());
+			if (book.getPls() != null) pstmt.setInt(argCnt++, book.getPls().getPlsNo());
+			if (book.getPblicteYear() != null) pstmt.setTimestamp(argCnt++, new Timestamp(book.getPblicteYear().getTime()));
+			if (book.getBookPrice() != -1) pstmt.setInt(argCnt++, book.getBookPrice());
+			if (book.getLendPsbCdt() != -1) pstmt.setInt(argCnt++, book.getLendPsbCdt());
+			if (book.getTotalLeCnt() != -1) pstmt.setInt(argCnt++, book.getTotalLeCnt());
+			if (book.getBookImg() != null) pstmt.setBytes(argCnt++, book.getBookImg());
+			if (book.getLcNo() != null) pstmt.setInt(argCnt++, book.getLcNo().getLclasNo());
+			if (book.getMlNo() != null) pstmt.setInt(argCnt++, book.getMlNo().getMlsfcNo());
+			if (book.getRegistDate() != null) pstmt.setTimestamp(argCnt++, new Timestamp(book.getRegistDate().getTime()));
+			if (book.getDsuseCdt() != -1) pstmt.setInt(argCnt++, book.getDsuseCdt());
+			if (book.getBookImgPath() != null) pstmt.setString(argCnt++, book.getBookImgPath());
 			pstmt.setString(argCnt++, book.getBookCode());
 			LogUtil.prnLog(pstmt);
 			return pstmt.executeUpdate();
@@ -609,12 +551,12 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<Book> selectNewBookList() {
-		String sql = "select pblicte_year, book_name , book_img , authr_name , trnslr_name , b.lc_no , l.lclas_name , b.ml_no , m.mlsfc_name , b.pls , p.pls_name \r\n" + 
+		String sql = "select pblicte_year, book_name , book_img_path , authr_name , trnslr_name , b.lc_no , l.lclas_name , b.ml_no , m.mlsfc_name , b.pls , p.pls_name \r\n" + 
 				"	from book b left join large_classification l on b.lc_no = l.lclas_no \r\n" + 
 				"				left join middle_classification m on b.ml_no = m.mlsfc_no and l.lclas_no = m.lclas_no \r\n" + 
 				"				left join publishing_company p on b.pls = p.pls_no \r\n" + 
 				"	group by book_name\r\n" + 
-				"	order by pblicte_year desc limit 5";
+				"	order by pblicte_year desc limit 100";
 		List<Book> list = null;
 		try (Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -635,7 +577,7 @@ public class BookDaoImpl implements BookDao {
 	private Book getNewBookList(ResultSet rs) throws SQLException {
 		Book newBook = new Book();
 		newBook.setBookName(rs.getString("book_name"));
-		newBook.setBookImg(rs.getBytes("book_img"));
+		newBook.setBookImgPath(rs.getString("book_img_path"));
 		newBook.setAuthrName(rs.getString("authr_name"));
 		newBook.setTrnslrName(rs.getString("trnslr_name"));
 		newBook.setLcNo(new LargeClassification(rs.getInt("b.lc_no"), rs.getString("l.lclas_name")));
