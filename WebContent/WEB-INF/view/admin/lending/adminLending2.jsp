@@ -15,10 +15,6 @@
 	#mber_form_container input[type='text']{
 		height: 20px;
 	}
-	/* #mber_form_container p label{
-		width: 150px;
-		float: left;
-	} */
 	#mber_form_container #mber_search{
 		padding:  5px 10px;
 	}
@@ -65,48 +61,14 @@
 </style>
 <script>
 	$(function() {
-		/* $("#mber_search").click(function() {
-			var s = $("input[name='choiceMemberColums']:checked").val();
-		})*/
-		$("#book_search").click(function() {
-/* 			var choiceValue = $("input[name='choiceBookColums']:checked").val();
-			var searchText = $("input[name='bookSearch']").val();
+		$("#mber_search").click(function() {
+			var choiceValue = $("input[name='choiceMemberColums']:checked").val();
+			var searchText = $("input[name='memberSearch']").val();
 			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
-			window.open("lendingBook.do", "2",popOption); */
-			
-/* 			$.ajax({
-				url:"${pageContext.request.contextPath}/cart/add.do",
-				type:"post",
-				data:{"count":count, "no":pNo},
-				dataType:"json",
-				success:function(res){
-					console.log(res);
-					if(res.result == "notLogin"){
-						
-						var choiceValue = $("input[name='choiceBookColums']:checked").val();
-						var searchText = $("input[name='bookSearch']").val();
-						var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
-						var url = "${pageContext.request.contextPath}/admin/lending/Book.do?choice=" + choiceValue + "&text=" + searchText;
-						window.open(url, "2", popOption);						
-					}
-				}
-			})	 */	
-			var choiceValue = $("input[name='choiceBookColums']:checked").val();
-			var searchText = $("input[name='bookSearch']").val();
-			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
-			var url = "${pageContext.request.contextPath}/admin/lending/Book.do?choice=" + choiceValue + "&text=" + searchText;
-			window.open(url, "2", popOption);	
+			var url = "${pageContext.request.contextPath}/admin/lending/Member.do?choice=" + choiceValue + "&text=" + searchText;
+			window.open(url, "2", popOption);
 		})
 	})
-
-/* 	function bookSearch() {
-		alert("SSSSSSSSSSSSSSSSS");
-		var choiceValue = $("input[name='choiceBookColums']:checked").val();
-		var searchText = $("input[name='bookSearch']").val();
-		var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
-		var url = "lendingBook.do?choice=" + choiceValue + "?text=" + searchText;
-		window.open(url, "2", popOption);
-	} */
 </script>
 <article class="contentWrap">
 	<div id="mber_form_container">
@@ -115,7 +77,6 @@
 				<input type="radio" name="choiceMemberColums" value="name">회원명
 				<input type="text" name="memberSearch">
 				<button id="mber_search">검색</button>
-				<%-- <a href="lendingBook.do?book=${book}"></a> --%>
 			</p>
 	</div>
 	<div id="mber_form_container2">
@@ -133,43 +94,24 @@
 				<input type="text" name="grade" id="grade">
 			</p>
 			<p>
-				<label>대여가능여부</label>
-				<input type="text" name="overdueCdt" name="overdueCdt">
+				<label>연체여부</label>
+				<input type="text" name="overdueCdt" id="overdueCdt">
 			</p>
 			<p>
-				<label>대여가능권수</label>
-				<input type="text" name="lendBookCnt" name="lendBookCnt">
+				<label>연체횟수</label>
+				<input type="text" name="odCnt" id="odCnt">
 			</p>			
 		</form>
 	</div>
-	<div id="book_form_container">
-		<!-- <form action="lendingRent.do" method="get">
-			<p>
-				<input type="radio" name="choiceBookColums">도서코드
-				<input type="radio" name="choiceBookColums">도서명
-				<input type="text" name="bookSearch" id="bookSearch">
-				<input type="submit" value="검색">
-			</p>
-		</form> -->
-		
-			<p>
-				<input type="radio" name="choiceBookColums" value="code">도서코드
-				<input type="radio" name="choiceBookColums" value="name">도서명
-				<input type="text" name="bookSearch">
-				<button id="book_search">검색</button>
-			</p>
-		
-	</div>
-	<input type="text" id="test">
 	<table id="book_table">
 		<tr>
 			<th>도서코드</th>
 			<th>도서명</th>
 			<th>저자/역자</th>
 			<th>발행년도</th>
-			<th>출판사명</th>
+			<th>출판사</th>
 			<th>대여일</th>
-			<th>반납일</th>
+			<th>반납예정일</th>
 			<th>선택</th>
 		</tr>
 <%-- 		<c:forEach var="book" items="${rentBook}">

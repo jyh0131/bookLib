@@ -44,20 +44,42 @@
 				   	var col5 = "";
 				   	var col6 = "";
 				   	var col7 = "";
-				   	var col8 = "";
+				  
 				   	var newTr = document.createElement("tr");
 					col1 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(0).html();
 					col2 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(1).html();
-					col3 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(2).html();
+					col3 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(2).text();
 					col4 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(3).html();
 					col5 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(4).html();
 					col6 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(5).html();
 					col7 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(6).html();
+					console.log(col1);
+					console.log(col2);
+					console.log(col3);
+					console.log(col4);
+					console.log(col5);
+					console.log(col6);
+					console.log(col7);
+					/* alert(col1);
+					alert(col2);
+					alert(col3);
+					alert(col4);
+					alert(col5);
+					alert(col6);
+					alert(col7); */
 					/* col8 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(7).val(); */
-					 newTr.innerHtml = "<tr><td>"+col1+"</td><td>"+col2+"</td><td>"+col3+"</td><td>"+col4+"</td><td>"+col5+"</td><td>"+col6+"</td><td>"+col7+"</td><td><input type='checkbox' name='chk2'></td></tr>";
-					/* alert(s); */
+					/* newTr.innerHtml = "<tr><td>"+col1+"</td><td>"+col2+"</td><td>"+col3+"</td><td>"+col4+"</td><td>"+col5+"</td><td>"+col6+"</td><td>"+col7+"</td><td><input type='checkbox' name='chk2'></td></tr>"; */
+					newTr.innerHtml = "ぞぞぞぞぞぞぞぞぞぞぞぞぞぞぞ";
+					alert(newTr);
+					/* newTr.valueOf() */
+					console.log(newTr);
+					
+					 /* alert(s); */
 					/* list.push(s); */
-					 window.opener.'採乞但税 <table>'.appendChild(newTr);
+					/* window.opener.document.getElementById("test").value = "hellow"; */
+					window.opener.document.getElementById("book_table").appendChild(newTr);
+					/* window.opener.document.getElementById("book_table").append(newTr); */
+					/* $(opener.document).find("#book_table").append(newTr); */
 				}
 			}
 			/* function toWrite(){
