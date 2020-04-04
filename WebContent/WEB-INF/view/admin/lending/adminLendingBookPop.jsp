@@ -30,20 +30,69 @@
 		}) */
 		$("#bookSubmit").click(function() {
 			/* var ch = $("input[name='chk']").length; */
-			var list = [];  
+			/* var list = []; */  
 			var ch = document.getElementsByName("chk");
 			/* alert(checkSize); */
 			for(var i=0; i<ch.length;i++){
 				if(ch[i].checked){
 					/* var parents = ch[i].v */
 					/* alert(i); */
-					var s = $("input[name='chk']").parent().parent().eq(i).children("td").eq(0).html();
+					var col1 = "";
+				   	var col2 = "";
+				   	var col3 = "";
+				   	var col4 = "";
+				   	var col5 = "";
+				   	var col6 = "";
+				   	var col7 = "";
+				   	var col8 = "";
+				   	var newTr = document.createElement("tr");
+					col1 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(0).html();
+					col2 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(1).html();
+					col3 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(2).html();
+					col4 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(3).html();
+					col5 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(4).html();
+					col6 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(5).html();
+					col7 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(6).html();
+					/* col8 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(7).val(); */
+					 newTr.innerHtml = "<tr><td>"+col1+"</td><td>"+col2+"</td><td>"+col3+"</td><td>"+col4+"</td><td>"+col5+"</td><td>"+col6+"</td><td>"+col7+"</td><td><input type='checkbox' name='chk2'></td></tr>";
 					/* alert(s); */
-					list.push(s);
+					/* list.push(s); */
+					 window.opener.'부모창의 <table>'.appendChild(newTr);
 				}
 			}
-			/* window.opener. */
-			$.ajax({
+			/* function toWrite(){
+				   // 각 컬럼 데이터 (컬럼 갯수만큼)
+				   var col1 = "";
+				   var col2 = "";
+				   var col3 = "";
+				   var col4 = "";
+				   var col5 = "";
+				   var col6 = "";
+				   var col7 = "";
+				   var col8 = "";
+				      .
+				      .
+				      .
+				  
+				   // 부모 창에 추가할 때 쓸 변수
+				   var newTr = document.createElement("tr");
+
+
+				   for('tr' 갯수만큼){
+				       if(check-box가 체크 되어있다면){
+				           col1 = '첫번째 td의 value 값';
+				           col1 = '두번째 td의 value 값';
+				           col1 = '세번째 td의 value 값';
+				         
+				           // 부모창 테이블에 넣어줄 코드
+				           newTr.innerHtml = "<tr><td>"+col1+"</td><td>"+col2+"</td><td>"+col3+"</td></tr>";
+				           // 부모창 테이블에 해당 코드 넣기
+				           window.opener.'부모창의 <table>'.appendChild(newTr);           
+				       }
+				   }
+				}
+ */			/* window.opener. */
+/* 			$.ajax({
 				url:"${pageContext.request.contextPath}/admin/lending/book.do",
 				type:"post",
 				data:{"chk":list},
@@ -52,7 +101,7 @@
 					console.log(res);	
 					
 				}
-			})
+			}) */
 		})
 		
 		var now = new Date();
