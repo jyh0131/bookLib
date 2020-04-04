@@ -303,10 +303,14 @@
 
 <article class="contentWrap">
 	<div class="wrap">
-		<h2>도서등록</h2>
+		<h2>등록 도서 수정</h2>
 		
 		<div class="addBox">
-			<form action="add.do" method="post" enctype="multipart/form-data">
+			<form action="update.do" method="post" enctype="multipart/form-data">
+				<p>
+					<label>도서코드</label>
+					<input type="text" name="bookCode" readonly/>
+				</p>
 				<p>
 					<label>도서명 </label>
 					<input type="text" name="bookName" placeholder="도서명  작성해주세요."/>
@@ -331,17 +335,8 @@
 				</p>
 				<p>
 					<label>카테고리(분류)</label>
-					<select name="lcNo" id="lcNo">
-						<option value="">대분류 선택</option>
-						<c:forEach var="list" items="${lcList }">
-							<option value="${list.lclasNo }">${list.lclasName }</option>
-						</c:forEach>
-					</select>
-					<select name="mlNo" id="mlNo">
-						<option value="">중분류 선택</option>
-					</select>
-					<i class="fas fa-feather-alt"></i>
-					<span class="error">대분류, 중분류 모두 선택해주세요.</span>
+					<input type="text" name="lcName" value="대분류 데이터" readonly/>
+					<input type="text" name="mlName" value="중분류데이터" readonly/>
 				</p>
 				<p>
 					<label>출판사</label>
@@ -363,6 +358,7 @@
 				</p>
 				<p>
 					<label>도서 이미지</label>
+					<label>도서이미지 여부 작성</label>
 					<input type="file" name="bookImgPath" />
 				</p>
 				<p>
@@ -374,7 +370,7 @@
 				</p>
 				
 				<div class="submitBtn">
-					<input type="submit" value="도서 등록" class="btnPurple"/>
+					<input type="submit" value="도서 수정" class="btnPurple"/>
 				</div>
 			</form>
 		</div>
@@ -386,7 +382,7 @@
 	<div class="plsBox">
 		<h4>출판사 검색</h4>
 		<div class="plsSchClose"><i class="fas fa-times"></i></div>
-		<form action="add.do" method="get">
+		<form action="update.do" method="get">
 			<p class="searchBar">
 				<input type="text" name="plsSchName" placeholder="출판사 이름으로 검색하세요."/>
 				<input type="submit" value="검색" class="btnOrange" id="plsbtn"/>
@@ -395,5 +391,5 @@
 		<div id="plsRes"></div>	
 	</div>
 </div>
-	
+
 <%@ include file="../../adminInclude/adminFooter.jsp" %>
