@@ -1,12 +1,17 @@
 package com.yi.handler.admin.book;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -29,20 +34,52 @@ public class AdminBookAddHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// TODO Auto-generated method stub
-		if(req.getMethod().equalsIgnoreCase("get")) {			
+		if(req.getMethod().equalsIgnoreCase("get")) {		
+			String lcNo = req.getParameter("lcNo");
+			LargeClassification lc = new LargeClassification();
+			if(lcNo != null) {				
+				lc.setLclasNo(Integer.parseInt(req.getParameter("lcNo")));
+			}
+			
+			String plsSchName = req.getParameter("plsSchName");
+			System.out.println("plsSchName: "+plsSchName);
 			
 			try {
-				LargeClassificationDao lcDao = LargeClassificationDaoImpl.getInstace();
-				List<LargeClassification> lcList = lcDao.selectLargeClassificationByAll();
-				req.setAttribute("lcList", lcList);
-				
-				MiddleClassificationDao mlDao = MiddleClassificationDaoImpl.getInstance();
-				List<MiddleClassification> mlList = mlDao.selectMiddleClassificationByAll();
-				req.setAttribute("mlList", mlList);
-				
 				PublishingCompanyDao plsDao = PublishingCompanyDaoImpl.getInstance();
 				List<PublishingCompany> plsList = plsDao.selectPublishingCompanyByAll();
 				req.setAttribute("plsList", plsList);
+				
+				LargeClassificationDao lcDao = LargeClassificationDaoImpl.getInstace();
+				List<LargeClassification> lcList = lcDao.selectLargeClassificationByAll();
+				req.setAttribute("lcList", lcList);
+
+				MiddleClassificationDao mlDao = MiddleClassificationDaoImpl.getInstance();
+				List<MiddleClassification> mlList = mlDao.selectMiddleClassificationGroupLc(lc);
+				
+				if(plsSchName != null) {
+					List<PublishingCompany> schPlsList = plsDao.selectPublishingCompanyByNameAll(plsSchName);
+					req.setAttribute("schPlsList", schPlsList);
+					
+					ObjectMapper om = new ObjectMapper();
+					String json = om.writeValueAsString(schPlsList);
+					res.setContentType("application/json;charset=UTF-8");
+					PrintWriter out = res.getWriter();
+					out.print(json);
+					out.flush();
+					return null;
+				}
+				
+				if(mlList != null) {					
+					req.setAttribute("mlList", mlList);				
+						
+					ObjectMapper om = new ObjectMapper();
+					String json = om.writeValueAsString(mlList);
+					res.setContentType("application/json;charset=UTF-8");
+					PrintWriter out = res.getWriter();
+					out.print(json);
+					out.flush();
+					return null;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -127,7 +164,12 @@ public class AdminBookAddHandler implements CommandHandler {
 				book.setDsuseCdt(0);
 				book.setBookImgPath(multi.getFilesystemName("bookImgPath"));
 				
-				dao.insertBook(book);
+				int result = dao.insertBook(book);
+				
+				req.setAttribute("bookCode", bookCode);
+				req.setAttribute("addResult", true);
+				req.setAttribute("bookName", bName);
+				
 				
 				res.sendRedirect(req.getContextPath()+"/admin/book/add.do");
 				return null;

@@ -62,6 +62,87 @@
 		color: red;
 		display: none;
 	}
+	
+	#plsSearchBox {
+		position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
+	    background-color: rgba(0,0,0,.9);
+	    z-index: 1;
+	    display: none;
+	}
+	
+	#plsSearchBox .plsBox {
+		position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+    	background-color: #fff;
+    	padding: 30px;
+    	width: 365px;
+	}
+	
+	#plsSearchBox .plsBox h4 {
+		margin-bottom: 20px;
+	}
+	
+	.plsBox .searchBar{
+		text-align: center;
+	}
+	
+	#plsSearchBox .plsBox input[name="plsSchName"] {
+		font-size: 16px;
+		padding: 5px;
+		width: 200px;
+	}
+	
+	#plsRes {
+		max-height: 200px;
+		margin-top: 20px;
+	}
+	
+	.tableView {
+		overflow: auto;
+   		padding: 1px;
+    	border: 1px solid #aaa;
+	}
+	
+	#noPlsData {
+		text-align: center;
+	}
+	
+	.plsSchClose {
+		position: absolute;
+		right: 30px;
+		top: 20px;
+		cursor: pointer;
+		font-size: 22px;
+	}
+	
+	table.tbPls {
+		width: 100%;
+	}
+	
+	table.tbPls td,
+	table.tbPls th {
+		padding: 5px;
+	}
+	
+	.tdNo, .tdBtn {
+		text-align: center;
+	}
+	
+	.result {
+		position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+    	background-color: #fff;
+    	padding: 30px;
+    	width: 365px;
+	}
 </style>
 
 <script>
@@ -122,8 +203,110 @@
 				return false;
 			} 
 			
+			alert("도서["+bookName.val()+"] 등록 되었습니다");
 		})
 		
+		// 선택된 대분류 데이터 전달
+		$("#lcNo").on("change", function(){
+			var lcNoIdx = $("#lcNo").val();
+			if(lcNoIdx != ""){				
+				$.ajax({
+					url:"${pageContext.request.contextPath}/admin/book/add.do",
+					type:"get",
+					data:{"lcNo":lcNoIdx},
+					dataType: "json",
+					success: function(res){
+						console.log(res);
+						
+						$("#mlNo").empty();
+						$("#mlNo").append($("<option>").attr("value", "").text("중분류 선택"));
+						
+						$(res).each(function(i, obj){
+							var mlNo = obj.mlsfcNo;
+							var mlName = obj.mlsfcName;
+							
+							var $mlOption = $("<option>").attr("value", mlNo).text(mlName);
+							$("#mlNo").append($mlOption);
+						})
+						
+					}
+				})
+			} else {
+				$("#mlNo").empty();
+				$("#mlNo").append($("<option>").attr("value", "").text("중분류 선택"));
+			}
+		}) 
+		
+		
+		$(".plsSearch").click(function() {
+			$("#plsSearchBox").show();
+		})
+		
+		$("#plsbtn").click(function() {
+			var plsSchName = $("input[name='plsSchName']").val();
+			if(plsSchName == ""){
+				alert("출판사 이름을 작성해주세요.");
+				return false;
+			}
+			$.ajax({
+				url:"${pageContext.request.contextPath}/admin/book/add.do",
+				type:"get",
+				data:{"plsSchName":plsSchName},
+				dataType: "json",
+				success: function(res){
+					console.log(res);
+					if(res == null) {
+						$("#plsRes").empty();
+						$("#plsRes").append("<p id='noPlsData'>검색되는 출판사가 없습니다.<br> 출판사를 등록해주세요.</p>");
+						return false;
+					}
+					$("#plsRes").empty();
+					$("#plsRes").addClass("tableView");
+					var $thNo = $("<th>").text("출판사코드");
+					var $thName = $("<th>").text("출판사 이름");
+					var $thBtn = $("<th>").text("선택");
+					var $tr1 = $("<tr>").append($thNo).append($thName).append($thBtn);
+					var $table = $("<table>").addClass("tbPls").append($tr1);
+		
+ 					$("#plsRes").append($table);
+					
+					$(res).each(function(i, obj){
+						
+						var plsSchNo = obj.plsNo;
+						var plsSchName = obj.plsName;
+						console.log(plsSchNo);
+						console.log(plsSchName);
+						
+						var $button = $("<button>").addClass("plsBtnRes").attr("type", "button").text("선택");
+						
+						var $tdNo = $("<td>").addClass("tdNo").text(plsSchNo);
+						var $tdName = $("<td>").text(plsSchName);
+						var $tdBtn = $("<td>").addClass("tdBtn").append($button);
+						var $tr = $("<tr>").append($tdNo).append($tdName).append($tdBtn);
+						$table.append($tr); 
+					})
+				}
+			}) 
+			return false;
+		})
+		
+		$(document).on("click", ".plsBtnRes", function(){
+				var target = $(this).parent().prev().prev().text();
+				var option = $("#pls").find("option[value='"+target+"']");
+				option.prop("selected", true);
+				clearFt();
+		})
+		
+		$(".plsSchClose").click(function() {
+			clearFt();
+		})
+		
+		function clearFt(){
+			$("#plsSearchBox").hide();
+			$("input[name='plsSchName']").val("");
+			$("#plsRes").empty();
+			$("#plsRes").removeClass("tableView");
+		}
 		
 	})
 </script>
@@ -166,9 +349,6 @@
 					</select>
 					<select name="mlNo" id="mlNo">
 						<option value="">중분류 선택</option>
-						<%-- <c:forEach var="list" items="${mlList }">							
-							<option value="${list.mlsfcNo }">${list.mlsfcName }</option>
-						</c:forEach> --%>
 					</select>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">대분류, 중분류 모두 선택해주세요.</span>
@@ -181,7 +361,7 @@
 							<option value="${list.plsNo }">${list.plsName }</option>
 						</c:forEach>
 					</select>
-					<button class="btnOrange plsSearch">검색</button>
+					<button class="btnOrange plsSearch" type="button">검색</button>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">출판사를 선택해주세요.</span>
 				</p>
@@ -212,8 +392,18 @@
 
 </article>
 
-<div>
-
+<div id="plsSearchBox">
+	<div class="plsBox">
+		<h4>출판사 검색</h4>
+		<div class="plsSchClose"><i class="fas fa-times"></i></div>
+		<form action="add.do" method="get">
+			<p class="searchBar">
+				<input type="text" name="plsSchName" placeholder="출판사 이름으로 검색하세요."/>
+				<input type="submit" value="검색" class="btnOrange" id="plsbtn"/>
+			</p>
+		</form>
+		<div id="plsRes"></div>	
+	</div>
 </div>
 	
 <%@ include file="../../adminInclude/adminFooter.jsp" %>

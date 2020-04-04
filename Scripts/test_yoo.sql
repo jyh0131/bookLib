@@ -1,6 +1,6 @@
 select user(), database();
 
-select * from book;
+select * from book where book_code like '0901.051%';
 
 -- 도서
 select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year ,

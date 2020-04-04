@@ -21,11 +21,11 @@ a {
 
 table {
 	border-collapse: collapse;
-}
+} 
 
-td {
-	border: 1px solid #383838;
-}
+td, th {
+	border: 1px solid #000;
+} 
 
 /* float 사용시 overflow: hidden; 사용할 수 없을 시에 적용 */
 .clearfix::after{
