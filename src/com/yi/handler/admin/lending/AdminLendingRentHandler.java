@@ -10,20 +10,6 @@ public class AdminLendingRentHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-//		Connection conn = null;
-//		try {
-//			conn = JDBCUtil.getConnection();
-//			BookDao dao = BookDaoImpl.getInstance();
-////			String bookCode = req.getParameter("bookSearch");
-////			Book book = new Book(bookCode);
-//			List<Book> list = dao.selectBookByAll();
-//			req.setAttribute("rentBook2", list);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			JDBCUtil.close(conn);
-//		}
-
 		return "/WEB-INF/view/admin/lending/adminLending.jsp";
 	}
 }

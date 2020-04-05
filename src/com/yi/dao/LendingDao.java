@@ -11,16 +11,19 @@ public interface LendingDao {
 	Lending selectLendingByNo(Lending lending);
 
 	List<Lending> selectLendingByAll();
+
 	int selectLendingByMemberReturnNullCount(Member member);
+
 	List<Lending> selectLendingByAllTest();
 
 	List<Lending> selectLendingByMberIdAll(Lending lending);
+
 	List<Lending> selectLendingByMberIdAll(Member member);
 
 	List<Lending> selectLendingByMberIdAndLendBookAll(Lending lending);
-	
+
 	int getLendBookCnt(Lending lending);
-	
+
 	int getLendBookTotalCnt(Lending lending);
 
 	int insertLending(Lending lending);
@@ -38,19 +41,23 @@ public interface LendingDao {
 	List<Lending> selectLendingByMberIdAndLendBookTotalAll(Lending lending);
 
 	int selectAvgRendDate();
-	
+
 	int updateLendingByCodeAndMberId(Lending lending);
 
 	Book showLendingByBookCode(Book book);
+
 	List<Lending> showLendingListByOverdue();
+
 	List<Lending> selectLendingByMberId(Member member);
+
 	List<Lending> selectLendingByMberIdChecking();
-	
+
 	List<Lending> selectLendingBastList();
-	
+
 	int insertLendingUpdateBookMember(Member member, Book book);
 
 	int updateLendingBookMember(Member m, Book b);
+
 	int updateMemberOdcnt(Member m) throws SQLException;
 
 	int updateLendingBookMember(Member member);

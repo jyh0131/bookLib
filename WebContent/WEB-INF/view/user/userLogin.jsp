@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../userInclude/userHeader.jsp"%>
 <style>
 .contentBg {
@@ -109,10 +108,10 @@ input[type="submit"] {
 					<a href="${pageContext.request.contextPath }/user/findId.do">아이디 찾기</a>
 				</div>
 				<div class="aLink">
-					<a href="#">비밀번호 찾기</a>
+					<a href="${pageContext.request.contextPath }/user/findPw.do">비밀번호 찾기</a>
 				</div>
 				<div class="aLink">
-					<a href="#" id="aJoin">회원가입</a>
+					<a href="${pageContext.request.contextPath }/user/userJoin.do" id="aJoin">회원가입</a>
 				</div>
 			</div>
 		</div>

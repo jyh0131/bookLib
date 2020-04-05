@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ include file="../userInclude/userHeader.jsp"%>
 <style>
 .contentBg {
@@ -17,7 +17,7 @@
 
 .member {
 	width: 830px;
-	height: 300px;
+	height: 340px;
 	margin: 70px auto;
 	padding-top: 18px;
 	border: 1px solid black;
@@ -30,13 +30,12 @@
 	padding-left: 20px;
 }
 
-.findIdField {
+.findPwField {
 	background: white;
 	width: 408px;
-	margin: 47px auto;
+	margin: 42px auto;
 	height: 210px;
 }
-
 .input-area {
 	width: 535px;
     height: 50px;
@@ -52,15 +51,29 @@
 	width: 257px;
 	height: 30px;
 }
-
+.findPw{
+	width:200px;
+	position: relative;
+}
 input[type="submit"] {
-	margin: 25px 132px;
-	width: 190px;
-	height: 50px;
-	background: #476fad;
-	color: white;
-	font-size: 20px;
-	border: none;
+    margin: 40px 10px;
+    width: 182px;
+    height: 47px;
+    background: #476fad;
+    color: white;
+    font-size: 20px;
+    border: none;
+}
+input[type="button"]{
+	margin: 0px 200px;
+    width: 182px;
+    height: 47px;
+    background: #476fad;
+    color: white;
+    font-size: 20px;
+    border: none;
+    position: absolute;
+    top:40px;
 }
 [type="date"] {
 	background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)
@@ -88,19 +101,29 @@ $(function() {
 	}
 	today = year + '-' + month + '-' + day;
 	document.getElementById("datefield").setAttribute("max", today);
-	
+})
+
+$(function() {
+	$("input[type='button']").click(function() {
+		location.href = "${pageContext.request.contextPath}/user/findId.do";
+	})
 })
 
 </script>
 
 <article>
 	<div id="topPoint">
-		<p>아이디 찾기</p>
+		<p>패스워드 찾기</p>
 	</div>
-	<form action="findId.do" method="post">
+	<form action="findPw.do" method="post">
 		<div class="member">
-			<p>아이디를 찾으시려면 아래사항을 입력하신 후 확인버튼을 누르세요.</p>
-			<div class="findIdField">
+			<p>비밀번호를 찾으시려면 아래사항을 입력하신 후 확인버튼을 누르세요.</p>
+			<div class="findPwField">
+				<div class="input-area">
+					<label><img src="../images/check.jpg" width="20px"
+						alt="체크이미지"> 아이디</label> <input type="text" name="id" required>
+				</div>
+			
 				<div class="input-area">
 					<label><img src="../images/check.jpg" width="20px"
 						alt="체크이미지"> 이름</label> <input type="text" name="name" required>
@@ -110,8 +133,10 @@ $(function() {
 						alt="체크이미지"> 생년월일</label>
 						<input type="date" name="birthday" id="datefield" min="1900-01-01" required="required">
 				</div>
+				<div class="findPw">
 					<input type="submit" value="확인">
-
+					<input type="button" value="아이디 찾기">
+				</div>
 			</div>
 		</div>
 	</form>
@@ -124,7 +149,7 @@ $(function() {
 		
 		<c:when test="${Lib !=null}">
 			<script>
-				var flag =confirm("아이디는 [ ${Lib} ]입니다 로그인화면으로 이동하시겠어요?");
+				var flag =confirm("비밀번호는 [ ${Lib} ]입니다. 로그인화면으로 이동하시겠어요?");
 				if(flag==true){
 					location.href = "${pageContext.request.contextPath}/user/login.do";
 				}
@@ -136,7 +161,7 @@ $(function() {
 		
 		<c:when test="${Mem !=null}">
 			<script>
-				var flag =confirm("아이디는 [ ${Mem} ]입니다 로그인화면으로 이동하시겠어요?");
+				var flag =confirm("비밀번호는 [ ${Mem} ]입니다. 로그인화면으로 이동하시겠어요?");
 				if(flag==true){
 					location.href = "${pageContext.request.contextPath}/user/login.do";
 				}
@@ -148,5 +173,6 @@ $(function() {
 	</c:choose>
 	
 </article>
+
 
 <%@ include file="../userInclude/userFooter.jsp"%>

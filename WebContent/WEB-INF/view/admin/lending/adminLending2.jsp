@@ -68,6 +68,10 @@
 			var url = "${pageContext.request.contextPath}/admin/lending/Member.do?choice=" + choiceValue + "&text=" + searchText;
 			window.open(url, "2", popOption);
 		})
+		$("#mber_id").change(function() {
+			
+			$("#book_table").append()
+		})
 	})
 </script>
 <article class="contentWrap">
@@ -114,18 +118,6 @@
 			<th>반납예정일</th>
 			<th>선택</th>
 		</tr>
-<%-- 		<c:forEach var="book" items="${rentBook}">
-			<tr class="item">
-				<td>${book.bookCode}</td>
-				<td>${book.bookName }</td>
-				<td>${book.authrName }/${book.trnslrName }</td>
-				<td>${book.pblicteYear }</td>
-				<td>${book.pls.plsName }</td>
-				<td>대여일</td>
-				<td>반납예정일 </td>
-				<td>체크박스</td>
-			</tr>
-		</c:forEach> --%>
 	</table>
 </article>
 	
