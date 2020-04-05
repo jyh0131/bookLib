@@ -367,13 +367,11 @@ public class LendingDaoImpl implements LendingDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return list;
 	}
 
 	@Override
 	public List<Lending> selectLendingByMberIdChecking() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

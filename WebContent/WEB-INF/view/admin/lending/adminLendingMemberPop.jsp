@@ -37,20 +37,38 @@
 					col4 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(3).text();
 					col5 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(4).text();
 					col6 = $("input[name='chk']").parent().parent().eq(i).children("td").eq(5).text();
-
-					if(parentFind == "http://localhost:8080/bookLib/admin/lending/Return.do"){
+					
+					console.log(col1);
+					console.log(col2);
+					console.log(col3);
+					console.log(col4);
+					console.log(col5);
+					console.log(col6);
+					console.log("parentFind : "+parentFind);
+					
+					if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Return.do")){
 						window.opener.document.getElementById("mber_id").value = col1;	
 						window.opener.document.getElementById("mber_name").value = col2;	
 						window.opener.document.getElementById("grade").value = col3;	
 						window.opener.document.getElementById("overdueCdt").value = col4;	
-						window.opener.document.getElementById("odCnt").value = col6;	
+						window.opener.document.getElementById("lendBookCnt").value = col5;
+						
+/* 						$.ajax({
+							url:"${pageContext.request.contextPath}/admin/lending/Book.do",
+							type:"post",
+							data:{"mber_id":col1},
+							dataType:"json",
+							success:function(res){
+								
+							}
+						}) */
 					}
-					else if(parentFind == "http://localhost:8080/bookLib/admin/lending/Rent.do"){
+					else if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Rent.do")){
 						window.opener.document.getElementById("mber_id").value = col1;
 						window.opener.document.getElementById("mber_name").value = col2;
 						window.opener.document.getElementById("grade").value = col3;
 						window.opener.document.getElementById("overdueCdt").value = col4;
-						window.opener.document.getElementById("lendBookCnt").value = col5;
+						window.opener.document.getElementById("odCnt").value = col6;
 					}
 				}
 			}
@@ -74,14 +92,12 @@
 					<td>${member.mberId}</td>
 					<td>${member.mberName }</td>
 					<td>${member.grade.gradeName }</td>
-					<td>
 						<c:if test="${member.lendPsbCdt==0}">
-							정상
+							<td>정상</td>
 						</c:if>
 						<c:if test="${member.lendPsbCdt==1}">
-							연체
+							<td>연체</td>
 						</c:if>						
-					</td>
 					<td>${member.grade.bookLeCnt - member.lendBookCnt}</td>
 					<td>${member.odCnt }</td>
 					<td><input type="radio" name="chk"></td>
