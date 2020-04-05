@@ -43,11 +43,20 @@ td, th {
 	/* margin-left: 248px; */
 }
 
+.fontW700{
+	font-weight: 700;
+}
+
 /* color class */
 .orange {color: #ff9900;}
 .purple {color: #725cc6;}
 .white {color: #fff;}
 .gray {color: #D9D9D9;}
+.pink {color: #e8396f;}
+.blue{color: #014e9e;}
+.aqua{color: #0CA0AE;}
+.lightBlue{color: #3493DD;}
+.dftBlue{color: blue;}
 
 .lightGreyBg {background-color: #D9D9D9;}
 .pinkBg {background-color: #E8396F;}

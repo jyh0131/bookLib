@@ -140,7 +140,6 @@ public class AdminBookAddHandler implements CommandHandler {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date getPlcDate = sdf.parse(getPblcDate);
 				
-				String chkCdt = multi.getParameter("lendPsbCdt");
 				
 				Book book = new Book();
 				book.setBookCode(bookCode);
@@ -152,11 +151,7 @@ public class AdminBookAddHandler implements CommandHandler {
 				book.setPls(new PublishingCompany(pls));
 				book.setPblicteYear(getPlcDate);
 				book.setBookPrice(Integer.parseInt(multi.getParameter("bookPrice")));
-				if(chkCdt.equals("Yes")) {
-					book.setLendPsbCdt(0);
-				} else {
-					book.setLendPsbCdt(2);
-				}
+				book.setLendPsbCdt(Integer.parseInt(multi.getParameter("lendPsbCdt")));
 				book.setTotalLeCnt(0);
 				book.setLcNo(new LargeClassification(lcNo));
 				book.setMlNo(new MiddleClassification(mlNo));
@@ -164,7 +159,7 @@ public class AdminBookAddHandler implements CommandHandler {
 				book.setDsuseCdt(0);
 				book.setBookImgPath(multi.getFilesystemName("bookImgPath"));
 				
-				int result = dao.insertBook(book);
+				dao.insertBook(book);
 				
 				req.setAttribute("bookCode", bookCode);
 				req.setAttribute("addResult", true);

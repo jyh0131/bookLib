@@ -82,6 +82,8 @@ public class BookDaoImpl implements BookDao {
 		StringBuilder sql = new StringBuilder("select * from vw_book "); 
 		sql.append("where book_code = ? ");
 		sql.append("order by book_code ");
+		
+		System.out.println("sql : " + sql);
 	
 		try (Connection con = JDBCUtil.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql.toString());) {

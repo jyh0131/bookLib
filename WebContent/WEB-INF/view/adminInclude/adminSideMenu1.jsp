@@ -11,20 +11,18 @@
 		var	subUrlName = subUrl[subUrl.length-1];
 		
 		// do 이름으로 구분
-		switch (subUrlName) {
-		case "add.do":
+		if(subUrlName == "add.do") {
 			$(".item1").addClass("sideView");
 			$(".item1").append("<i class='fas fa-angle-right iconView'></i>");
-			break
-		case "list.do":
+		}
+		if(subUrlName == "list.do") {
 			$(".item2").addClass("sideView");
 			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
-			break;
-		case "update.do":
+		}
+		if(subUrlName.match("update.do") != null) {
 			$(".item2").addClass("sideView");
 			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
-			break;
-		} 
+		}
 	})
 </script>
 

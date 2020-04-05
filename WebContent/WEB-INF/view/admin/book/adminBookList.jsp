@@ -91,20 +91,14 @@
 
 <script>
 	$(function(){
-		
 		$("form").submit(function() {
-			/* var radioCdt1 = $(".rdoCode").prop("checked");
+			var radioCdt1 = $(".rdoCode").prop("checked");
 			var radioCdt2 = $(".rdoName").prop("checked");
 			
 			if(radioCdt1 == false && radioCdt2 == false) {
 				alert("도서코드 / 도서명 중 선택해주세요.");
 				return false;
-			} */  
-			
-			/* var lcNo = $("#lcNo").prop("selectedIndex");
-			if(lcNo == 0) {
-				return false;
-			} */
+			}  
 		}) 
 		
 	})
@@ -158,11 +152,15 @@
 								<td class="pblicYear"><fmt:formatDate value="${bList.pblicteYear }" pattern="yyyy-MM-dd"/></td>
 								<td class="Price"><fmt:formatNumber value="${bList.bookPrice }" type="number"/> </td>
 								<td class="cnt">${bList.bookCnt }</td>
-								<td class="lendCdt">${bList.lendPsbCdt }</td>
+								<td class="lendCdt">
+									<c:if test="${bList.lendPsbCdt == 0 }"><span class="fontW700">대여가능</span></c:if>
+									<c:if test="${bList.lendPsbCdt == 1 }"><span class="dftBlue fontW700">대여중</span></c:if>
+									<c:if test="${bList.lendPsbCdt == 2 }"><span class="pink fontW700">대여<br>불가능</span></c:if>
+								</td>
 								<td class="totalLeCnt">${bList.totalLeCnt }</td>
 								<td class="imgPath">
 									<c:if test="${bList.bookImgPath != null }">
-										있음
+										<span class="fontW700 orange">있음</span>
 									</c:if>
 									<c:if test="${bList.bookImgPath == null }">
 										없음
@@ -170,9 +168,12 @@
 								</td>
 								<td class="lc">${bList.lcNo.lclasName } / ${bList.mlNo.mlsfcName }</td>
 								<td class="registDate"><fmt:formatDate value="${bList.registDate }" pattern="yyyy-MM-dd"/></td>
-								<td class="dsuseCdt">${bList.dsuseCdt }</td>
+								<td class="dsuseCdt">
+									<c:if test="${bList.dsuseCdt == 0 }"><span class="fontW700 dftBlue">N</span></c:if>
+									<c:if test="${bList.dsuseCdt == 1 }"><span class="fontW700 pink">Y</span></c:if>
+								</td>
 								<td class="mgn">
-									<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?=${bList.bookCode}">수정</a>
+									<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?code=${bList.bookCode}">수정</a>
 									<a class="dsuse btnPurple" href="#">폐기</a>
 									<a class="remove btnLightBlue" href="#">데이터삭제</a>
 								</td>

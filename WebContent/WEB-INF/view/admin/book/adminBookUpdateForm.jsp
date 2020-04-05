@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../../adminInclude/adminHeader.jsp" %>
 <%@ include file="../../adminInclude/adminSideMenu1.jsp" %>
 
 <style>
-	.wrap {
-		padding: 50px;
-	}
-	
 	.wrap h2 {
 		padding: 10px;
 		border-bottom : 1px solid #D9D9D9;
@@ -40,12 +37,13 @@
 		padding: 5px;
 	}
 	
-	input[type="radio"]:nth-of-type(2) {
+	input[type="radio"]:nth-of-type(n+2) {
 		margin-left: 30px;
 	}
 	
 	.addBox input[type="file"] {
 		font-size: 16px;
+		margin-left: 200px;
 	}
 	
 	.addBox input[type="submit"]{
@@ -133,10 +131,32 @@
 	.tdNo, .tdBtn {
 		text-align: center;
 	}
+	
+	.bookImg {
+		display: inline-block;
+		min-width: 100px;
+	}
 </style>
 
 <script>
 	$(function(){
+		
+		var getPlsNo = ${item.pls.plsNo};
+		var getPls = $("#pls").find("option[value='"+getPlsNo+"']");
+		getPls.prop("selected", true);
+		
+		var getLendPsbCdt = ${item.lendPsbCdt};
+		if(getLendPsbCdt == 0) {
+			$("#lend1").prop("checked", true);
+			$("#lend3").attr("onclick", "return false");
+		} else if (getLendPsbCdt == 1) {
+			$("#lend3").prop("checked", true);
+			$("input[name='lendPsbCdt']").attr("onclick", "return false");
+		} else if (getLendPsbCdt == 2) {
+			$("#lend2").prop("checked", true);
+			$("#lend3").attr("onclick", "return false");
+		}
+		
 		
 		// 정규표현식 및 입력 확인
 		$("form").submit(function(){
@@ -167,13 +187,6 @@
 				return false;
 			}
 			
-			var lcNo = $("select[name='lcNo']");
-			var mlNo = $("select[name='mlNo']");
-			if(lcNo.val() == "" || mlNo.val() == "") {
-				errors(mlNo);
-				return false;
-			}
-			
 			var pls = $("select[name='pls']");
 			if(pls.val() == "") {
 				errors(pls);
@@ -188,12 +201,13 @@
 			
 			var lend1 = $("#lend1");
 			var lend2 = $("#lend2");
-			if(lend1.prop("checked") == false && lend2.prop("checked") == false) {
-				errors(lend2);
+			var lend3 = $("#lend3");
+			if(lend1.prop("checked") == false && lend2.prop("checked") == false && lend3.prop("checked") == false) {
+				errors(lend3);
 				return false;
 			} 
 			
-			alert("도서["+bookName.val()+"] 등록 되었습니다");
+			alert("도서["+bookName.val()+"] 수정 되었습니다");
 		})
 		
 		// 선택된 대분류 데이터 전달
@@ -309,34 +323,34 @@
 			<form action="update.do" method="post" enctype="multipart/form-data">
 				<p>
 					<label>도서코드</label>
-					<input type="text" name="bookCode" readonly/>
+					<input type="text" name="bookCode" readonly value="${item.bookCode }"/>
 				</p>
 				<p>
 					<label>도서명 </label>
-					<input type="text" name="bookName" placeholder="도서명  작성해주세요."/>
+					<input type="text" name="bookName" value="${item.bookName }"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">도서명을 입력하세요.</span>
 				</p>
 				<p>
 					<label>저 자</label>
-					<input type="text" name="authrName" placeholder="저자명 작성해주세요."/>
+					<input type="text" name="authrName" value="${item.authrName }"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">저자명을 입력하세요.</span>
 				</p>
 				<p>
 					<label>역 자</label>
-					<input type="text" name="trnslrName"/>
+					<input type="text" name="trnslrName" value="${item.trnslrName }"/>
 				</p>
 				<p>
 					<label>도서가격</label>
-					<input type="text" name="bookPrice" placeholder="예)12000"/>
+					<input type="text" name="bookPrice" value="${item.bookPrice }"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">도서가격(숫자)를 입력하세요.</span>
 				</p>
 				<p>
 					<label>카테고리(분류)</label>
-					<input type="text" name="lcName" value="대분류 데이터" readonly/>
-					<input type="text" name="mlName" value="중분류데이터" readonly/>
+					<input type="text" name="lcName" value="${item.lcNo.lclasName }" readonly/>
+					<input type="text" name="mlName" value="${item.mlNo.mlsfcName }" readonly/>
 				</p>
 				<p>
 					<label>출판사</label>
@@ -352,19 +366,27 @@
 				</p>
 				<p>
 					<label>출간일</label>
-					<input type="date" name="pblicteYear"/>
+				<input type="date" name="pblicteYear" value='<fmt:formatDate value="${item.pblicteYear }" pattern="yyyy-MM-dd"/>'/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">출간일을 선택해주세요.</span>
 				</p>
 				<p>
 					<label>도서 이미지</label>
-					<label>도서이미지 여부 작성</label>
-					<input type="file" name="bookImgPath" />
+					<span class="bookImg">
+						<c:if test="${item.bookImgPath != null }">
+							있음 [이미지명 : ${item.bookImgPath }]
+						</c:if>
+						<c:if test="${item.bookImgPath == null}">
+							없음
+						</c:if>
+					</span><br><br>
+					<input type="file" name="bookImgPath"/>
 				</p>
 				<p>
 					<label>대여가능여부</label>
-					<input type="radio" name="lendPsbCdt" id="lend1" value="Yes"/> 대여 가능
-					<input type="radio" name="lendPsbCdt" id="lend2" value="No"/> 대여 불가능
+					<input type="radio" name="lendPsbCdt" id="lend1" value="0"/> 대여 가능
+					<input type="radio" name="lendPsbCdt" id="lend3" value="1"/> 대여중
+					<input type="radio" name="lendPsbCdt" id="lend2" value="2"/> 대여 불가능
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">대여가능여부를 선택해주세요.</span>
 				</p>
