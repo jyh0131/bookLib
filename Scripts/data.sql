@@ -16,7 +16,12 @@ character set 'utf8'
 fields terminated by ','
 ignore 1 lines;
 
-select * from `member` m ;
+-- select * from `member`;
+-- select * from `member` where length(mber_img_path) = 1;
+-- 이미지가 없는 컬럼 null처리
+update `member` 
+	set mber_img_path = null 
+	where length(mber_img_path) = 1;
 
 -- request_book 신청도서
 desc request_book; 
@@ -41,6 +46,16 @@ character set 'utf8'
 fields terminated by ','
 ignore 1 lines;
 
+-- select * from book;
+-- select length(trnslr_name) from book;
+-- 이미지경로, 역자 값이 없는 곳 null처리
+update book 
+	set book_img_path = null
+	where length(book_img_path) = 1;
+
+update book 
+	set trnslr_name = null 
+	where length(trnslr_name) = 0;
 
 -- lending 대여/반납
 -- truncate table lending; -- lending 데이터 전체 삭제
@@ -123,6 +138,13 @@ into table yi_java3st_3team.librarian
 character set 'utf8'
 fields terminated by ','
 ignore 1 lines;
+
+-- select * from librarian;
+-- select length(lb_img_path) from librarian;
+-- 이미지경로 값이 빈 곳에 null 처리
+update librarian 
+	set lb_img_path = null 
+	where length(lb_img_path) = 1;
 
 -- zip_code 우편번호
 -- truncate table zip_code; -- zip_code 전체 삭제
