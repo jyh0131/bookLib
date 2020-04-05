@@ -46,7 +46,22 @@ character set 'utf8'
 fields terminated by ','
 ignore 1 lines;
 
--- select * from book;
+select * from book;
+-- select replace(book_name, '|', ',') from book where book_name like '%|%';
+-- csv 구분을 위해 ,를 |로 대체한 부분 ,으로 다시 수정
+update book 
+	set book_name = replace(book_name, '|', ',')
+	where book_name like '%|%';
+
+update book 
+	set authr_name = replace(authr_name, '|', ',')
+	where authr_name like '%|%';
+
+update book 
+	set trnslr_name = replace(trnslr_name, '|', ',')
+	where trnslr_name like '%|%';
+
+
 -- select length(trnslr_name) from book;
 -- 이미지경로, 역자 값이 없는 곳 null처리
 update book 
