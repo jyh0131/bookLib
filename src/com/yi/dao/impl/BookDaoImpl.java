@@ -127,6 +127,7 @@ public class BookDaoImpl implements BookDao {
 		if (book.getLcNo() != null) {
 			where.append("lc_no = ? and ");
 		}
+		
 		where.replace(where.lastIndexOf("and"), where.length(), " ");
 		
 		sql.append(where);

@@ -46,7 +46,7 @@ character set 'utf8'
 fields terminated by ','
 ignore 1 lines;
 
-select * from book;
+-- select * from book;
 -- select replace(book_name, '|', ',') from book where book_name like '%|%';
 -- csv 구분을 위해 ,를 |로 대체한 부분 ,으로 다시 수정
 update book 

@@ -376,7 +376,7 @@ public class Book {
 		return String.format(
 				"Book [bookCode=%s, bookName=%s, authrName=%s, trnslrName=%s, pls=%s, pblicteYear=%s, bookPrice=%s, bookCnt=%s, lendPsbCdt=%s, totalLeCnt=%s, bookImg=%s, lcNo=%s, mlNo=%s, registDate=%s, dsuseCdt=%s, bookImgPath=%s]",
 				bookCode, bookName, authrName, trnslrName, pls, pblicteYear, bookPrice, bookCnt, lendPsbCdt, totalLeCnt,
-				bookImg.length, lcNo, mlNo, registDate, dsuseCdt, bookImgPath);
+				Arrays.toString(bookImg), lcNo, mlNo, registDate, dsuseCdt, bookImgPath);
 	}
 
 	public String toDebug() {
