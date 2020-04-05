@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminSideMenu.css" type="text/css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
-<%-- <script src="${pageContext.request.contextPath}/js/adminCommon.js"></script> --%>
+<script src="${pageContext.request.contextPath}/js/adminCommon.js"></script>
 
 <script>
 	$(function(){
@@ -48,4 +48,4 @@
 			</div>
 		</nav>
 	</header>
-	<section class="content">
+	<section class="content clearfix">

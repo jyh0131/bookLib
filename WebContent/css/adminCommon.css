@@ -36,12 +36,11 @@ td, th {
 
 
 .content {
-	min-height: 810px;
 	margin-top: 84px;
 }
 
 .contentWrap {
-	margin-left: 248px;
+	/* margin-left: 248px; */
 }
 
 /* color class */
@@ -84,6 +83,7 @@ header {
     width: 100%;
     top: 0;
     left: 0;
+    z-index: 1;
 }
 
 nav {

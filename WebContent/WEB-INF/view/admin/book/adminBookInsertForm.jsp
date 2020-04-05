@@ -5,9 +5,10 @@
 <%@ include file="../../adminInclude/adminSideMenu1.jsp" %>
 
 <style>
-	.wrap {
+	/* .wrap {
 		padding: 50px;
-	}
+		width: 800px;
+	} */
 	
 	.wrap h2 {
 		padding: 10px;
@@ -17,8 +18,7 @@
 	}
 	
 	.addBox {
-		padding-left: 30px;
-		width: 900px;
+		width: 550px;
 		margin: 0 auto;
 	}
 	
@@ -69,7 +69,7 @@
 	    height: 100%;
 	    top: 0;
 	    left: 0;
-	    background-color: rgba(0,0,0,.9);
+	    background-color: rgba(0,0,0,.5);
 	    z-index: 1;
 	    display: none;
 	}
@@ -81,7 +81,7 @@
     	transform: translate(-50%, -50%);
     	background-color: #fff;
     	padding: 30px;
-    	width: 365px;
+    	width: 380px;
 	}
 	
 	#plsSearchBox .plsBox h4 {
@@ -124,7 +124,19 @@
 	table.tbPls {
 		width: 100%;
 	}
+
+	table.tbPls tr:nth-of-type(odd) {
+		background-color: #d9d9d9;
+	}
 	
+	table.tbPls tr:first-child {
+		background-color: #476fad;
+	}
+	
+	table.tbPls th {
+		color: #fff;
+	}
+
 	table.tbPls td,
 	table.tbPls th {
 		padding: 5px;
@@ -133,6 +145,7 @@
 	.tdNo, .tdBtn {
 		text-align: center;
 	}
+	
 </style>
 
 <script>
@@ -247,6 +260,7 @@
 					console.log(res);
 					if(res == null) {
 						$("#plsRes").empty();
+						$("#plsRes").removeClass("tableView");
 						$("#plsRes").append("<p id='noPlsData'>검색되는 출판사가 없습니다.<br> 출판사를 등록해주세요.</p>");
 						return false;
 					}
@@ -267,7 +281,7 @@
 						console.log(plsSchNo);
 						console.log(plsSchName);
 						
-						var $button = $("<button>").addClass("plsBtnRes").attr("type", "button").text("선택");
+						var $button = $("<button>").addClass("plsBtnRes").addClass("btnPurple").attr("type", "button").text("선택");
 						
 						var $tdNo = $("<td>").addClass("tdNo").text(plsSchNo);
 						var $tdName = $("<td>").text(plsSchName);

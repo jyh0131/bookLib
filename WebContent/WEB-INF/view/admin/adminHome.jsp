@@ -7,7 +7,9 @@
 	.homeCnt {
 		float: none;
 		width: 1400px;
-		margin: 100px auto;
+		margin: 0 auto;
+		padding: 0;
+		padding-top: 100px;
 	}
 	
 	.box {
