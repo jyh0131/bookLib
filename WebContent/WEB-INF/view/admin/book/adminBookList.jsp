@@ -101,6 +101,26 @@
 			}  
 		}) 
 		
+		$(".dsuse").click(function() {
+			var lendCdt = $(this).parent().prevAll('.lendCdt').text().trim();
+			if(lendCdt == '대여중'){
+				alert("대여중인 도서입니다.");
+				return false;
+			}
+			var res = confirm("선택한 도서를 폐기하겠습니까?");
+			if(res == false) {
+				return false;
+			}
+			alert("폐기되었습니다.");
+		})
+		
+		$(".remove").click(function() {
+			var res = confirm("선택한 도서테이터를 삭제하겠습니까?");
+			if(res == false) {
+				return false;
+			}
+			alert("삭제되었습니다.");
+		})
 	})
 </script>
 
@@ -174,8 +194,8 @@
 								</td>
 								<td class="mgn">
 									<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?code=${bList.bookCode}">수정</a>
-									<a class="dsuse btnPurple" href="#">폐기</a>
-									<a class="remove btnLightBlue" href="#">데이터삭제</a>
+									<a class="dsuse btnPurple" href="${pageContext.request.contextPath }/admin/book/dsuseUpdate.do?code=${bList.bookCode }">폐기</a>
+									<a class="remove btnLightBlue" href="${pageContext.request.contextPath }/admin/book/remove.do?code=${bList.bookCode }">데이터삭제</a>
 								</td>
 							</tr>
 						</c:forEach>
