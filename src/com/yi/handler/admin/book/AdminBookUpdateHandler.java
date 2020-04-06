@@ -51,7 +51,7 @@ public class AdminBookUpdateHandler implements CommandHandler {
 			if(dir.exists() == false){
 				dir.mkdir();
 			}
-			
+			System.out.println(uploadPath);
 			int size = 1024*1024*10;
 			
 			MultipartRequest multi = new MultipartRequest(req,
