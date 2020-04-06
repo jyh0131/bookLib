@@ -31,6 +31,11 @@
 			$(".item4").addClass("sideView");
 			$(".item4").append("<i class='fas fa-angle-right iconView'></i>");
 		}
+		
+		if(subUrlName == "plsList.do") {
+			$(".item5").addClass("sideView");
+			$(".item5").append("<i class='fas fa-angle-right iconView'></i>");
+		}
 	})
 </script>
 
@@ -41,7 +46,7 @@
 		<li><a class="sideItem item2" href="${pageContext.request.contextPath}/admin/book/list.do">보유도서 관리</a></li>
 		<li><a class="sideItem item3" href="#">신청도서 조회</a></li>
 		<li><a class="sideItem item4" href="${pageContext.request.contextPath}/admin/book/recomList.do">추천도서 등록</a></li>
-		<li><a class="sideItem item5" href="#">출판사 관리</a></li>
+		<li><a class="sideItem item5" href="${pageContext.request.contextPath}/admin/book/plsList.do">출판사 관리</a></li>
 		<li><a class="sideItem item6" href="#">분류관리</a></li>
 	</ul>
 </aside>
