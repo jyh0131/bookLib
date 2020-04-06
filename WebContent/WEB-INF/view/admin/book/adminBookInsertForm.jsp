@@ -5,21 +5,17 @@
 <%@ include file="../../adminInclude/adminSideMenu1.jsp" %>
 
 <style>
-	/* .wrap {
-		padding: 50px;
-		width: 800px;
-	} */
+	.wrap {
+		position: relative;
+	}
 	
-	.wrap h2 {
-		padding: 10px;
-		border-bottom : 1px solid #D9D9D9;
-		border-left: 10px solid #014E9E;
-		margin-bottom: 30px;
+	.w395 {
+		width: 395px;
 	}
 	
 	.addBox {
-		width: 550px;
-		margin: 0 auto;
+		width: 700px;
+		margin-left: 300px;
 	}
 	
 	.addBox p {
@@ -146,9 +142,35 @@
 		text-align: center;
 	}
 	
+	.getImg {
+		position: absolute;
+    	top: 90px;
+   		border: 1px solid #ddd;
+    	padding: 5px;
+	}
+	
+	.getImg img {
+		width: 198px;
+		border: 1px solid #ddd;
+		display: block;
+	}
+	
 </style>
 
 <script>
+	function imageURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	
+	        reader.onload = function(e) {
+	            $('.loadImg').attr('src', e.target.result)
+	        }
+	
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+
+
 	$(function(){
 		
 		// 정규표현식 및 입력 확인
@@ -317,29 +339,29 @@
 
 <article class="contentWrap">
 	<div class="wrap">
-		<h2>도서등록</h2>
+		<h2 class="pageTitle">도서등록</h2>
 		
 		<div class="addBox">
 			<form action="add.do" method="post" enctype="multipart/form-data">
 				<p>
 					<label>도서명 </label>
-					<input type="text" name="bookName" placeholder="도서명  작성해주세요."/>
+					<input class="w395" type="text" name="bookName" placeholder="도서명  작성해주세요."/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">도서명을 입력하세요.</span>
 				</p>
 				<p>
 					<label>저 자</label>
-					<input type="text" name="authrName" placeholder="저자명 작성해주세요."/>
+					<input class="w395" type="text" name="authrName" placeholder="저자명 작성해주세요."/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">저자명을 입력하세요.</span>
 				</p>
 				<p>
 					<label>역 자</label>
-					<input type="text" name="trnslrName"/>
+					<input class="w395" type="text" name="trnslrName"/>
 				</p>
 				<p>
 					<label>도서가격</label>
-					<input type="text" name="bookPrice" placeholder="예)12000"/>
+					<input class="w395" type="text" name="bookPrice" placeholder="예)12000"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">도서가격(숫자)를 입력하세요.</span>
 				</p>
@@ -377,12 +399,12 @@
 				</p>
 				<p>
 					<label>도서 이미지</label>
-					<input type="file" name="bookImgPath" />
+					<input type="file" name="bookImgPath" onchange="imageURL(this);" />
 				</p>
 				<p>
 					<label>대여가능여부</label>
-					<input type="radio" name="lendPsbCdt" id="lend1" value="Yes"/> 대여 가능
-					<input type="radio" name="lendPsbCdt" id="lend2" value="No"/> 대여 불가능
+					<input type="radio" name="lendPsbCdt" id="lend1" value="0"/> 대여 가능
+					<input type="radio" name="lendPsbCdt" id="lend2" value="2"/> 대여 불가능
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">대여가능여부를 선택해주세요.</span>
 				</p>
@@ -391,6 +413,9 @@
 					<input type="submit" value="도서 등록" class="btnPurple"/>
 				</div>
 			</form>
+		</div>
+		<div class="getImg">
+			<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="${item.bookName }" />
 		</div>
 	</div>
 

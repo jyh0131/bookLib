@@ -26,3 +26,12 @@ select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.p
 	order by b1.book_code ;
 	
 select * from vw_book order by book_code;
+
+-- 추천도서 
+select r.recom_book_no , r.book_code , r.book_cont , lc.lclas_no , lc.lclas_name , ml.mlsfc_no , ml.mlsfc_name , b.authr_name , b.trnslr_name , b.book_name , pls.pls_no , 
+		pls.pls_name , b.book_img_path, b.pblicte_year 
+	from recommendation r join book b on b.book_code = r.book_code  
+						  join large_classification lc on b.lc_no = lc.lclas_no 
+						  join middle_classification ml on b.ml_no = ml.mlsfc_no and b.lc_no = ml.lclas_no 
+						  join publishing_company pls on b.pls = pls.pls_no 
+	order by r.recom_book_no;

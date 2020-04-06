@@ -17,13 +17,23 @@ public class AdminBookDsuseUpdateHandler implements CommandHandler {
 			BookDao dao = BookDaoImpl.getInstance();
 			Book book = new Book();
 			book.setBookCode(req.getParameter("code"));
-			book.setLendPsbCdt(2);
-			book.setDsuseCdt(1);
 			
-			dao.updateBook(book);
+			Book bookInfo = dao.selectBookByCode(book);
+			int dsuseCdt = bookInfo.getDsuseCdt();
+			
+			if(dsuseCdt == 0) {
+				bookInfo.setDsuseCdt(1);
+				dao.updateBook(bookInfo);		
+			} 
+			
+			if(dsuseCdt == 1) {
+				bookInfo.setDsuseCdt(0);
+				dao.updateBook(bookInfo);
+			}
 			
 			res.sendRedirect(req.getContextPath()+"/admin/book/list.do");
 			return null;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

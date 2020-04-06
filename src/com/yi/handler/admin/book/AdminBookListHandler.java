@@ -38,8 +38,14 @@ public class AdminBookListHandler implements CommandHandler {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		
+			
+			String page = req.getParameter("page") == null ? "" : req.getParameter("page");
+			if(page.equals("recom")) {
+				return "/WEB-INF/view/admin/book/adminBookRecomAddList.jsp";
+			} 
+			
 			return "/WEB-INF/view/admin/book/adminBookList.jsp";
+			
 		} else if (req.getMethod().equalsIgnoreCase("post")) {
 			String schType = req.getParameter("schType") == null ? "" : req.getParameter("schType");
 			int lcNo = Integer.parseInt(req.getParameter("lcNo").equals("") ? "0" : req.getParameter("lcNo"));
@@ -81,10 +87,19 @@ public class AdminBookListHandler implements CommandHandler {
 					req.setAttribute("bookList", bookList);
 				}
 				
+				if(bookList == null) {
+					req.setAttribute("bookListNull", true);
+				}
+				
 				lcList(req);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			String page = req.getParameter("page") == null ? "" : req.getParameter("page");
+			if(page.equals("recom")) {
+				return "/WEB-INF/view/admin/book/adminBookRecomAddList.jsp";
+			} 
 			
 			return "/WEB-INF/view/admin/book/adminBookList.jsp";
 		}

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +41,9 @@
 				<li><a href="${pageContext.request.contextPath}/admin/book/add.do" class="menu menu2"><i class="fas fa-book icon"></i><br>도서관리</a></li>
 				<li><a href="#" class="menu menu3"><i class="fas fa-users icon"></i><br>회원관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/lending/Rent.do" class="menu menu4"><i class="fas fa-window-restore icon"></i><br>대여/반납관리</a></li>
-				<li><a href="#" class="menu menu5"><i class="fas fa-user-tie icon"></i><br>직원관리</a></li>
+				<c:if test="${Title == 0 }">
+					<li><a href="#" class="menu menu5"><i class="fas fa-user-tie icon"></i><br>직원관리</a></li>
+				</c:if>
 				<li><a href="#" class="menu menu6"><i class="fas fa-chart-pie icon"></i><br>통계조회</a></li>
 				<li><a href="${pageContext.request.contextPath}/user/home.do" class="menu menu7"><i class="fas fa-door-open icon"></i><br>나가기</a></li>
 			</ul>
