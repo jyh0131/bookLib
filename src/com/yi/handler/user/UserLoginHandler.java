@@ -44,38 +44,45 @@ public class UserLoginHandler implements CommandHandler {
 				if(loginLib !=null) {
 					if(loginLib.getWorkCdt()==0) {
 						HttpSession session = req.getSession();
-						session.setAttribute("error", "retire");
+						session.setAttribute("retire", "retire");
+						
+//						res.sendRedirect(req.getContextPath() + "/user/userLogin.do");
+//						return null;
 
 						return "/WEB-INF/view/user/userLogin.jsp";
 					}
 					if(loginLib.getTitle().getTitleNo() == 0) {
 						HttpSession session = req.getSession();
-						session.setAttribute("Auth", loginLib.getLbName());
+						session.setAttribute("Lib", loginLib.getLbName());
+						session.setAttribute("Title",loginLib.getTitle().getTitleNo());
 						res.sendRedirect(req.getContextPath() + "/user/home.do");
 						return null;
 					}
 					if(loginLib.getTitle().getTitleNo() ==1) {
 						HttpSession session = req.getSession();
-						session.setAttribute("Auth", loginLib.getLbName());
+						session.setAttribute("Lib", loginLib.getLbName());
+						session.setAttribute("Title", loginLib.getTitle().getTitleNo());
 						res.sendRedirect(req.getContextPath() + "/user/home.do");
 						return null;
 					}
 				}else if(loginMember !=null) {
 					if(loginMember.getWdrCdt() ==1) {
 						HttpSession session = req.getSession();
-						session.setAttribute("error", "retire");
+						session.setAttribute("retire", "retire");
 						
 						return "/WEB-INF/view/user/userLogin.jsp";
 					}
 					
 					HttpSession session = req.getSession();
-					session.setAttribute("Auth", loginMember.getMberName());
+					session.setAttribute("Mem", loginMember.getMberName());
 					res.sendRedirect(req.getContextPath() + "/user/home.do");
 					return null;
 				}
 				else {
 					HttpSession session = req.getSession();
-					session.setAttribute("error", "notMatchId");
+					session.setAttribute("notMatchId", "notMatchId");
+//					res.sendRedirect(req.getContextPath() + "/user/userLogin.do");
+//					return null;
 					
 					return "/WEB-INF/view/user/userLogin.jsp";
 				}	

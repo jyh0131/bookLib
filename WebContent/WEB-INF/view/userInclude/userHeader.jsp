@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,15 +36,24 @@
 			</div>
 			<div class="topMenuWrap">
 				<ul class="topMenu">
-					<c:if test="${Auth ==null }">
-						<li><a href="${pageContext.request.contextPath }/user/login.do">로그인</a></li>
-						<li><a href="#">회원가입</a></li>
-						<li class="adminBtn"><a href="${pageContext.request.contextPath}/admin/home.do">관리자</a></li>
-					</c:if>
-					<c:if test="${Auth !=null }">
-						<li><a href="#">[${Auth }]</a> 님 환영합니다!</li>
-						<li><a href="${pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>
-					</c:if>
+ 					
+						<c:if test="${Lib ==null }">
+							<c:if test="${Mem ==null }">
+								<li><a href="${pageContext.request.contextPath }/user/login.do">로그인</a></li>
+								<li><a href="${pageContext.request.contextPath }/user/userJoin.do">회원가입</a></li>
+							</c:if>
+						</c:if>
+						
+						<c:if test="${Lib != null }">
+							<li><a href="#">[${Lib }]</a> 님 환영합니다!</li>
+							<li><a href="${pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>
+							<li class="adminBtn"><a href="${pageContext.request.contextPath}/admin/home.do">관리자</a></li>
+						</c:if>
+						
+						<c:if test="${Mem != null }">
+							<li><a href="#">[${Mem }]</a> 님 환영합니다!</li>
+							<li><a href="${pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>
+						</c:if>
 				</ul>
 			</div>
 		</div>

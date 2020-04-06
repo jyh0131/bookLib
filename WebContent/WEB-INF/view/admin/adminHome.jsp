@@ -183,9 +183,17 @@
 		</div>
 		<div class="libInfoBox">
 			<div class="libInfo">
-				<h1>환영합니다. OO님</h1>
-				<p>이름 : OOO</p>
-				<p>직책 : OOO</p>
+				
+				<h1>환영합니다. ${Lib }님</h1>
+				<p>이름 : [ ${Lib } ]</p>
+				<c:choose>
+					<c:when test="${Title==0 }">
+						<p>직책 : [ 총관리자 ] </p>
+					</c:when>
+					<c:otherwise>
+						<p>직책 : [ 사서 ] </p>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="libImg">
 				<%-- <c:if>으로 이미지가 있으면 넣고 없으면 no-img로 나타나게 하기. 지금은 임시로 no-img넣어둠 --%>

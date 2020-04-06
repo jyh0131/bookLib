@@ -74,21 +74,13 @@ input[type="submit"] {
 }
 
 </style>
-<script>
-	$(function() {
-		<c:if test="${error == 'retire'}">
-		alert("로그인 권한이 없습니다.");
-		</c:if>
-		<c:if test="${error == 'notMatchId' }">
-		alert("비밀번호가 틀렸거나 등록하지 않은 아이디입니다.");
-		</c:if>
-	})
-</script>
+
+
 <article>
 	<div id="topPoint">
 		<p>로그인</p>
 	</div>
-	<form action="login.do" method="post">
+	<form action="login.do" method="post" autocomplete="off">
 		<div class="member">
 			<p>MEMBER LOGIN</p>
 			<div class="loginField">
@@ -102,7 +94,6 @@ input[type="submit"] {
 					<input type="submit" value="로그인">
 				</div>
 			</div>
-
 			<div class="loginALink">
 				<div class="aLink">
 					<a href="${pageContext.request.contextPath }/user/findId.do">아이디 찾기</a>
@@ -116,5 +107,22 @@ input[type="submit"] {
 			</div>
 		</div>
 	</form>
+	
+		<c:if test="${retire == 'retire'}">
+			<script>
+				alert("로그인 권한이 없습니다.");
+			</script>
+		</c:if>
+		
+			<% session.removeAttribute("retire"); %>
+			
+		<c:if test="${notMatchId == 'notMatchId' }">
+			<script>
+				alert("비밀번호가 틀렸거나 등록하지 않은 아이디입니다.");
+			</script>
+		</c:if>
+		
+		<% session.removeAttribute("notMatchId"); %>
+	
 </article>
 <%@ include file="../userInclude/userFooter.jsp"%>
