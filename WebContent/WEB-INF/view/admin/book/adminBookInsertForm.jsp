@@ -9,20 +9,13 @@
 		position: relative;
 	}
 	
-	.wrap h2 {
-		padding: 10px;
-		border-bottom : 1px solid #D9D9D9;
-		border-left: 10px solid #014E9E;
-		margin-bottom: 30px;
-	}
-	
 	.w395 {
 		width: 395px;
 	}
 	
 	.addBox {
 		width: 700px;
-		margin: 0 auto;
+		margin-left: 300px;
 	}
 	
 	.addBox p {
@@ -346,7 +339,7 @@
 
 <article class="contentWrap">
 	<div class="wrap">
-		<h2>도서등록</h2>
+		<h2 class="pageTitle">도서등록</h2>
 		
 		<div class="addBox">
 			<form action="add.do" method="post" enctype="multipart/form-data">

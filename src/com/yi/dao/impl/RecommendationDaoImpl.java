@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.yi.dao.RecommendationDao;
 import com.yi.jdbc.JDBCUtil;
@@ -131,6 +133,32 @@ public class RecommendationDaoImpl implements RecommendationDao {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public List<Recommendation> selectRecommendationByAll() {
+		String sql = "select r.recom_book_no , r.book_code , r.book_cont , "
+				+ "lc.lclas_no , lc.lclas_name , ml.mlsfc_no , ml.mlsfc_name , "
+				+ "b.authr_name , b.trnslr_name , b.book_name , pls.pls_no , pls.pls_name , b.book_img_path, b.pblicte_year "
+				+ " from recommendation r join book b on b.book_code = r.book_code  \r\n"
+				+ "		join large_classification lc on b.lc_no = lc.lclas_no \r\n"
+				+ "		join middle_classification ml on b.ml_no = ml.mlsfc_no and b.lc_no = ml.lclas_no \r\n"
+				+ "		join publishing_company pls on b.pls = pls.pls_no";
+		List<Recommendation> list = null;
+		try (Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			LogUtil.prnLog(pstmt);
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getRecommendation(rs));
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

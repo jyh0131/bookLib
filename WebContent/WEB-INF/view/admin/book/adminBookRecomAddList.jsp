@@ -5,11 +5,7 @@
 <%@ include file="../../adminInclude/adminHeader.jsp" %>
 <%@ include file="../../adminInclude/adminSideMenu1.jsp" %>
 
-<style>
-	/* .wrap {
-		padding: 50px;
-	} */
-	
+<style>	
 	input[name='schType']:nth-of-type(2) {
 		margin-left: 15px;
 	}
@@ -85,6 +81,12 @@
 		padding: 30px;
 	}
 	
+	.smallTitle {
+		font-size: 16px;
+		font-weight: 400;
+		padding-left: 20px;
+	}
+	
 </style>
 
 <script>
@@ -99,54 +101,15 @@
 			}  
 		}) 
 		
-		$(".dsuse").click(function() {
-			var lendCdt = $(this).parent().prevAll('.lendCdt').text().trim();
-			if(lendCdt == '대여중'){
-				alert("대여중인 도서입니다.");
-				return false;
-			}
-			
-			var dsuseCdt = $(this).parent().prevAll('.dsuseCdt').text().trim();
-			if(dsuseCdt == "N") {
-				var res = confirm("선택한 도서를 폐기하겠습니까?");
-				if(res == false) {
-					return false;
-				}
-				alert("폐기되었습니다.");
-			} else if(dsuseCdt == "Y"){
-				var res = confirm("선택한 도서폐기를 취소하겠습니까?");
-				if(res == false) {
-					return false;
-				}
-				alert("취소되었습니다.");
-			}
-			
-			
-		})
-		
-		$(".remove").click(function() {
-			var lendCdt = $(this).parent().prevAll('.lendCdt').text().trim();
-			if(lendCdt == '대여중'){
-				alert("대여중인 도서입니다.");
-				return false;
-			}
-			
-			var res = confirm("선택한 도서테이터를 삭제하겠습니까?");
-			if(res == false) {
-				return false;
-			}
-			alert("삭제되었습니다.");
-		})
 	})
 </script>
 
 <article class="contentWrap">
-	<div class="wrap">
-		<h2 class="pageTitle">보유도서관리</h2>
-		
-		<div class="listWrap">
+	<h2 class="pageTitle">추천도서 선택 <span class="smallTitle">추천도서로 등록할 도서를 찾아 선택을 클릭해주세요.</span></h2>
+	
+	<div class="listWrap">
 			<div class="searchBox">
-				<form action="list.do" method="post">
+				<form action="list.do?page=recom" method="post">
 					<input class="rdoCode" type="radio" name="schType" value="도서코드" checked/> 도서코드
 					<input class="rdoName" type="radio" name="schType" value="도서명"/> 도서명
 					<select name="lcNo" id="lcNo">
@@ -176,7 +139,7 @@
 							<th class="width110">분류</th>
 							<th class="width70">등록일자</th>
 							<th class="width40">폐기<br>여부</th>
-							<th class="width200">관리</th>
+							<th class="width90">관리</th>
 						</tr>
 						<c:if test="${bookListNull }">
 							<tr>
@@ -215,9 +178,7 @@
 										<c:if test="${bList.dsuseCdt == 1 }"><span class="fontW700 pink">Y</span></c:if>
 									</td>
 									<td class="mgn">
-										<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?code=${bList.bookCode}">수정</a>
-										<a class="dsuse btnPurple" href="${pageContext.request.contextPath }/admin/book/dsuseUpdate.do?code=${bList.bookCode }">폐기/취소</a>
-										<a class="remove btnLightBlue" href="${pageContext.request.contextPath }/admin/book/remove.do?code=${bList.bookCode }">데이터삭제</a>
+										<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/recomAdd.do?code=${bList.bookCode}">선택</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -226,7 +187,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	
 </article>
 
 <%@ include file="../../adminInclude/adminFooter.jsp" %>

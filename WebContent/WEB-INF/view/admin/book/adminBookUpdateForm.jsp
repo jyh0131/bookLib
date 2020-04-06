@@ -9,18 +9,10 @@
 	.wrap {
 		position: relative;
 	}
-
-	.wrap h2 {
-		padding: 10px;
-		border-bottom : 1px solid #D9D9D9;
-		border-left: 10px solid #014E9E;
-		margin-bottom: 30px;
-	}
 	
 	.addBox {
-		padding-left: 50px;
-		width: 900px;
-		margin: 0 auto;
+		width: 700px;
+		margin-left: 300px;
 	}
 	
 	.addBox p {
@@ -358,7 +350,7 @@
 
 <article class="contentWrap">
 	<div class="wrap">
-		<h2>등록 도서 수정</h2>
+		<h2 class="pageTitle">등록 도서 수정</h2>
 		
 		<div class="addBox">
 			<form action="update.do" method="post" enctype="multipart/form-data">
@@ -438,7 +430,7 @@
 		</div>
 		<div class="getImg">
 			<c:if test="${item.bookImgPath == null }">
-				<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="${item.bookName }" />
+				<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
 			</c:if>
 			<c:if test="${item.bookImgPath != null }">
 				<img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.bookImgPath}" alt="${item.bookName }" />
