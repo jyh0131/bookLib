@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -9,10 +9,18 @@
 <title>Insert title here</title>
 <style>
 	table{
+		display: block;
+		width: 629px;
+		margin: 10px auto;
 		border-collapse: collapse;
+		text-align: center;
 	}
 	th, td{
 		border: 1px solid steelblue;
+	}
+	#memberSubmit_container{
+		width: 629px;
+		margin: 0 auto;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -48,20 +56,49 @@
 					
 					if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Return.do")){
 						window.opener.document.getElementById("mber_id").value = col1;	
+						window.opener.document.getElementById("member_id").value = col1;	
 						window.opener.document.getElementById("mber_name").value = col2;	
 						window.opener.document.getElementById("grade").value = col3;	
 						window.opener.document.getElementById("overdueCdt").value = col4;	
 						window.opener.document.getElementById("lendBookCnt").value = col5;
 						
-/* 						$.ajax({
-							url:"${pageContext.request.contextPath}/admin/lending/Book.do",
+ 						$.ajax({
+							url:"${pageContext.request.contextPath}/admin/lending/return.do",
 							type:"post",
 							data:{"mber_id":col1},
 							dataType:"json",
 							success:function(res){
-								
+								console.log(res);
+								$(res).each(function(i, obj){
+									var $tr = $("<tr>");
+									var $td1 = $("<td>").html("<input type='text' value='"+res[i].bookCd.bookCode+"'>");
+									var $td2 = $("<td>").html("<input type='text' value='"+res[i].bookCd.bookName+"'>");
+									var $td3 = $("<td>");
+									var sb = res[i].bookCd.trnslrName;
+									if(sb == null){
+										$td3.html("<input type='text' value='"+res[i].bookCd.authrName+"'>");
+									}
+									else{
+										$td3.html("<input type='text' value='"+res[i].bookCd.authrName+"/"+res[i].bookCd.trnslrName+"'>");
+									}
+									var $td4 = $("<td>").html("<input type='text' name='pblicteYear' value='"+res[i].bookCd.pblicteYear+"'>");
+									var $td5 = $("<td>").html("<input type='text' value='"+res[i].bookCd.pls.plsName+"'>");
+									var $td6 = $("<td>").html("<input type='text' value='"+res[i].lendDate+"'>");
+									var $td7 = $("<td>").html("<input type='text' value='"+res[i].rturnDueDate+"'>");
+									var $td8 = $("<td>").html("<input type='checkbox' name='chk3'>");
+									$tr.append($td1);
+									$tr.append($td2);
+									$tr.append($td3);
+									$tr.append($td4);
+									$tr.append($td5);
+									$tr.append($td6);
+									$tr.append($td7);
+									$tr.append($td8);
+									window.opener.document.getElementById("book_table").appendChild($tr);
+								})
 							}
-						}) */
+						}) 
+						self.close();
 					}
 					else if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Rent.do")){
 						window.opener.document.getElementById("mber_id").value = col1;
@@ -69,6 +106,7 @@
 						window.opener.document.getElementById("grade").value = col3;
 						window.opener.document.getElementById("overdueCdt").value = col4;
 						window.opener.document.getElementById("odCnt").value = col6;
+						self.close();
 					}
 				}
 			}
@@ -104,7 +142,7 @@
 				</tr>
 		</c:forEach>
 	</table>
-	<div>
+	<div id="memberSubmit_container">
 		<p>
 			<button id="memberSubmit">º±≈√</button>
 		</p>

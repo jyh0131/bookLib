@@ -178,8 +178,8 @@
 <article class="contentWrap homeCnt">
 	<div class="box">
 		<div class="rentBtnBox">
-			<div class="rentBtn orangeBg"><a href="#">대여</a></div>
-			<div class="returnBtn blueBg"><a href="#">반납</a></div>
+			<div class="rentBtn orangeBg"><a href="${pageContext.request.contextPath}/admin/lending/Rent.do">대여</a></div>
+			<div class="returnBtn blueBg"><a href="${pageContext.request.contextPath}/admin/lending/Return.do">반납</a></div>
 		</div>
 		<div class="libInfoBox">
 			<div class="libInfo">
