@@ -111,7 +111,6 @@ $(function() {
 						<input type="date" name="birthday" id="datefield" min="1900-01-01" required="required">
 				</div>
 					<input type="submit" value="확인">
-
 			</div>
 		</div>
 	</form>
@@ -146,7 +145,6 @@ $(function() {
 			%>
 		</c:when>
 	</c:choose>
-	
 </article>
 
 <%@ include file="../userInclude/userFooter.jsp"%>

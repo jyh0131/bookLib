@@ -482,7 +482,7 @@ public class BookDaoImpl implements BookDao {
 		String bookName = rs.getString("book_name");
 		String authrName = rs.getString("authr_name");
 		String trnslrName = rs.getString("trnslr_name");
-		PublishingCompany pls = new PublishingCompany(rs.getInt("pls"), rs.getString("pls_name"));
+		PublishingCompany pls = new PublishingCompany(rs.getInt("pls"), rs.getString("pls_name").trim());
 		Date pblicteYear = rs.getTimestamp("pblicte_year");
 		int bookPrice = rs.getInt("book_price");
 		int lendPsbCdt = rs.getInt("lend_psb_cdt");
