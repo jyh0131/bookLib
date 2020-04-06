@@ -87,6 +87,11 @@
 		white-space: nowrap;
 	}
 	
+	.searchNone {
+		font-size: 18px;
+		padding: 30px;
+	}
+	
 </style>
 
 <script>
@@ -107,14 +112,32 @@
 				alert("대여중인 도서입니다.");
 				return false;
 			}
-			var res = confirm("선택한 도서를 폐기하겠습니까?");
-			if(res == false) {
-				return false;
+			
+			var dsuseCdt = $(this).parent().prevAll('.dsuseCdt').text().trim();
+			if(dsuseCdt == "N") {
+				var res = confirm("선택한 도서를 폐기하겠습니까?");
+				if(res == false) {
+					return false;
+				}
+				alert("폐기되었습니다.");
+			} else if(dsuseCdt == "Y"){
+				var res = confirm("선택한 도서폐기를 취소하겠습니까?");
+				if(res == false) {
+					return false;
+				}
+				alert("취소되었습니다.");
 			}
-			alert("폐기되었습니다.");
+			
+			
 		})
 		
 		$(".remove").click(function() {
+			var lendCdt = $(this).parent().prevAll('.lendCdt').text().trim();
+			if(lendCdt == '대여중'){
+				alert("대여중인 도서입니다.");
+				return false;
+			}
+			
 			var res = confirm("선택한 도서테이터를 삭제하겠습니까?");
 			if(res == false) {
 				return false;
@@ -162,43 +185,50 @@
 							<th class="width40">폐기<br>여부</th>
 							<th class="width200">관리</th>
 						</tr>
-						<c:forEach var="bList" items="${bookList }">
+						<c:if test="${bookListNull }">
 							<tr>
-								<td class="code">${bList.bookCode }</td>
-								<td class="name textStyle1">${bList.bookName }</td>
-								<td class="authrName textStyle1">${bList.authrName }</td>
-								<td class="trnslrName textStyle1">${bList.trnslrName }</td>
-								<td class="plsName textStyle1">${bList.pls.plsName }</td>
-								<td class="pblicYear"><fmt:formatDate value="${bList.pblicteYear }" pattern="yyyy-MM-dd"/></td>
-								<td class="Price"><fmt:formatNumber value="${bList.bookPrice }" type="number"/> </td>
-								<td class="cnt">${bList.bookCnt }</td>
-								<td class="lendCdt">
-									<c:if test="${bList.lendPsbCdt == 0 }"><span class="fontW700">대여가능</span></c:if>
-									<c:if test="${bList.lendPsbCdt == 1 }"><span class="dftBlue fontW700">대여중</span></c:if>
-									<c:if test="${bList.lendPsbCdt == 2 }"><span class="pink fontW700">대여<br>불가능</span></c:if>
-								</td>
-								<td class="totalLeCnt">${bList.totalLeCnt }</td>
-								<td class="imgPath">
-									<c:if test="${bList.bookImgPath != null }">
-										<span class="fontW700 orange">있음</span>
-									</c:if>
-									<c:if test="${bList.bookImgPath == null }">
-										없음
-									</c:if> 
-								</td>
-								<td class="lc">${bList.lcNo.lclasName } / ${bList.mlNo.mlsfcName }</td>
-								<td class="registDate"><fmt:formatDate value="${bList.registDate }" pattern="yyyy-MM-dd"/></td>
-								<td class="dsuseCdt">
-									<c:if test="${bList.dsuseCdt == 0 }"><span class="fontW700 dftBlue">N</span></c:if>
-									<c:if test="${bList.dsuseCdt == 1 }"><span class="fontW700 pink">Y</span></c:if>
-								</td>
-								<td class="mgn">
-									<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?code=${bList.bookCode}">수정</a>
-									<a class="dsuse btnPurple" href="${pageContext.request.contextPath }/admin/book/dsuseUpdate.do?code=${bList.bookCode }">폐기</a>
-									<a class="remove btnLightBlue" href="${pageContext.request.contextPath }/admin/book/remove.do?code=${bList.bookCode }">데이터삭제</a>
-								</td>
+								<td class="searchNone" colspan="15">검색되는 도서가 없습니다.</td>
 							</tr>
-						</c:forEach>
+						</c:if>
+						<c:if test="${bookListNull == null }">
+							<c:forEach var="bList" items="${bookList }">
+								<tr>
+									<td class="code">${bList.bookCode }</td>
+									<td class="name textStyle1">${bList.bookName }</td>
+									<td class="authrName textStyle1">${bList.authrName }</td>
+									<td class="trnslrName textStyle1">${bList.trnslrName }</td>
+									<td class="plsName textStyle1">${bList.pls.plsName }</td>
+									<td class="pblicYear"><fmt:formatDate value="${bList.pblicteYear }" pattern="yyyy-MM-dd"/></td>
+									<td class="Price"><fmt:formatNumber value="${bList.bookPrice }" type="number"/> </td>
+									<td class="cnt">${bList.bookCnt }</td>
+									<td class="lendCdt">
+										<c:if test="${bList.lendPsbCdt == 0 }"><span class="fontW700">대여가능</span></c:if>
+										<c:if test="${bList.lendPsbCdt == 1 }"><span class="dftBlue fontW700">대여중</span></c:if>
+										<c:if test="${bList.lendPsbCdt == 2 }"><span class="pink fontW700">대여<br>불가능</span></c:if>
+									</td>
+									<td class="totalLeCnt">${bList.totalLeCnt }</td>
+									<td class="imgPath">
+										<c:if test="${bList.bookImgPath != null }">
+											<span class="fontW700 orange">있음</span>
+										</c:if>
+										<c:if test="${bList.bookImgPath == null }">
+											없음
+										</c:if> 
+									</td>
+									<td class="lc">${bList.lcNo.lclasName } / ${bList.mlNo.mlsfcName }</td>
+									<td class="registDate"><fmt:formatDate value="${bList.registDate }" pattern="yyyy-MM-dd"/></td>
+									<td class="dsuseCdt">
+										<c:if test="${bList.dsuseCdt == 0 }"><span class="fontW700 dftBlue">N</span></c:if>
+										<c:if test="${bList.dsuseCdt == 1 }"><span class="fontW700 pink">Y</span></c:if>
+									</td>
+									<td class="mgn">
+										<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?code=${bList.bookCode}">수정</a>
+										<a class="dsuse btnPurple" href="${pageContext.request.contextPath }/admin/book/dsuseUpdate.do?code=${bList.bookCode }">폐기/취소</a>
+										<a class="remove btnLightBlue" href="${pageContext.request.contextPath }/admin/book/remove.do?code=${bList.bookCode }">데이터삭제</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</table>
 				</div>
 			</div>

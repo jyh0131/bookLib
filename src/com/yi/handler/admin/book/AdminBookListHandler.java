@@ -81,6 +81,10 @@ public class AdminBookListHandler implements CommandHandler {
 					req.setAttribute("bookList", bookList);
 				}
 				
+				if(bookList == null) {
+					req.setAttribute("bookListNull", true);
+				}
+				
 				lcList(req);
 			} catch (Exception e) {
 				e.printStackTrace();
