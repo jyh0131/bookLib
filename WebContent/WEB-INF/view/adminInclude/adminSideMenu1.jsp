@@ -9,6 +9,8 @@
 		
 		var subUrl = location.href.split("/");
 		var	subUrlName = subUrl[subUrl.length-1];
+		console.log(subUrlName);
+		
 		
 		// do 이름으로 구분
 		if(subUrlName == "add.do") {
@@ -19,9 +21,15 @@
 			$(".item2").addClass("sideView");
 			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
 		}
+		
 		if(subUrlName.match("update.do") != null) {
 			$(".item2").addClass("sideView");
 			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
+		}
+		
+		if(subUrlName == "recomList.do" || subUrlName.match("recom") != null) {
+			$(".item4").addClass("sideView");
+			$(".item4").append("<i class='fas fa-angle-right iconView'></i>");
 		}
 	})
 </script>
@@ -31,10 +39,16 @@
 		<li><a class="sideItem item1" href="${pageContext.request.contextPath}/admin/book/add.do">도서등록</a></li>
 		<li><a class="sideItem item2" href="${pageContext.request.contextPath}/admin/book/list.do">보유도서 관리</a></li>
 		<li><a class="sideItem item3" href="#">신청도서 조회</a></li>
+<<<<<<< HEAD
 		<li><a class="sideItem item4" href="#">추천도서 등록</a></li>
 		<c:if test="${Title==0 }">
 			<li><a class="sideItem item5" href="#">출판사 관리</a></li>
 			<li><a class="sideItem item6" href="#">분류관리</a></li>
 		</c:if>
+=======
+		<li><a class="sideItem item4" href="${pageContext.request.contextPath}/admin/book/recomList.do">추천도서 등록</a></li>
+		<li><a class="sideItem item5" href="#">출판사 관리</a></li>
+		<li><a class="sideItem item6" href="#">분류관리</a></li>
+>>>>>>> branch 'master' of https://github.com/jyh0131/bookLib.git
 	</ul>
 </aside>

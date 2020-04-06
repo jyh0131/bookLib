@@ -79,7 +79,8 @@ public class AdminBookUpdateHandler implements CommandHandler {
 				
 				book.setBookPrice(Integer.parseInt(multi.getParameter("bookPrice")));
 				book.setLendPsbCdt(Integer.parseInt(multi.getParameter("lendPsbCdt")));
-				if(multi.getParameter("bookImgPath") != null ) {					
+				
+				if(multi.getFilesystemName("bookImgPath") != null ) {					
 					book.setBookImgPath(multi.getFilesystemName("bookImgPath"));
 				}
 				
