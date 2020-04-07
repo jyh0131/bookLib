@@ -150,4 +150,22 @@ public class PublishingCompanyDaoImpl implements PublishingCompanyDao {
 		return 0;
 	}
 
+	@Override
+	public PublishingCompany selectPublishingCompanyByName(String plsName) {
+		String sql = "select pls_no, pls_name from publishing_company where pls_name = ?";
+		try(Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, plsName);
+			LogUtil.prnLog(pstmt);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					return getPls(rs);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

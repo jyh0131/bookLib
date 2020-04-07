@@ -7,6 +7,8 @@ import com.yi.model.PublishingCompany;
 public interface PublishingCompanyDao {
 	PublishingCompany selectPublishingCompanyByNo(PublishingCompany pc);
 
+	PublishingCompany selectPublishingCompanyByName(String plsName);
+		
 	List<PublishingCompany> selectPublishingCompanyByAll();
 	
 	List<PublishingCompany> selectPublishingCompanyByNameAll(String pcName);

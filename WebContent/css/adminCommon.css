@@ -57,6 +57,7 @@ td, th {
 }
 
 .btnOrange {
+	display: inline-block;
 	border: none;
 	padding: 5px 10px;
 	color: #fff;
@@ -67,6 +68,7 @@ td, th {
 }
 
 .btnPurple {
+	display: inline-block;
 	border: none;
 	padding: 5px 10px;
 	color: #fff;
@@ -77,11 +79,34 @@ td, th {
 }
 
 .btnLightBlue {
+	display: inline-block;
 	border: none;
 	padding: 5px 10px;
 	color: #fff;
 	font-weight: 700;
 	background-color: #3493DD;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.btnAqua {
+	display: inline-block;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #0CA0AE;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.btnPink {
+	display: inline-block;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #e8396f;
 	border-radius: 3px;
 	cursor: pointer;
 }
@@ -96,6 +121,7 @@ td, th {
 .aqua{color: #0CA0AE;}
 .lightBlue{color: #3493DD;}
 .dftBlue{color: blue;}
+.red{color: red;}
 
 .lightGreyBg {background-color: #D9D9D9;}
 .pinkBg {background-color: #E8396F;}
