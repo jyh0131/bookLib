@@ -46,11 +46,11 @@
 		<li><a class="sideItem item3" href="#">신청도서 조회</a></li>
 		<li><a class="sideItem item4" href="${pageContext.request.contextPath}/admin/book/recomList.do">추천도서 등록</a></li>
 		<!-- 임시주석처리 -->
-		<c:if test="${Title==0 }"> 
+		<%-- <c:if test="${Title==0 }"> 
 			<li><a class="sideItem item5" href="${pageContext.request.contextPath}/admin/book/plsList.do">출판사 관리</a></li>
 			<li><a class="sideItem item6" href="#">분류관리</a></li>
-		</c:if>
-			<%-- <li><a class="sideItem item5" href="${pageContext.request.contextPath}/admin/book/plsList.do">출판사 관리</a></li>
-			<li><a class="sideItem item6" href="#">분류관리</a></li> --%>
+		</c:if> --%>
+			<li><a class="sideItem item5" href="${pageContext.request.contextPath}/admin/book/plsList.do">출판사 관리</a></li>
+			<li><a class="sideItem item6" href="#">분류관리</a></li>
 	</ul>
 </aside>

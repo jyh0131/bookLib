@@ -40,9 +40,14 @@
 	
 	.plsNameWrap span {
 		display: none;
-		margin-left: 10px;
 		font-size: 14px;
 		font-weight: 700;
+	}
+	
+	.wrap .fas, 
+	.wrap .far {
+		font-size: 20px;
+		padding: 10px;
 	}
 	
 </style>
@@ -98,12 +103,24 @@
 				return false;
 			}
 			
-			alert("출판사가 등록되었습니다.");
+			var type = $(".pageTitle").text();
+			
+			if(type == '출판사 등록') {				
+				alert("출판사가 등록되었습니다.");
+			}
+			if(type == "출판사 수정"){
+				alert("출판사가 수정되었습니다.");
+			}
 		})
 	})
 </script>
 <article class="contentWrap">
-	<h2 class="pageTitle">출판사 등록</h2>
+	<c:if test="${type == 'add' }">
+		<h2 class="pageTitle">출판사 등록</h2>
+	</c:if>
+	<c:if test="${type == 'update' }">
+		<h2 class="pageTitle">출판사 수정</h2>		
+	</c:if>
 	
 	<div class="wrap">
 		<form action="plsAdd.do?type=${type }&no=${pls.plsNo }" method="post">
@@ -125,8 +142,8 @@
 					<input type="text" name="plsName" value="${pls.plsName }" placeholder="출판사 이름을 작성해주세요."/>				
 				</c:if>
 				<a href="#" id="overlepChk" class="btnOrange" type="button">중복확인</a>
-				<span class="overlepChkNo red">중복되는 출판사가 있습니다.</span>
-				<span class="overlepChkYes lightBlue">등록 가능합니다.</span>
+				<span class="overlepChkNo red"><i class="far fa-times-circle red"></i>중복되는 출판사가 있습니다.</span>
+				<span class="overlepChkYes lightBlue"><i class="fas fa-check-circle aqua"></i></span>
 			</p>
 			<p class="btns">
 				<a id="cancelBtn" class="btnPink" href="#">취소</a>
