@@ -40,12 +40,33 @@
 		width: 100%;
 	}
 	
-	th, td {
+	tr:nth-of-type(odd) {
+		background-color: #D9D9D9;
+	}
+	
+	tr:first-child {
+		background-color: #476fad;
+	}
+	
+	th {
+		color: #fff;
+	}
+	
+	th {
+		padding: 10px;
+	}
+	
+	td {
 		padding: 5px;
 	}
 	
 	td {
 		text-align: center;
+	}
+	
+	.noDate {
+		font-size: 18px;
+		padding: 20px;
 	}
 </style>
 <script>
@@ -59,6 +80,14 @@
 					alert("출판사코드(숫자)를 입력해주세요.")
 					return false;
 				}
+			}
+		})
+		
+		$(".deleteBtn").click(function() {
+			var name = $(this).parent().prev().text();
+			var res = confirm("출판사["+name+"] 데이터를 삭제하시겠습니까?");
+			if(res == false){
+				return false;
 			}
 		})
 	})
@@ -85,7 +114,7 @@
 				</tr>
 				<c:if test="${list == null }">
 					<tr>
-						<td colspan="3">등록된 출판사가 없습니다.</td>
+						<td class="noDate" colspan="3">등록된 출판사가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${list != null }">
@@ -95,7 +124,7 @@
 							<td class="name">${item.plsName }</td>
 							<td class="mgn">
 								<a class="updateBtn btnLightBlue" href="${pageContext.request.contextPath }/admin/book/plsAdd.do?type=update&no=${item.plsNo}">수정</a>
-								<a class="deleteBtn btnPink" href="#">삭제</a>
+								<a class="deleteBtn btnPink" href="${pageContext.request.contextPath }/admin/book/plsDelete.do?no=${item.plsNo}">삭제</a>
 							</td>
 						</tr>
 					</c:forEach>
