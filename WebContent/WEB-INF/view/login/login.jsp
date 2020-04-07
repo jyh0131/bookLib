@@ -96,13 +96,13 @@ input[type="submit"] {
 			</div>
 			<div class="loginALink">
 				<div class="aLink">
-					<a href="${pageContext.request.contextPath }/user/findId.do">아이디 찾기</a>
+					<a href="${pageContext.request.contextPath }/login/findId.do">아이디 찾기</a>
 				</div>
 				<div class="aLink">
-					<a href="${pageContext.request.contextPath }/user/findPw.do">비밀번호 찾기</a>
+					<a href="${pageContext.request.contextPath }/login/findPw.do">비밀번호 찾기</a>
 				</div>
 				<div class="aLink">
-					<a href="${pageContext.request.contextPath }/user/userJoin.do" id="aJoin">회원가입</a>
+					<a href="${pageContext.request.contextPath }/user/member/Join.do" id="aJoin">회원가입</a>
 				</div>
 			</div>
 		</div>

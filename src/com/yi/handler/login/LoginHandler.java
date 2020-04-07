@@ -1,4 +1,4 @@
-package com.yi.handler.user;
+package com.yi.handler.login;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,19 +12,18 @@ import com.yi.model.Librarian;
 import com.yi.model.Member;
 import com.yi.mvc.CommandHandler;
 
-public class UserLoginHandler implements CommandHandler {
+public class LoginHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if (req.getMethod().equalsIgnoreCase("get")) {
-			return "/WEB-INF/view/user/userLogin.jsp";
+			return "/WEB-INF/view/login/login.jsp";
 
 		} else if (req.getMethod().equalsIgnoreCase("post")) {
 			try {
 				// input 값 가지고옴
 				String id = req.getParameter("id");
 				String password = req.getParameter("password");
-				
 
 				// 회원로그인
 				MemberDao userDao = MemberDaoImpl.getInstance();
@@ -49,7 +48,7 @@ public class UserLoginHandler implements CommandHandler {
 //						res.sendRedirect(req.getContextPath() + "/user/userLogin.do");
 //						return null;
 
-						return "/WEB-INF/view/user/userLogin.jsp";
+						return "/WEB-INF/view/login/login.jsp";
 					}
 					if(loginLib.getTitle().getTitleNo() == 0) {
 						HttpSession session = req.getSession();
@@ -70,7 +69,7 @@ public class UserLoginHandler implements CommandHandler {
 						HttpSession session = req.getSession();
 						session.setAttribute("retire", "retire");
 						
-						return "/WEB-INF/view/user/userLogin.jsp";
+						return "/WEB-INF/view/login/login.jsp";
 					}
 					
 					HttpSession session = req.getSession();
@@ -84,7 +83,7 @@ public class UserLoginHandler implements CommandHandler {
 //					res.sendRedirect(req.getContextPath() + "/user/userLogin.do");
 //					return null;
 					
-					return "/WEB-INF/view/user/userLogin.jsp";
+					return "/WEB-INF/view/login/login.jsp";
 				}	
 			}catch (Exception e) {
 				e.printStackTrace();

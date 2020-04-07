@@ -1,4 +1,4 @@
-package com.yi.handler.user;
+package com.yi.handler.login;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,64 +15,62 @@ import com.yi.model.Librarian;
 import com.yi.model.Member;
 import com.yi.mvc.CommandHandler;
 
-public class UserFindPwHandler implements CommandHandler {
+public class FindIdHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if (req.getMethod().equalsIgnoreCase("get")) {
-
-			return "/WEB-INF/view/user/userFindPw.jsp";
-
-		} else if (req.getMethod().equalsIgnoreCase("post")) {
-
-			try {
-				String id = req.getParameter("id");
+		if(req.getMethod().equalsIgnoreCase("get")) {
+			return "/WEB-INF/view/login/findId.jsp";
+			
+		}else if(req.getMethod().equalsIgnoreCase("post")) {
+			
+			try{
 				String name = req.getParameter("name");
 				String birthday = req.getParameter("birthday");
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date brthdy = sdf.parse(birthday);
-
+				
 				MemberDao userDao = MemberDaoImpl.getInstance();
 				Member member = new Member();
-				member.setMberId(id);
 				member.setMberName(name);
 				member.setMberBrthdy(brthdy);
-
+				
 				LibrarianDao libDao = LibrarianDaoImpl.getInstance();
 				Librarian libratian = new Librarian();
-				libratian.setLbId(id);
 				libratian.setLbName(name);
 				libratian.setLbBirthDay(brthdy);
-
-				Member findMemberPw = userDao.findMemberPw(member);
-				Librarian findLibPw = libDao.findLibrarianPw(libratian);
-
-				if (findMemberPw == null) {
-					if (findLibPw == null) {
+				
+				Member findMemberId = userDao.findMemberId(member);
+				Librarian findLibId = libDao.findLibrarianId(libratian);
+				
+				
+				if(findMemberId == null) {
+					if(findLibId ==null) {
 						HttpSession session = req.getSession();
 						session.setAttribute("error", "nullId");
 
-						return "/WEB-INF/view/user/userFindId.jsp";
+						return "/WEB-INF/view/login/findId.jsp";
 					}
-
+					
 					HttpSession session = req.getSession();
-					session.setAttribute("Lib", findLibPw.getLbPass());
-					res.sendRedirect(req.getContextPath() + "/user/findPw.do");
-
+					session.setAttribute("Lib", findLibId.getLbId());
+					res.sendRedirect(req.getContextPath() + "/login/findId.do");
+			
 					return null;
-
+					
 				}
 				HttpSession session = req.getSession();
-				session.setAttribute("Mem", findMemberPw.getMberPass());
-				res.sendRedirect(req.getContextPath() + "/user/findPw.do");
-
+				session.setAttribute("Mem", findMemberId.getMberId());
+				res.sendRedirect(req.getContextPath() + "/login/findId.do");
+			
 				return null;
-
-			} catch (Exception e) {
+				
+			}catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
 		return null;
 	}
+
 }

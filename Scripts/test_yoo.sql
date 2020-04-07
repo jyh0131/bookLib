@@ -36,3 +36,8 @@ select r.recom_book_no , r.book_code , r.book_cont , lc.lclas_no , lc.lclas_name
 						  join publishing_company pls on b.pls = pls.pls_no 
 	order by r.recom_book_no;
 	
+
+-- 출판사 관리
+select pls_no, pls_name from publishing_company where pls_name = '창';
+
+

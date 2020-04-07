@@ -52,8 +52,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<Member> selectMemberByAll() {
-		String sql = "select mber_id, mber_name, mber_brthdy, mber_zip, mber_bass_ad, mber_detail_ad, mber_tel, mber_img, total_le_cnt, lend_book_cnt, grade, join_dt , wdr_cdt, lend_psb_cdt, od_cnt \r\n" + 
-					  "from member";
+		String sql = "select * from member";
 		List<Member> list = null;
 		try (Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -89,13 +88,15 @@ public class MemberDaoImpl implements MemberDao {
 		int odCnt = rs.getInt("od_cnt");
 	
 		Member mber = new Member(mberId, mberName, mberBrthdy, mberZip, mberBassAd, mberDetailAd, mberTel, mberImg, totalLeCnt, lendBookCnt, grade, lendPsbCdt, joinDt, wdrCdt, odCnt);
-		LogUtil.prnLog("getMember => " + mber);
+		
+		mber.setMemberImgPath(rs.getString("mber_img_path"));
+		
 		return mber;
 	}
 
 	@Override
 	public int insertMember(Member member) {
-		String sql = "insert into member(mber_id, mber_pass,mber_name, mber_brthdy,mber_zip,mber_bass_ad,mber_detail_ad,mber_tel,mber_img, total_le_cnt, lend_book_cnt, grade, lend_psb_cdt, od_cnt, join_dt, wdr_cdt) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into member(mber_id, mber_pass,mber_name, mber_brthdy,mber_zip,mber_bass_ad,mber_detail_ad,mber_tel,mber_img, total_le_cnt, lend_book_cnt, grade, lend_psb_cdt, od_cnt, join_dt, wdr_cdt, mber_img_path) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, member.getMberId());
 			pstmt.setString(2, member.getMberPass());
@@ -113,6 +114,7 @@ public class MemberDaoImpl implements MemberDao {
 			pstmt.setInt(14, member.getOdCnt());
 			pstmt.setTimestamp(15, new Timestamp(member.getJoinDt().getTime()));
 			pstmt.setInt(16, member.getWdrCdt());
+			pstmt.setString(17, member.getMemberImgPath());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -153,6 +155,8 @@ public class MemberDaoImpl implements MemberDao {
 			sql.append("wdr_cdt=?, ");
 		if (member.getOdCnt() != -1)
 			sql.append("od_cnt=?, ");
+		if(member.getMemberImgPath() !=null)
+			sql.append("mber_img_path=?,");
 		sql.replace(sql.lastIndexOf(","), sql.length(), " ");
 		sql.append("where mber_id=?");
 		
@@ -190,6 +194,8 @@ public class MemberDaoImpl implements MemberDao {
 				pstmt.setInt(argCnt++, member.getWdrCdt());
 			if (member.getOdCnt() !=-1)
 				pstmt.setInt(argCnt++, member.getOdCnt());
+			if(member.getMemberImgPath() !=null) 
+				pstmt.setString(argCnt++, member.getMemberImgPath());
 			pstmt.setString(argCnt++, member.getMberId());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -360,7 +366,6 @@ public class MemberDaoImpl implements MemberDao {
 			mber.setMberImg(mberImg);
 		}
 		mber.setOdCnt(odCnt);
-		LogUtil.prnLog("getMember => " + mber);
 		return mber;
 	}
 
