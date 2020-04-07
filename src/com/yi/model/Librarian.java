@@ -16,6 +16,54 @@ public class Librarian {
 	private Title title;
 	private Date joinDate;
 	private int workCdt;
+	private String LibImgPath;
+
+	
+	
+	
+	
+	public Librarian(String lbId, String lbName, Date lbBirthDay, ZipCode lbZip, String lbBassAd, String lbDetailAd,
+			String lbTel, byte[] lbImg, Title title, Date joinDate, int workCdt, String libImgPath) {
+		super();
+		this.lbId = lbId;
+		this.lbName = lbName;
+		this.lbBirthDay = lbBirthDay;
+		this.lbZip = lbZip;
+		this.lbBassAd = lbBassAd;
+		this.lbDetailAd = lbDetailAd;
+		this.lbTel = lbTel;
+		this.lbImg = lbImg;
+		this.title = title;
+		this.joinDate = joinDate;
+		this.workCdt = workCdt;
+		LibImgPath = libImgPath;
+	}
+
+	public Librarian(String lbId, String lbPass, String lbName, Date lbBirthDay, ZipCode lbZip, String lbBassAd,
+			String lbDetailAd, String lbTel, byte[] lbImg, Title title, Date joinDate, int workCdt, String libImgPath) {
+		super();
+		this.lbId = lbId;
+		this.lbPass = lbPass;
+		this.lbName = lbName;
+		this.lbBirthDay = lbBirthDay;
+		this.lbZip = lbZip;
+		this.lbBassAd = lbBassAd;
+		this.lbDetailAd = lbDetailAd;
+		this.lbTel = lbTel;
+		this.lbImg = lbImg;
+		this.title = title;
+		this.joinDate = joinDate;
+		this.workCdt = workCdt;
+		LibImgPath = libImgPath;
+	}
+
+	public String getLibImgPath() {
+		return LibImgPath;
+	}
+
+	public void setLibImgPath(String libImgPath) {
+		LibImgPath = libImgPath;
+	}
 
 	public Librarian() {
 	}
@@ -309,10 +357,10 @@ public class Librarian {
 
 	@Override
 	public String toString() {
-		return String.format(
-				"Librarian [lbId=%s, lbPass=%s, lbName=%s, lbBirthDay=%s, lbZip=%s, lbBassAd=%s, lbDetailAd=%s, lbTel=%s, lbImg=%s, title=%s, joinDate=%s, workCdt=%s]",
-				lbId, lbPass, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, Arrays.toString(lbImg), title,
-				joinDate, workCdt);
+		return "Librarian [lbId=" + lbId + ", lbPass=" + lbPass + ", lbName=" + lbName + ", lbBirthDay=" + lbBirthDay
+				+ ", lbZip=" + lbZip + ", lbBassAd=" + lbBassAd + ", lbDetailAd=" + lbDetailAd + ", lbTel=" + lbTel
+				+ ", lbImg=" + Arrays.toString(lbImg) + ", title=" + title + ", joinDate=" + joinDate + ", workCdt="
+				+ workCdt + ", LibImgPath=" + LibImgPath + "]";
 	}
 
 }

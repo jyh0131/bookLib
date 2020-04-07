@@ -100,7 +100,10 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		Title title = new Title(rs.getInt("title"));
 		Date joinDate = rs.getTimestamp("join_date");
 		int workCdt = rs.getInt("work_cdt");
-		return new Librarian(lbId, lbPass, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, lbImg, title, joinDate, workCdt);
+		Librarian lib =  new Librarian(lbId, lbPass, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, lbImg, title, joinDate, workCdt);
+		lib.setLibImgPath(rs.getString("lb_img_path"));
+		
+		return lib;
 	}
 
 	@Override
@@ -109,8 +112,8 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		//System.out.println("titlename" + lib.getTitle().getTitleName());
 		//String sql = "insert into librarian(lb_id, lb_pass, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, title ,join_date ,work_cdt) values\r\n" + 
 		//		"(?, ?, ?,?,?,?,?,?,?,?,?,?);";
-		String sql = "insert into librarian(lb_id, lb_pass, lb_name,title ,join_date ,work_cdt) values\r\n" + 
-				"(?, ?, ?,?,?,?);";
+		String sql = "insert into librarian(lb_id, lb_pass, lb_name,title ,join_date ,work_cdt, lb_img_path) values\r\n" + 
+				"(?, ?, ?, ?, ?, ?, ?);";
 		try(Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, lib.getLbId());
@@ -125,6 +128,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			pstmt.setInt(4, lib.getTitle().getTitleNo());
 			pstmt.setTimestamp(5, new Timestamp(lib.getJoinDate().getTime()));
 			pstmt.setInt(6, lib.getWorkCdt());
+			pstmt.setString(7, lib.getLibImgPath());
 			LogUtil.prnLog(pstmt);
 			
 			return pstmt.executeUpdate();
@@ -149,6 +153,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		if(lib.getTitle().getTitleNo() !=-1) sql.append("title=?, ");
 		if(lib.getJoinDate()!=null) sql.append("join_date=?, ");
 		if(lib.getWorkCdt()!=-1) sql.append("work_cdt=?, ");
+		if(lib.getLibImgPath() !=null) sql.append("lb_img_path=?,");
 		sql.replace(sql.lastIndexOf(","), sql.length(), " ");
 		sql.append("where lb_id=?");
 		
@@ -166,6 +171,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			if(lib.getTitle().getTitleNo() !=-1)pstmt.setInt(argCnt++, lib.getTitle().getTitleNo());
 			if(lib.getJoinDate()!=null) pstmt.setTimestamp(argCnt++, new Timestamp(lib.getJoinDate().getTime()));
 			if(lib.getWorkCdt()!=-1)pstmt.setInt(argCnt++, lib.getWorkCdt());
+			if(lib.getLibImgPath() !=null)pstmt.setString(argCnt++, lib.getLibImgPath());
 			pstmt.setString(argCnt++, lib.getLbId());
 			LogUtil.prnLog(pstmt);
 			return pstmt.executeUpdate();
@@ -315,8 +321,9 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		Title title = new Title(rs.getInt("title"));
 		Date joinDate = rs.getDate("join_date");
 		int workCdt = rs.getInt("work_cdt");
+		String lbImgPath = rs.getString("lb_img_path");
 		
-		return new Librarian(lbId, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, lbImg, title, joinDate, workCdt);
+		return new Librarian(lbId, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, lbImg, title, joinDate, workCdt, lbImgPath);
 	}
 	
 	

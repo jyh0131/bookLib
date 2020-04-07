@@ -26,6 +26,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function() {
+		Date.prototype.yyyymmdd = function() {
+			var yyyy = this.getFullYear().toString();
+			var mm = (this.getMonth() + 1).toString();
+		    var dd = this.getDate().toString();
+			return  yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]);
+		}
 		$("#memberSubmit").click(function() {  
 			var ch = document.getElementsByName("chk");
 			for(var i=0; i<ch.length;i++){
@@ -61,52 +67,83 @@
 						window.opener.document.getElementById("grade").value = col3;	
 						window.opener.document.getElementById("overdueCdt").value = col4;	
 						window.opener.document.getElementById("lendBookCnt").value = col5;
+						self.close();
+
 						
- 						$.ajax({
-							url:"${pageContext.request.contextPath}/admin/lending/return.do",
-							type:"post",
+					}
+					else if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Rent.do")){
+						window.opener.document.getElementById("mber_id").value = col1;
+						window.opener.document.getElementById("member_id").value = col1;
+						window.opener.document.getElementById("mber_name").value = col2;
+						window.opener.document.getElementById("grade").value = col3;
+						window.opener.document.getElementById("overdueCdt").value = col4;
+						console.log("col6 : "+col6);
+						
+						window.opener.document.getElementById("odCnt").value = col6;	
+						
+						
+						
+  						$.ajax({
+							url:"${pageContext.request.contextPath}/admin/lending/Return2.do",
+							type:"get",
 							data:{"mber_id":col1},
 							dataType:"json",
 							success:function(res){
 								console.log(res);
+								
 								$(res).each(function(i, obj){
-									var $tr = $("<tr>");
-									var $td1 = $("<td>").html("<input type='text' value='"+res[i].bookCd.bookCode+"'>");
-									var $td2 = $("<td>").html("<input type='text' value='"+res[i].bookCd.bookName+"'>");
-									var $td3 = $("<td>");
-									var sb = res[i].bookCd.trnslrName;
-									if(sb == null){
-										$td3.html("<input type='text' value='"+res[i].bookCd.authrName+"'>");
-									}
-									else{
-										$td3.html("<input type='text' value='"+res[i].bookCd.authrName+"/"+res[i].bookCd.trnslrName+"'>");
-									}
-									var $td4 = $("<td>").html("<input type='text' name='pblicteYear' value='"+res[i].bookCd.pblicteYear+"'>");
-									var $td5 = $("<td>").html("<input type='text' value='"+res[i].bookCd.pls.plsName+"'>");
-									var $td6 = $("<td>").html("<input type='text' value='"+res[i].lendDate+"'>");
-									var $td7 = $("<td>").html("<input type='text' value='"+res[i].rturnDueDate+"'>");
-									var $td8 = $("<td>").html("<input type='checkbox' name='chk3'>");
-									$tr.append($td1);
-									$tr.append($td2);
-									$tr.append($td3);
-									$tr.append($td4);
-									$tr.append($td5);
-									$tr.append($td6);
-									$tr.append($td7);
-									$tr.append($td8);
-									window.opener.document.getElementById("book_table").appendChild($tr);
+									/* if(obj.mberId == col1){
+										if(obj.rturnDate == null){ */
+											
+											var newTr = document.createElement("tr");
+											console.log("$tr 积己");
+											var $td1 = $("<td>").html("<input type='text' value='"+obj.bookCd.bookCode+"'>");
+											console.log("$td1 积己 棺 蔼 持澜");
+											console.log($td1.text());
+											var $td2 = $("<td>").html("<input type='text' value='"+obj.bookCd.bookName+"'>");
+											var $td3 = $("<td>");
+											var sb = obj.bookCd.trnslrName;
+											if(sb == null){
+												$td3.html("<input type='text' value='"+obj.bookCd.authrName+"'>");
+											}
+											else{
+												$td3.html("<input type='text' value='"+obj.bookCd.authrName+"/"+obj.bookCd.trnslrName+"'>");
+											}
+											var $td4 = $("<td>").html("<input type='text' name='pblicteYear' value='"+obj.bookCd.pblicteYear+"'>");
+											var $td5 = $("<td>").html("<input type='text' value='"+obj.bookCd.pls.plsName+"'>");
+											var $td6 = $("<td>").html("<input type='text' value='"+obj.lendDate+"'>");
+											var $td7 = $("<td>").html("<input type='text' value='"+obj.rturnDueDate+"'>");
+											var $td8 = $("<td>").html("<input type='checkbox' name='chk3'>");
+											/* $tr.append($td1);
+											$tr.append($td2);
+											$tr.append($td3);
+											$tr.append($td4);
+											$tr.append($td5);
+											$tr.append($td6);
+											$tr.append($td7);
+											$tr.append($td8); */
+											var pblicteYear = new Date(obj.bookCd.pblicteYear);
+											var lendDate = new Date(obj.lendDate);
+											var rturnDueDate = new Date(obj.rturnDueDate);
+											/* pblicteYear.format("yyyy-MM-dd"); */
+											var sb = obj.bookCd.trnslrName;
+											if(sb == null){
+												newTr.innerHTML = "<tr><td><input type='text' class='code'  value='"+obj.bookCd.bookCode+"'></td><td><input type='text' name='book_name' value='"+obj.bookCd.bookName+"'></td><td><input type='text' name='book_authrName' value='"+obj.bookCd.authrName+"'></td><td><input type='text' name='book_pblicteYear' value='"+pblicteYear.yyyymmdd()+"'></td><td><input type='text' name='book_plsName' value='"+obj.bookCd.pls.plsName+"'></td><td><input type='text' name='book_lend_date' value='"+lendDate.yyyymmdd()+"'></td><td><input type='text' name='book_lend_due_date' value='"+rturnDueDate.yyyymmdd()+"'></td><td><input type='checkbox' name='book_code2' value='"+obj.bookCd.bookCode+"'></td></tr>";
+											}
+											else{
+												newTr.innerHTML = "<tr><td><input type='text' class='code' value='"+obj.bookCd.bookCode+"'></td><td><input type='text' name='book_name' value='"+obj.bookCd.authrName+"/"+obj.bookCd.trnslrName+"'></td><td><input type='text' name='book_authrName' value='"+obj.bookCd.authrName+"'></td><td><input type='text' name='book_pblicteYear' value='"+pblicteYear.yyyymmdd()+"'></td><td><input type='text' name='book_plsName' value='"+obj.bookCd.pls.plsName+"'></td><td><input type='text' name='book_lend_date' value='"+lendDate.yyyymmdd()+"'></td><td><input type='text' name='book_lend_due_date' value='"+rturnDueDate.yyyymmdd()+"'></td><td><input type='checkbox' name='book_code2' value='"+obj.bookCd.bookCode+"'></td></tr>";
+											}
+											
+											window.opener.document.getElementById("book_table").appendChild(newTr);
+											/* window.opener.document.getElementById("book_table").append($tr); */
+											
+											self.close();
+											
+								/* 		}
+									} */
 								})
 							}
-						}) 
-						self.close();
-					}
-					else if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Rent.do")){
-						window.opener.document.getElementById("mber_id").value = col1;
-						window.opener.document.getElementById("mber_name").value = col2;
-						window.opener.document.getElementById("grade").value = col3;
-						window.opener.document.getElementById("overdueCdt").value = col4;
-						window.opener.document.getElementById("odCnt").value = col6;
-						self.close();
+						})
 					}
 				}
 			}

@@ -3,62 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../adminInclude/adminHeader.jsp" %>
 <%@ include file="../../adminInclude/adminSideMenu3.jsp" %>
-<!-- <style>
-	#mber_form_container{
-		border: 1px solid steelblue;
-		width: 350px;
-		margin: 10px auto 0;
-	}
-	#mber_form_container p{
-		margin: 10px;
-	}
-	#mber_form_container input[type='text']{
-		height: 20px;
-	}
-	#mber_form_container #mber_search{
-		padding:  5px 10px;
-	}
-	#mber_form_container2{
-		border: 1px solid steelblue;
-		width: 350px;
-		margin: 10px auto 0;
-	}
-		#mber_form_container2 p{
-		margin: 10px;
-	}
-	#mber_form_container2 p label{
-		width: 150px;
-		float: left;
-	}
-	.contentWrap table{
-		border-collapse: collapse;
-		display: block;
-		width: 640px;
-		margin: 0 auto;
-		background: red;
-	}
-	.contentWrap table tr{
-		width: 100%;
-	}
-	.contentWrap table td, .contentWrap table th{
-		border: 1px solid steelblue;
-		width: 80px;
-	}
-	#book_form_container{
-		border: 1px solid steelblue;
-		width: 350px;
-		margin: 10px auto 0;
-	}
-	#book_form_container p{
-		margin: 10px;
-	}
-	#book_form_container input[type='text']{
-		height: 20px;
-	}
-	#book_form_container #mber_search{
-		padding:  5px 10px;
-	}
-</style> -->
 <style>
 	#mber_container{
 		width: 1000px;
@@ -133,49 +77,15 @@
 			var url = "${pageContext.request.contextPath}/admin/lending/Member.do?choice=" + choiceValue + "&text=" + searchText;
 			window.open(url, "2", popOption);
 		})
-		$("#mber_id").change(function() {
-			$.ajax({
-				url:"${pageContext.request.contextPath}/admin/lending/list.do",
-				type:"get",
-				/* data:{"mber_id":col1}, */
-				dataType:"json",
-				success:function(res){
-					console.log(res);
-					$(res).each(function(i, obj){
-						var $tr = $("<tr>");
-						var $td1 = $("<td>").html("<input type='text' value='"+res[i].bookCd.bookCode+"'>");
-						var $td2 = $("<td>").html("<input type='text' value='"+res[i].bookCd.bookName+"'>");
-						var $td3 = $("<td>");
-						var sb = res[i].bookCd.trnslrName;
-						if(sb == null){
-							$td3.html("<input type='text' value='"+res[i].bookCd.authrName+"'>");
-						}
-						else{
-							$td3.html("<input type='text' value='"+res[i].bookCd.authrName+"/"+res[i].bookCd.trnslrName+"'>");
-						}
-						var $td4 = $("<td>").html("<input type='text' name='pblicteYear' value='"+res[i].bookCd.pblicteYear+"'>");
-						var $td5 = $("<td>").html("<input type='text' value='"+res[i].bookCd.pls.plsName+"'>");
-						var $td6 = $("<td>").html("<input type='text' value='"+res[i].lendDate+"'>");
-						var $td7 = $("<td>").html("<input type='text' value='"+res[i].rturnDueDate+"'>");
-						var $td8 = $("<td>").html("<input type='checkbox' name='chk3'>");
-						$tr.append($td1);
-						$tr.append($td2);
-						$tr.append($td3);
-						$tr.append($td4);
-						$tr.append($td5);
-						$tr.append($td6);
-						$tr.append($td7);
-						$tr.append($td8);
-						$("book_table").appendChild($tr);
-					})
-				}
-			})
-			$("#book_table").append()
-		})
 	})
+	$("#cancel").click(function() {
+			$("#book_table input[type='checkbox']").prop("checked", false);
+		/* 	$("#book_table input[type='checkbox']").val(0); */
+			alert("모두 취소되었습니다.");
+		})
 </script>
 <article class="contentWrap">
-	<form>
+
 		<div id="mber_container">
 			<div id="mber_form_container">
 					<p>
@@ -208,6 +118,7 @@
 				</p>			
 			</div>
 		</div>
+	<form action="${pageContext.request.contextPath}/admin/lending/Return.do" method="post">
 		<table id="book_table">
 			<tr>
 				<th>도서코드</th>
@@ -221,8 +132,10 @@
 			</tr>
 		</table>
 		<div id="returnSubmit">
-			<button>취소</button>
+			<button id="cancel">취소</button>
 			<input type="submit" value="반납">
+			<!-- <button id="return">반납</button> -->
+			<input type="hidden" value="" name="member_id" id="member_id">
 		</div>
 	</form>
 </article>

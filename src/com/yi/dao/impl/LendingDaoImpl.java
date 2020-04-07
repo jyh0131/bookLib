@@ -395,7 +395,7 @@ public class LendingDaoImpl implements LendingDao {
 
 		Book book = new Book(rs.getString("book_code"));
 		book.setBookName(rs.getString("book_name"));
-		if (rs.getString("trnslr_name").equals("")) {
+		if (rs.getString("trnslr_name") == null) {
 			sb.append(rs.getString("authr_name"));
 		} else {
 			sb.append(rs.getString("authr_name"));

@@ -21,12 +21,26 @@ public class Member {
 	private int wdrCdt;
 	private int odCnt;
 	private String mberBrthStr;
+	private String memberImgPath;
+	
+	
+	
+	
+	public String getMemberImgPath() {
+		return memberImgPath;
+	}
+
+	public void setMemberImgPath(String memberImgPath) {
+		this.memberImgPath = memberImgPath;
+	}
+
 	public Member() {
 	}
 
 	public Member(String mberId) {
 		this.mberId = mberId;
 	}
+	
 	
 	
 
@@ -485,10 +499,12 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return String.format(
-				"Member [mberId=%s, mberPass=%s, mberName=%s, mberBrthdy=%s, mberZip=%s, mberBassAd=%s, mberDetailAd=%s, mberTel=%s, mberImg=%s, totalLeCnt=%s, lendBookCnt=%s, grade=%s, lendPsbCdt=%s, joinDt=%s, wdrCdt=%s, odCnt=%s]",
-				mberId, mberPass, mberName, mberBrthdy, mberZip, mberBassAd, mberDetailAd, mberTel,
-				Arrays.toString(mberImg), totalLeCnt, lendBookCnt, grade, lendPsbCdt, joinDt, wdrCdt, odCnt);
+		return "Member [mberId=" + mberId + ", mberPass=" + mberPass + ", mberName=" + mberName + ", mberBrthdy="
+				+ mberBrthdy + ", mberZip=" + mberZip + ", mberBassAd=" + mberBassAd + ", mberDetailAd=" + mberDetailAd
+				+ ", mberTel=" + mberTel + ", mberImg=" + Arrays.toString(mberImg) + ", totalLeCnt=" + totalLeCnt
+				+ ", lendBookCnt=" + lendBookCnt + ", grade=" + grade + ", lendPsbCdt=" + lendPsbCdt + ", joinDt="
+				+ joinDt + ", wdrCdt=" + wdrCdt + ", odCnt=" + odCnt + ", mberBrthStr=" + mberBrthStr
+				+ ", memberImgPath=" + memberImgPath + "]";
 	}
 
 	public void getMberBrthStr(String mberBrthStr) {

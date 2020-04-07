@@ -85,7 +85,7 @@
 					newTd5.innerHTML = "<td><input type='text' name='book_plsName' value='"+col5+"'></td>"
 					newTd6.innerHTML = "<td><input type='text' name='book_plsName' value='"+col5+"'></td><td><input type='text' name='book_lend_date' value='"+col6+"'></td>"
 					newTd7.innerHTML = "<td><input type='text' name='book_plsName' value='"+col5+"'></td><td><input type='text' name='book_lend_date' value='"+col6+"'></td><td><input type='text' name='book_lend_due_date' value='"+col7+"'></td>"
-					newTr.innerHTML = "<tr><td><input type='text' class='code' name='book_code' value='"+col1+"'></td><td><input type='text' name='book_name' value='"+col2+"'></td><td><input type='text' name='book_authrName' value='"+col3+"'></td><td><input type='text' name='book_pblicteYear' value='"+col4+"'></td><td><input type='text' name='book_plsName' value='"+col5+"'></td><td><input type='text' name='book_lend_date' value='"+col6+"'></td><td><input type='text' name='book_lend_due_date' value='"+col7+"'></td><td><input type='checkbox' name='chk2'></td></tr>";	
+					newTr.innerHTML = "<tr><td><input type='text' class='code'></td><td><input type='text' name='book_name' value='"+col2+"'></td><td><input type='text' name='book_authrName' value='"+col3+"'></td><td><input type='text' name='book_pblicteYear' value='"+col4+"'></td><td><input type='text' name='book_plsName' value='"+col5+"'></td><td><input type='text' name='book_lend_date' value='"+col6+"'></td><td><input type='text' name='book_lend_due_date' value='"+col7+"'></td><td><input type='checkbox' name='book_code' value='"+col1+"'></td></tr>";	
 					var parent = window.opener.document.getElementById("book_table").childElementCount;
 					var size =  parseInt($("#lendBookCnt", opener.document).val());
 					size +1;
