@@ -42,9 +42,14 @@
 		margin-left: 200px;
 	}
 	
-	.addBox input[type="submit"]{
+	.resultBtns input {
 		font-size: 20px;
-		margin: 50px 200px;
+	}
+	
+	.resultBtns {
+		font-size: 20px;
+		text-align: center;
+		margin-top: 15px;
 	}
 	
 	.addBox .fas {
@@ -157,7 +162,7 @@
 	        var reader = new FileReader();
 	
 	        reader.onload = function(e) {
-	            $('.loadImg').attr('src', e.target.result)
+	            $('.loadImg').attr('src', e.target.result);
 	        }
 	
 	        reader.readAsDataURL(input.files[0]);
@@ -234,38 +239,6 @@
 			
 			alert("도서["+bookName.val()+"] 수정 되었습니다");
 		})
-		
-		// 선택된 대분류 데이터 전달
-		$("#lcNo").on("change", function(){
-			var lcNoIdx = $("#lcNo").val();
-			if(lcNoIdx != ""){				
-				$.ajax({
-					url:"${pageContext.request.contextPath}/admin/book/add.do",
-					type:"get",
-					data:{"lcNo":lcNoIdx},
-					dataType: "json",
-					success: function(res){
-						console.log(res);
-						
-						$("#mlNo").empty();
-						$("#mlNo").append($("<option>").attr("value", "").text("중분류 선택"));
-						
-						$(res).each(function(i, obj){
-							var mlNo = obj.mlsfcNo;
-							var mlName = obj.mlsfcName;
-							
-							var $mlOption = $("<option>").attr("value", mlNo).text(mlName);
-							$("#mlNo").append($mlOption);
-						})
-						
-					}
-				})
-			} else {
-				$("#mlNo").empty();
-				$("#mlNo").append($("<option>").attr("value", "").text("중분류 선택"));
-			}
-		}) 
-		
 		
 		$(".plsSearch").click(function() {
 			$("#plsSearchBox").show();
@@ -345,12 +318,22 @@
 			console.log(imgSrc);
 		})
 		
+		$("#cancel").click(function() {
+			var res = confirm("도서 정보 수정을 취소하시겠습니까?");
+			if(res) {
+				location.href = "${pageContext.request.contextPath}/admin/book/list.do";
+				return false;
+			}
+			
+			return false;
+		})
+		
 	})
 </script>
 
 <article class="contentWrap">
 	<div class="wrap">
-		<h2 class="pageTitle">등록 도서 수정</h2>
+		<h2 class="pageTitle">도서 수정</h2>
 		
 		<div class="addBox">
 			<form action="update.do" method="post" enctype="multipart/form-data">
@@ -423,7 +406,8 @@
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">대여가능여부를 선택해주세요.</span>
 				</p>
-				<div class="submitBtn">
+				<div class="resultBtns">
+					<a href="#" class="btnOrange" id="cancel">취소</a>
 					<input type="submit" value="도서 수정" class="btnPurple"/>
 				</div>
 			</form>
