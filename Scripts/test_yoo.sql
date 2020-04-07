@@ -35,3 +35,4 @@ select r.recom_book_no , r.book_code , r.book_cont , lc.lclas_no , lc.lclas_name
 						  join middle_classification ml on b.ml_no = ml.mlsfc_no and b.lc_no = ml.lclas_no 
 						  join publishing_company pls on b.pls = pls.pls_no 
 	order by r.recom_book_no;
+	

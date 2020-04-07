@@ -30,6 +30,6 @@
 		<li class="sideTitle">대여 / 반납관리</li>
 		<li><a class="sideItem item1" href="${pageContext.request.contextPath}/admin/lending/Rent.do">대여관리</a></li>
 		<li><a class="sideItem item2" href="${pageContext.request.contextPath}/admin/lending/Return.do">반납관리</a></li>
-		<li><a class="sideItem item3" href="#">연체조회</a></li>
+		<li><a class="sideItem item3" href="${pageContext.request.contextPath}/admin/lending/Overdue.do">연체조회</a></li>
 	</ul>
 </aside>
