@@ -52,6 +52,15 @@
 			$(".plsNameWrap span").hide();
 		})
 		
+		$("#cancelBtn").click(function() {
+			var cancel = confirm("출판사 등록을 취소하시겠습니까?");
+			if(cancel) {
+				location.href = "${pageContext.request.contextPath}/admin/book/plsList.do";
+				return false;
+			}
+			return false;
+		})
+		
 		$("#overlepChk").click(function() {
 			var plsName = $("input[name='plsName']").val();
 			if(plsName == "") {
