@@ -39,3 +39,9 @@ select r.recom_book_no , r.book_code , r.book_cont , lc.lclas_no , lc.lclas_name
 -- 출판사 관리
 select pls_no, pls_name from publishing_company where pls_name = '창';
 
+-- 대분류에 따른 중분류 갯수
+select count(*) from middle_classification where lclas_no = 3 group by lclas_no ;
+
+select * from large_classification l join middle_classification m on l.lclas_no = m.lclas_no where l.lclas_no = 1;
+select * from large_classification where lclas_no = 01;
+

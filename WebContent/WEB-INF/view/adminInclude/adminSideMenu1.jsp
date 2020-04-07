@@ -36,6 +36,11 @@
 			$(".item5").addClass("sideView");
 			$(".item5").append("<i class='fas fa-angle-right iconView'></i>");
 		}
+		
+		if(subUrlName == "bookCatList.do" || subUrlName.match("bookCat") != null) {
+			$(".item6").addClass("sideView");
+			$(".item6").append("<i class='fas fa-angle-right iconView'></i>");
+		}
 	})
 </script>
 <aside class="sideMenu">
@@ -51,6 +56,6 @@
 			<li><a class="sideItem item6" href="#">분류관리</a></li>
 		</c:if> --%>
 			<li><a class="sideItem item5" href="${pageContext.request.contextPath}/admin/book/plsList.do">출판사 관리</a></li>
-			<li><a class="sideItem item6" href="#">분류관리</a></li>
+			<li><a class="sideItem item6" href="${pageContext.request.contextPath}/admin/book/bookCatList.do">분류관리</a></li>
 	</ul>
 </aside>

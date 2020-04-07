@@ -6,132 +6,334 @@
 <%@ include file="../../adminInclude/adminSideMenu1.jsp" %>
 
 <style>
-	.searchBox {
-		width: 90%;
-		min-width: 500px;
-		margin: 0 auto;
-		margin-bottom: 30px;
-	}
-
-	input[value='name']{
-		margin-left: 5px;
-	}
-
-	input[name='pls'] {
-		margin-left: 5px;
-		font-size: 16px;
+	.box {
+		float: left;
+		width: 44%;
+		/* min-width: 430px; */
+		margin-left: 50px;
 	}
 	
-	.searchBox a {
+	.box label {
+		font-size: 24px;
+		font-weight: 700;
+		display: inline-block;
+		padding-right: 10px;
+		padding-left: 10px;
+		border-left: 5px solid #3493DD;
+		margin-bottom: 5px;
+	}
+	
+	.mlTotal, .addBtn {
+		font-size: 14px;
+		/* padding: 5px; */
+	}
+	
+	.info {
+		font-size: 12px;
+		margin-left: 15px;
+		font-weight: 400;
+	}
+	
+	.searchBox {
+		margin-bottom: 30px;
+		height: 50px;
+	}
+	
+	/* .searchBox input, 
+	.searchBox select {
+		font-size: 12px;
+	} */
+	
+	input[value='추가'] {
+		font-size: 14px;
+	}
+	
+	.searchBox input {
+		padding-left: 5px;
+	}
+	
+	.searchBox input[type='text'] {
+		width: 100px;
+	}
+
+	.searchBox .right {
 		float: right;
 	}
 	
 	.list {
-		width: 90%;
-		min-width: 500px;
-		margin: 0 auto;
 		overflow: auto;
-    	max-height: 600px;
+    	max-height: 580px;
     	border-bottom: 1px solid #D9D9D9;
-    	border-top: 1px solid #D9D9D9;
+    	border-top: 1px solid #D9D9D9; 
 	}
 	
-	#plsList {
+	table {
 		width: 100%;
 	}
 	
-	tr:nth-of-type(odd) {
-		background-color: #D9D9D9;
+	th, td {
+		border: none;
+		padding:20px;
+		padding-left: 50px;
 	}
 	
-	tr:first-child {
-		background-color: #476fad;
+	tr {
+		border-bottom: 1px solid #D9D9D9;
+    	border-top: 1px solid #D9D9D9;
 	}
 	
-	th {
-		color: #fff;
+	.list a:hover {
+		text-decoration: underline;
 	}
 	
-	th {
-		padding: 10px;
+	.addBox {
+		position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+	    left: 0;
+	    background-color: rgba(0,0,0,.5);
+	    z-index: 1;
+	    display: none; 
 	}
 	
-	td {
-		padding: 5px;
+	.addBox .item {
+		position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+    	background-color: #fff;
+    	padding: 30px;
+    	width: 380px;
 	}
 	
-	td {
+	.addBox .item h4 {
+		margin-bottom: 20px;
+	}
+	
+	.item p{
 		text-align: center;
+		margin-top: 20px;
+	} 
+	
+	.addBox .item input[type='text'] {
+		font-size: 16px;
+		padding: 5px;
+		width: 200px;
 	}
 	
-	.noDate {
-		font-size: 18px;
-		padding: 20px;
+	.addBox select {
+		font-size: 16px;
+		padding: 5px;
+		width: 215px;
 	}
+	
+	.boxClose {
+		position: absolute;
+		right: 30px;
+		top: 20px;
+		cursor: pointer;
+		font-size: 22px;
+	}
+	
 </style>
 <script>
+	// 숫자패드
+	function numberPad(n, width) {
+	    n = n + '';
+	    return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+	}
+
 	$(function(){
 		$("form").submit(function() {
-			var pls = $("input[name='pls']").val();
-			
-			if($("input[value='code']").prop("checked") && pls != ""){
-				var plsReg = /^[0-9]+$/;
-				if(plsReg.test(pls) == false) {
-					alert("출판사코드(숫자)를 입력해주세요.")
-					return false;
-				}
+			return false;
+		})
+		
+		$(".lcTitle").click(function() {
+			var lcNoIdx = $(this).text().substring(1, 3);
+			if(lcNoIdx != "") {
+				$.ajax({
+					url:"${pageContext.request.contextPath}/admin/book/bookCatList.do",
+					type: "get",
+					data:{"lcNo": lcNoIdx},
+					dataType: "json", 
+					success: function(res){
+						console.log(res);
+
+						var tableId = $("#mlTable")
+						tableId.empty();
+						
+						if(res != null) {
+							$(res).each(function(i, obj){
+								var lcNo = obj.lclasNo.lclasNo;
+								var mlNo = obj.mlsfcNo;
+								var mlName = obj.mlsfcName;
+								
+								var $a1 = $("<a>").addClass("mlUpdate").attr("href", "#").text("수정");								
+								var $a2 = $("<a>").addClass("mlDelete").attr("href", "#").text("삭제");								
+								var $td1 = $("<td>").addClass("mlTitle").text("["+numberPad(lcNo,2)+numberPad(mlNo, 2)+"] "+mlName);
+								var $td2 = $("<td>").addClass("mlMgn").append($a1).append(" | ").append($a2)
+								var $tr = $("<tr>").append($td1).append($td2);
+								tableId.append($tr);
+							})
+						} else {
+							tableId.append("<tr>").append("<td>").text("선택된 대분류에 해당되는 중분류가 없습니다.");
+						}
+					}
+				})
 			}
 		})
 		
-		$(".deleteBtn").click(function() {
-			var name = $(this).parent().prev().text();
-			var res = confirm("출판사["+name+"] 데이터를 삭제하시겠습니까?");
-			if(res == false){
-				return false;
-			}
+		$("#lcNo").on("change", function(){
+			var lcNoIdx = $("#lcNo").val();
+			if(lcNoIdx != ""){				
+				$.ajax({
+					url:"${pageContext.request.contextPath}/admin/book/bookCatList.do",
+					type:"get",
+					data:{"lcMlLast":lcNoIdx},
+					dataType: "json",
+					success: function(res){
+						console.log(res);
+						
+						$("input[name='mlNo']").attr("value", "");
+						if(res != null) {
+							$("input[name='mlNo']").attr("value", res);
+						}
+					}
+				})
+			} 
+		}) 
+		
+		$("#lcAddBtn").click(function() {
+			$("#lcAdd").show();
 		})
+		
+		$(".closeEve").click(function() {
+			clearFt();
+		})
+		
+		$("#mlAddBtn").click(function() {
+			$("#mlAdd").show();
+		})
+		
+		function clearFt(){
+			$(".addBox").hide();
+			$(".addBox .nameInput").val("");
+			$(".itemMlNo").val("");
+		}
+		
 	})
 </script>
-<article class="contentWrap">
-	<h2 class="pageTitle">출판사 관리</h2>
+<article class="contentWrap clearfix">
+	<h2 class="pageTitle">카테고리(분류) 관리</h2>
 	
-	<div class="listWrap">
+	<div class="box">
 		<div class="searchBox clearfix">
-			<form action="plsList.do" method="post">
-				<input type="radio" name="plsChk" value="code" checked/> 출판사 코드 
-				<input type="radio" name="plsChk" value="name"/> 출판사 이름
-				<input type="text" name="pls"/>
-				<input type="submit" value="검색" class="btnOrange" />
-				<a class="addBtn btnPurple" href="${pageContext.request.contextPath }/admin/book/plsAdd.do?type=add">등록</a>
+			<form action="bookCatList.do" method="get">
+				<label>대분류</label>
+				<div class="right">
+					<!-- <select name="catList" id="catSelect">
+						<option value="notype">전체</option>
+						<option value="lcNo">대분류 코드</option>
+						<option value="lcName">대분류 이름</option>
+					</select>
+					<input type="text" name="lcSearch"/>
+					<input type="submit" value="검색" class="btnOrange" /> -->
+					<a id="lcAddBtn" class="btnOrange addBtn" href="#">추가</a>
+				</div>
+				<p><span class="info">대분류 이름 클릭 시 해당 중분류가 나타납니다.</span></p>
 			</form>
 		</div>
 		<div class="list">
-			<table id="plsList">
-				<tr>
-					<th>출판사코드</th>
-					<th>출판사이름</th>
-					<th>출판사관리</th>
-				</tr>
-				<c:if test="${list == null }">
+			<table>
+				<c:forEach var="lc" items="${lcList}">
 					<tr>
-						<td class="noDate" colspan="3">등록된 출판사가 없습니다.</td>
+						<td class="lc"><a class="lcTitle" href="#">[<fmt:formatNumber value="${lc.lclasNo }" pattern="00"/>] ${lc.lclasName }</a></td>
+						<td class="lcMgn"><a class="lcUpdate" href="#">수정</a> | <a class="lcDelete" href="#">삭제</a></td>
 					</tr>
-				</c:if>
-				<c:if test="${list != null }">
-					<c:forEach var="item" items="${list }">
-						<tr>
-							<td class="code">${item.plsNo }</td>
-							<td class="name">${item.plsName }</td>
-							<td class="mgn">
-								<a class="updateBtn btnLightBlue" href="${pageContext.request.contextPath }/admin/book/plsAdd.do?type=update&no=${item.plsNo}">수정</a>
-								<a class="deleteBtn btnPink" href="${pageContext.request.contextPath }/admin/book/plsDelete.do?no=${item.plsNo}">삭제</a>
-							</td>
-						</tr>
-					</c:forEach>
-				</c:if>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
+	<div class="box">
+		<div class="searchBox clearfix">
+			<form action="bookCatList.do" method="get">
+				<label>중분류</label>
+				<div class="right">
+					<!-- <select name="catList" id="catSelect">
+						<option value="notype">전체</option>
+						<option value="lcNo">중분류 코드</option>
+						<option value="lcName">중분류 이름</option>
+					</select>
+					<input type="text" name="mlSearch"/>
+					<input type="submit" value="검색" class="btnOrange" /> -->
+					<a class="mlTotal btnAqua" href="${pageContext.request.contextPath}/admin/book/bookCatList.do">전체보기</a>
+					<a id="mlAddBtn" class="btnOrange addBtn" href="#">추가</a>
+				</div>
+			</form>
+		</div>
+		<div class="list">
+			<table id="mlTable">
+				<c:forEach var="ml" items="${mlList}">
+					<tr>
+						<td class="mlTitle">[<fmt:formatNumber value="${ml.lclasNo.lclasNo }" pattern="00"/><fmt:formatNumber value="${ml.mlsfcNo }" pattern="00"/>] ${ml.mlsfcName}</td>
+						<td class="mlMgn"><a class="mlUpdate" href="#">수정</a> | <a class="mlDelete" href="#">삭제</a></td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</div>
 </article>
+
+<div id="lcAdd" class="addBox">
+	<div class="item">
+		<h4>대분류 등록</h4>
+		<div class="boxClose closeEve"><i class="fas fa-times"></i></div>
+		<form action="bookCatList.do" method="post">
+			<p>
+				<label>대분류 코드</label>
+				<input type="text" name="lcNo" value="${lcLastNo+1 }" readonly/>
+			</p>
+			<p>
+				<label>대분류 이름</label>
+				<input class="nameInput" type="text" name="lcName" placeholder="대분류이름을 작성해주세요."/>
+			</p>
+			<p>
+				<input type="reset" value="취소" class="closeEve btnPink"/>
+				<input type="submit" value="추가" class="btnOrange" id="plsbtn"/>
+			</p>
+		</form>
+	</div>
+</div>
+
+<div id="mlAdd" class="addBox">
+	<div class="item">
+		<h4>중분류 등록</h4>
+		<div class="boxClose closeEve"><i class="fas fa-times"></i></div>
+		<form action="bookCatList.do" method="post">
+			<p>
+				<label>대분류 선택</label>
+				<select id="lcNo" name="lcNo">
+					<option value="">대분류 선택</option>
+					<c:forEach var="lcItem" items="${lcList }">
+						<option value="${lcItem.lclasNo }">[<fmt:formatNumber value="${lcItem.lclasNo }" pattern="00"/>] ${lcItem.lclasName }</option>
+					</c:forEach>
+				</select>
+			</p>
+			<p>
+				<label>중분류 코드</label>
+				<input class="itemMlNo" type="text" name="mlNo" readonly/>
+			</p>
+			<p>
+				<label>중분류 이름</label>
+				<input class="nameInput" type="text" name="mlName" placeholder="대분류이름을 작성해주세요."/>
+			</p>
+			<p>
+				<input type="reset" value="취소" class="closeEve btnPink"/>
+				<input type="submit" value="추가" class="btnOrange" id="plsbtn"/>
+			</p>
+		</form>
+	</div>
+</div>
 
 <%@ include file="../../adminInclude/adminFooter.jsp" %>
