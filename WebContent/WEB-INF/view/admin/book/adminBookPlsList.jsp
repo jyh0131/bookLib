@@ -73,7 +73,7 @@
 				<input type="radio" name="plsChk" value="name"/> 출판사 이름
 				<input type="text" name="pls"/>
 				<input type="submit" value="검색" class="btnOrange" />
-				<a class="addBtn btnPurple" href="${pageContext.request.contextPath }/admin/book/plsAdd.do">등록</a>
+				<a class="addBtn btnPurple" href="${pageContext.request.contextPath }/admin/book/plsAdd.do?type=add">등록</a>
 			</form>
 		</div>
 		<div class="list">
@@ -94,7 +94,7 @@
 							<td class="code">${item.plsNo }</td>
 							<td class="name">${item.plsName }</td>
 							<td class="mgn">
-								<a class="updateBtn btnLightBlue" href="#">수정</a>
+								<a class="updateBtn btnLightBlue" href="${pageContext.request.contextPath }/admin/book/plsAdd.do?type=update&no=${item.plsNo}">수정</a>
 								<a class="deleteBtn btnPink" href="#">삭제</a>
 							</td>
 						</tr>

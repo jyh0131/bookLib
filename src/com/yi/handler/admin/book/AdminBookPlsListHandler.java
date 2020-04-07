@@ -53,8 +53,6 @@ public class AdminBookPlsListHandler implements CommandHandler {
 						req.setAttribute("list", list);
 					}
 					
-					System.out.println("no : " + list);
-					
 					return "/WEB-INF/view/admin/book/adminBookPlsList.jsp";
 				}
 				
@@ -62,7 +60,6 @@ public class AdminBookPlsListHandler implements CommandHandler {
 					list = dao.selectPublishingCompanyByNameAll(pls);
 					
 					req.setAttribute("list", list);
-					System.out.println("name : " + list);
 					return "/WEB-INF/view/admin/book/adminBookPlsList.jsp";
 				}
 				

@@ -91,10 +91,10 @@
 				alert("출판사 이름을 작성해주세요.");
 				return false;
 			}
-			
-			var overlepChk = $(".overlepChkYes").is(":visible");
-			if(overlepChk == false) {
-				alert("출판사 중복확인을 해주세요.");
+					
+			var overlepYes = $(".overlepChkYes").is(":visible");
+			if(overlepYes == false) {
+				alert("출판사 중복확인을 확인해주세요.");
 				return false;
 			}
 			
@@ -106,19 +106,36 @@
 	<h2 class="pageTitle">출판사 등록</h2>
 	
 	<div class="wrap">
-		<form action="plsAdd.do" method="post">
+		<form action="plsAdd.do?type=${type }&no=${pls.plsNo }" method="post">
 			<p><label>출판사 코드</label></p>
-			<p><input type="text" name="plsNo" value="${lastCode }" readonly/></p>
+			<p>
+				<c:if test="${type == 'add' }">
+					<input type="text" name="plsNo" value="${lastCode }" readonly/>
+				</c:if>
+				<c:if test="${type == 'update' }">
+					<input type="text" name="plsNo" value="${pls.plsNo }" readonly/>
+				</c:if>
+			</p>
 			<p><label>출판사 이름</label></p>
 			<p class="plsNameWrap">
-				<input type="text" name="plsName" placeholder="출판사 이름을 작성해주세요."/>
+				<c:if test="${type == 'add' }">					
+					<input type="text" name="plsName" placeholder="출판사 이름을 작성해주세요."/>
+				</c:if>
+				<c:if test="${type == 'update' }">
+					<input type="text" name="plsName" value="${pls.plsName }" placeholder="출판사 이름을 작성해주세요."/>				
+				</c:if>
 				<a href="#" id="overlepChk" class="btnOrange" type="button">중복확인</a>
 				<span class="overlepChkNo red">중복되는 출판사가 있습니다.</span>
 				<span class="overlepChkYes lightBlue">등록 가능합니다.</span>
 			</p>
 			<p class="btns">
 				<a id="cancelBtn" class="btnPink" href="#">취소</a>
-				<input class="btnAqua" type="submit" value="등록"/>
+				<c:if test="${type == 'add' }">
+					<input class="btnAqua" type="submit" value="등록"/>				
+				</c:if>
+				<c:if test="${type == 'update' }">
+					<input class="btnAqua" type="submit" value="수정"/>				
+				</c:if>
 			</p>			
 		</form>
 	</div>
