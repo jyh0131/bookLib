@@ -185,18 +185,60 @@
 						if(res != null) {
 							$(res).each(function(i, obj){
 								var lcNo = obj.lclasNo.lclasNo;
+								var lcName = obj.lclasNo.lclasName
 								var mlNo = obj.mlsfcNo;
 								var mlName = obj.mlsfcName;
 								
-								var $a1 = $("<a>").addClass("mlUpdate").attr("href", "#").text("수정");								
-								var $a2 = $("<a>").addClass("mlDelete").attr("href", "#").text("삭제");								
+								console.log(lcName);
+								
+								/* 
+							 	<a class="mlDelete" 
+							 	href="${pageContext.request.contextPath}/admin/book/bookCatDelete.do?type=ml&mlNo=${ml.mlsfcNo }&mlName=${ml.mlsfcName}&lcNo=${ml.lclasNo.lclasNo }">
+							 	삭제</a>
+							  */
+							  
+								var $a1 = $("<a>").addClass("mlUpdate").attr("href", "#").attr("data-mlLcNo", lcNo)
+											.attr("data-mlLcName", lcName).attr("data-mlNo", mlNo).attr("data-mlName", mlName).text("수정");								
+								var $a2 = $("<a>").addClass("mlDelete")
+											.attr("href", "${pageContext.request.contextPath}/admin/book/bookCatDelete.do?type=ml&mlNo="+mlNo+"&mlName="+mlName+"&lcNo="+lcNo)
+											.text("삭제");								
 								var $td1 = $("<td>").addClass("mlTitle").text("["+numberPad(lcNo,2)+numberPad(mlNo, 2)+"] "+mlName);
 								var $td2 = $("<td>").addClass("mlMgn").append($a1).append(" | ").append($a2)
 								var $tr = $("<tr>").append($td1).append($td2);
 								tableId.append($tr);
+								
+								$(".mlUpdate").click(function(){
+									var lcNo = $(this).attr("data-mlLcNo");
+									var lcName = $(this).attr("data-mlLcName");
+									var mlNo = $(this).attr("data-mlNo");
+									var mlName = $(this).attr("data-mlName");
+									
+									var lc = "["+numberPad(lcNo, 2)+"] "+lcName;
+									
+									$(".mlLcNoUp").show().val(lc);
+									$("#lcNo").hide();
+									
+									$("#mlAdd h4").text("중분류 수정");
+									$(".sbmAddBtn").hide();
+									$(".updateBtn").show();
+									$(".itemMlNo").val(mlNo);
+									$(".nameInput").val(mlName);
+									$("#mlAdd").show();
+									$("#mlAdd #mlUpdateBtn").attr("data-mlLcNoUp", lcNo);
+								})
+								
+								$(".mlDelete").click(function() {
+									var res = confirm("해당 중분류를 삭제하시겠습니까?");
+									if(res == false) {
+										return false;
+									}
+								})
 							})
 						} else {
-							tableId.append("<tr>").append("<td>").text("선택된 대분류에 해당되는 중분류가 없습니다.");
+							var $tdNodata = $("<td>").text("선택된 대분류에 해당되는 중분류가 없습니다.");
+							var $trNodata = $("<tr>").append($tdNodata);
+							//tableId.append("<tr>").append("<td>").text("선택된 대분류에 해당되는 중분류가 없습니다.").addClass("noData");
+							tableId.append($trNodata);
 						}
 					}
 				})
@@ -306,6 +348,35 @@
 			alert("수정되었습니다.");
 		})
 		
+		$(".mlDelete").click(function() {
+			var res = confirm("해당 중분류를 삭제하시겠습니까?");
+			if(res == false) {
+				return false;
+			}
+		})
+		
+		$(".lcDelete").click(function() {
+			var aHref = $(this).attr('href');
+			$.ajax({
+				url:aHref,
+				type:"get",
+				dataType: "json",
+				success: function(res){	
+					console.log(res);
+					if(res > 0) {
+						alert("해당 대분류의 중분류가 존재합니다. \n중분류부터 삭제 후 삭제해주세요.");
+						return false;
+					}
+				}
+			}) 
+			
+			var cf = confirm("해당 대분류를 삭제하시겠습니까?");
+			if(cf == false) {
+				return false;
+			} 
+			location.href = "${pageContext.request.contextPath}/admin/book/bookCatList.do";
+			return false;
+		})
 	})
 	
 </script>
@@ -337,7 +408,7 @@
 						<td class="lcMgn">
 							<a class="lcUpdate" href="#" data-lcNo="${lc.lclasNo }" data-lcName=" ${lc.lclasName }">수정</a>
 							 | 
-							<a class="lcDelete" href="#" data-lcNo="${lc.lclasNo }">삭제</a>
+							<a class="lcDelete" href="${pageContext.request.contextPath}/admin/book/bookCatDelete.do?type=lc&lcNo=${lc.lclasNo }">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -369,7 +440,7 @@
 						<td class="mlMgn">
 							<a class="mlUpdate" href="#" data-mlLcNo="${ml.lclasNo.lclasNo }" data-mlLcName="${ml.lclasNo.lclasName }" data-mlNo="${ml.mlsfcNo }" data-mlName="${ml.mlsfcName}">수정</a>
 							 | 
-						 	<a class="mlDelete" href="#" data-mlNo="${ml.mlsfcNo }" data-mlName="${ml.mlsfcName}">삭제</a>
+						 	<a class="mlDelete" href="${pageContext.request.contextPath}/admin/book/bookCatDelete.do?type=ml&mlNo=${ml.mlsfcNo }&mlName=${ml.mlsfcName}&lcNo=${ml.lclasNo.lclasNo }">삭제</a>
 						 </td>
 					</tr>
 				</c:forEach>

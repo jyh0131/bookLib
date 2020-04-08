@@ -81,7 +81,9 @@ public class MiddleClassificationDaoImpl implements MiddleClassificationDao {
 
 	@Override
 	public List<MiddleClassification> selectMiddleClassificationGroupLc(LargeClassification lc) {
-		String sql = "select lclas_no , mlsfc_no , mlsfc_name from middle_classification where lclas_no = ?";
+		String sql = "select lc.lclas_no, lc.lclas_name , ml.mlsfc_no , ml.mlsfc_name "
+				+ "from middle_classification ml join large_classification lc on ml.lclas_no = lc.lclas_no "
+				+ "where ml.lclas_no = ?";
 		List<MiddleClassification> list = null;
 		try(Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -90,7 +92,7 @@ public class MiddleClassificationDaoImpl implements MiddleClassificationDao {
 				if(rs.next()) {
 					list = new ArrayList<>();
 					do {
-						list.add(getMlsfc(rs));
+						list.add(getLcMljoin(rs));
 					} while(rs.next());
 				}
 			}
@@ -134,11 +136,12 @@ public class MiddleClassificationDaoImpl implements MiddleClassificationDao {
 
 	@Override
 	public int deleteMiddleClassification(MiddleClassification mlsfc) {
-		String sql = "delete from middle_classification where mlsfc_no = ? and mlsfc_name = ?";
+		String sql = "delete from middle_classification where mlsfc_no = ? and mlsfc_name = ? and lclas_no = ?";
 		try (Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, mlsfc.getMlsfcNo());
 			pstmt.setString(2, mlsfc.getMlsfcName());
+			pstmt.setInt(3, mlsfc.getLclasNo().getLclasNo());
 			LogUtil.prnLog(pstmt);
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
