@@ -19,9 +19,12 @@
 	}
 	
 	.addBox p {
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding: 6px 0;
 		font-size: 18px;
+	}
+	
+	.addBox .noError{
+		padding-bottom: 22px;
 	}
 	
 	.addBox label {
@@ -46,7 +49,7 @@
 	
 	.addBox input[type="submit"]{
 		font-size: 20px;
-		margin: 50px 200px;
+		margin: 10px 200px;
 	}
 	
 	.addBox .fas {
@@ -56,7 +59,10 @@
 	.error {
 		font-size: 14px;
 		color: red;
-		display: none;
+		margin-left: 210px;
+		margin-top: 5px;
+		display: block;
+		visibility: hidden;
 	}
 	
 	#plsSearchBox {
@@ -175,11 +181,11 @@
 		
 		// 정규표현식 및 입력 확인
 		$("form").submit(function(){
-			$(".error").hide();
+			$(".error").css("visibility", "hidden");
 			$(".fas").css("color", "#D9D9D9");
 			
 			function errors(name) {
-				$(name).nextAll(".error").show();
+				$(name).nextAll(".error").css("visibility", "visible");
 				$(name).nextAll(".fas").css("color", "#E8396F");
 			}
 			
@@ -355,7 +361,7 @@
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">저자명을 입력하세요.</span>
 				</p>
-				<p>
+				<p class="noError">
 					<label>역 자</label>
 					<input class="w395" type="text" name="trnslrName"/>
 				</p>
@@ -397,7 +403,7 @@
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">출간일을 선택해주세요.</span>
 				</p>
-				<p>
+				<p class="noError">
 					<label>도서 이미지</label>
 					<input type="file" name="bookImgPath" onchange="imageURL(this);" />
 				</p>
