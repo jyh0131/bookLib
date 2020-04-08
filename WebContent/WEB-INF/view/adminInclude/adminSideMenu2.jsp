@@ -11,23 +11,24 @@
 		var	subUrlName = subUrl[subUrl.length-1];
 		
 		// do 이름으로 구분 (작업 시작하면 주석풀고 페이지에 맞게 설정하면 됨)
-		/* switch (subUrlName) {
-		case "add.do":
+		
+		if(subUrlName == "userAdd.do") {
 			$(".item1").addClass("sideView");
 			$(".item1").append("<i class='fas fa-angle-right iconView'></i>");
-			break
-		case "list.do":
+		}
+		
+		if(subUrlName == "userList.do") {
 			$(".item2").addClass("sideView");
 			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
-			break;
-		}   */
+		}
+
 	})
 </script>
 
 <aside class="sideMenu">
 	<ul class="sideUl">
 		<li class="sideTitle">회원관리</li>
-		<li><a class="sideItem item1" href="#">회원등록</a></li>
-		<li><a class="sideItem item2" href="#">회원 조회/수정</a></li>
+		<li><a class="sideItem item1" href="${pageContext.request.contextPath}/admin/user/userAdd.do">회원등록</a></li>
+		<li><a class="sideItem item2" href="${pageContext.request.contextPath}/admin/user/userList.do">회원 조회/수정</a></li>
 	</ul>
 </aside>

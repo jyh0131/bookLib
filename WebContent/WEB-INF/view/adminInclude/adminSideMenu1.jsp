@@ -9,7 +9,6 @@
 		
 		var subUrl = location.href.split("/");
 		var	subUrlName = subUrl[subUrl.length-1];
-		//console.log(subUrlName);
 		
 		
 		// do 이름으로 구분

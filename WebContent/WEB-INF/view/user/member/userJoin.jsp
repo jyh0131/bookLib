@@ -98,18 +98,30 @@ input[type="submit"] {
 	padding-top: 3px;
 }
 .getImg{
-    position: absolute;
-    top: 310px;
+	position: absolute;
+    top: 315px;
     left: 565px;
+    border: 1px solid #ddd;
+   	padding: 5px; 
 }
 .loadImg{
-	width: 200px;
-    height: 230px;
+	width: 230px;
+    height: 275px;
 }
 #memberImage{
     position: absolute;
-    top: 576px;
-    left: 568px;
+    top: 619px;
+    left: 617px;
+}
+#memberImage label{
+    background: #476fad;
+    color: white;
+    font-size: 18px;
+    width: 118px;
+    display: block;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
 }
 #id-area{
 	margin-bottom:10px;
@@ -170,50 +182,7 @@ function imageURL(input) {
 				
 	$(function() {
 		//정규표현식 에러 떠있을때 가입 안되게 막음
-		$("form").submit(function(){
-			$(".error").css("display","none");
-			
-			var idReg = /^[a-z0-9@\_\-\.]{5,20}$/;
-			var id = $("input[name='id']").val();
-			if (idReg.test(id) == false || id == "") {
-				$("input[name='id']").next().css("display", "block");
-				return false;
-			}
-			
-			var nameReg = /^[가-힣a-zA-Z]{1,20}$/;
-			var name = $("input[name='name']").val();
-			if (nameReg.test(name) == false || name == "") {
-				$("input[name='name']").next().css("display", "block");
-				return false;
-			}
-			
-			var passReg = /^[a-zA-Z0-9!@#$%^&]{8,16}$/;
-			var password = $("input[name='pass']").val();
-			if (passReg.test(password) == false || password == "") {
-				$("input[name='pass']").next().css("display", "block");
-				return false;
-			}
-			
-			var password = $("input[name='pass']").val();
-			var passCheck = $("input[name='passCheck']").val();
-			if (password != passCheck || passCheck=="") {
-				$("input[name='passCheck']").next().css("display", "block");
-				return false;
-			}
-			
-			$("#phone").blur(function(){
-				var phoneReg = /^(010|011|017|018|019)-?[0-9]{3,4}-?[0-9]{4}$/;
-				var phone = $("input[name='phone']").val();
-				if (phoneReg.test(phone) == false || phone == "") {
-					$("input[name='phone']").next().css("display", "block");
-					return false;
-				}
-			
-		alert("[" +$("#name").val() + "]님의 회원가입이 완료되었습니다.");
-	})
-
 	
-	/* 
 		$("#id").blur(function() {
 				var idReg = /^[a-z0-9@\_\-\.]{5,20}$/;
 				var id = $("input[name='id']").val();
@@ -259,9 +228,21 @@ function imageURL(input) {
 				}else if(phoneReg.test(phone) ==true){
 					$("input[name='phone']").next().css("display", "none");
 				}
-			}) */
+			}) 
 			
+			$("form").submit(function(){
+			var errorMsg = $(".error").css("display");
 			
+			if(errorMsg == ("block")){
+				alert("입력창을 다시 확인해주세요.");
+				return false;
+			}else{
+				alert("[" +$("#name").val() + "]님의 회원가입이 완료되었습니다.");
+			}
+			
+		})
+	
+
 
 		$("input[name='id']").on("keyup", function() {
 			var id = $("input[name='id']").val();
@@ -312,7 +293,7 @@ function imageURL(input) {
 					<span class="error">한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)</span>
 				</div>
 				<div class="input-area">
-					<label>생년월일</label> <input type="date" name="birthday" id="dateField" min="1900-01-01" required="required" max="today">
+					<label>생년월일</label> <input type="date" name="birthday" id="dateField" min="1900-01-01" required="required">
 				</div>
 				<div class="input-area">
 					<label>휴대전화</label> <input type="text" name="phone" id="phone" required>
@@ -328,7 +309,9 @@ function imageURL(input) {
 					<input type="text" name="detailAddress" id="detail" placeholder="상세주소를 입력해주세요.">
 				</div>
 				<div id="memberImage">
-					<input type="file" name="memberImgPath" onchange="imageURL(this);" />
+				<label>이미지 추가
+					<input type="file" name="memberImgPath" style="display:none;" width="100px" onchange="imageURL(this);" />
+				</label>
 				</div>
 				<input type="submit" value="가입하기">
 			</div>
