@@ -53,7 +53,6 @@ public class AdminBookCatListHandler implements CommandHandler {
 				if(lcMlLast != null) {
 					lcLast.setLclasNo(Integer.parseInt(lcMlLast));
 					int mlLast = mlDao.selectLastCode(lcLast) + 1;
-					System.out.println("mlLast : "+ mlLast);
 					
 					ObjectMapper om = new ObjectMapper();
 					String json = om.writeValueAsString(mlLast);
