@@ -82,6 +82,14 @@
 			$("#book_table input[type='checkbox']").prop("checked", false);
 		/* 	$("#book_table input[type='checkbox']").val(0); */
 			alert("모두 취소되었습니다.");
+	})
+	$("#returnForm").submit(function() {
+ 			var i = $("input [type='checkbox']:checked").length;
+ 			console.log(i);
+ 			alert(i);
+ 			if(i == 0){
+ 				return false;
+ 			}
 		})
 </script>
 <article class="contentWrap">
@@ -118,7 +126,7 @@
 				</p>			
 			</div>
 		</div>
-	<form action="${pageContext.request.contextPath}/admin/lending/Return.do" method="post">
+	<form action="${pageContext.request.contextPath}/admin/lending/Return.do" method="post" id="returnForm">
 		<table id="book_table">
 			<tr>
 				<th>도서코드</th>

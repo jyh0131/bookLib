@@ -187,9 +187,6 @@ begin
 			on l.book_cd = b.book_code
 			set lend_psb_cdt = 0
 			where l.rturn_date is not null;
-		update book
-			set total_le_cnt = total_le_cnt +1
-			where book_code = _book_cd;
 		-- 회원 테이블
 		-- 회원 테이블의 특정 회원의 대여도서권수(=대여반납 테이블에 반납일이 없는 행의 수)를 감소시키기() 위한 업데이트
 		update member

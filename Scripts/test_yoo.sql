@@ -48,10 +48,15 @@ select lc.lclas_no, lc.lclas_name , ml.mlsfc_no , ml.mlsfc_name from middle_clas
 select * from large_classification l join middle_classification m on l.lclas_no = m.lclas_no where l.lclas_no = 1;
 select * from large_classification where lclas_no = 01;
 
+
+select count(b.book_code) as 'duringLendBooks' from book b left join lending l on b.book_code = l.book_cd where b.lend_psb_cdt = 1 and DATEDFF(curdate(), l.rturn_due_date)>0;
+
+
 select * from middle_classification;
 delete from middle_classification where mlsfc_no = 3 and mlsfc_name = 'test23' and lclas_no = 10;
 
 select count(ml.mlsfc_no) 
 from large_classification lc left join middle_classification ml on lc.lclas_no = ml.lclas_no 
 where lc.lclas_no = 111;
+
 

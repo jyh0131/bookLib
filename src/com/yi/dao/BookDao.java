@@ -46,4 +46,8 @@ public interface BookDao {
 	List<Book> LendingBookByCode2(Book book);
 	
 	Book selectBookByNameAndWriterNameAndPls(String bookName, String authr, String trnslr, String pls);
+	
+	int selectOverdueBooks();
+	
+	int selectNoLendingBooks();
 }

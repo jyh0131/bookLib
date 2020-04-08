@@ -166,6 +166,14 @@
 		/* 	$("#book_table input[type='checkbox']").val(0); */
 			alert("모두 취소되었습니다.");
 		})
+ 		$("#rentForm").submit(function() {
+ 			var i = $("input [type='checkbox']:checked").length;
+ 			console.log(i);
+ 			alert(i);
+ 			if(i == 0){
+ 				return false;
+ 			}
+		})
 /* 		$("input [name='chk2']").change(function() {
 			var chkValue = $(this).prop("checked");
 			if(chkValue == true){
@@ -192,6 +200,7 @@
 		 console.log(bookCode[i].toString());
 		 }
 		 }) */
+
 	})
 </script>
 <article class="contentWrap">
@@ -203,7 +212,7 @@
 			</p>
 			<p>
 				<input type="text" name="memberSearch">
-				<button id="mber_search">검색</button>
+				<button id="mber_search" class="btnLightBlue">검색</button>
 			</p>
 		</div>
 		<div id="mber_form_container2">
@@ -234,10 +243,10 @@
 			<input type="radio" name="choiceBookColums" value="code">도서코드
 			<input type="radio" name="choiceBookColums" value="name">도서명
 			<input type="text" name="bookSearch">
-			<button id="book_search">검색</button>
+			<button id="book_search" class="btnLightBlue">검색</button>
 		</p>
 	</div>
-	<form action="${pageContext.request.contextPath}/admin/lending/Rent.do" method="post">
+	<form action="${pageContext.request.contextPath}/admin/lending/Rent.do" method="post" id="rentForm">
 		<table id="book_table">
 			<tr>
 				<th>도서코드</th>
@@ -251,9 +260,9 @@
 			</tr>
 		</table>
 		<div id="rentSubmit">
-			<button id="cancel">취소</button>
+			<button id="cancel" class="btnLightBlue">취소</button>
 			<!-- <input type="submit" value="대여" id="rent"> -->
-			<button id="rent">대여</button>
+			<button id="rent" class="btnLightBlue">대여</button>
 			<input type="hidden" value="" name="member_id" id="member_id">
 		</div>
 	</form>
