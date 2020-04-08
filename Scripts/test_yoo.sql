@@ -43,6 +43,15 @@ select pls_no, pls_name from publishing_company where pls_name = '창';
 -- 대분류에 따른 중분류 갯수
 select count(*) from middle_classification where lclas_no = 3 group by lclas_no ;
 
+select lc.lclas_no, lc.lclas_name , ml.mlsfc_no , ml.mlsfc_name from middle_classification ml join large_classification lc on ml.lclas_no = lc.lclas_no where ml.lclas_no = 1;
+
 select * from large_classification l join middle_classification m on l.lclas_no = m.lclas_no where l.lclas_no = 1;
 select * from large_classification where lclas_no = 01;
+
+select * from middle_classification;
+delete from middle_classification where mlsfc_no = 3 and mlsfc_name = 'test23' and lclas_no = 10;
+
+select count(ml.mlsfc_no) 
+from large_classification lc left join middle_classification ml on lc.lclas_no = ml.lclas_no 
+where lc.lclas_no = 111;
 
