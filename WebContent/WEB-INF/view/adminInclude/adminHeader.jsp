@@ -56,7 +56,7 @@
 				<c:if test="${Title == 0 }">
 					<li><a href="${pageContext.request.contextPath}/admin/staff/management.do" class="menu menu5"><i class="fas fa-user-tie icon"></i><br>직원관리</a></li>
 				</c:if>
-				<li><a href="#" class="menu menu6"><i class="fas fa-chart-pie icon"></i><br>통계조회</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/statistics/LendingStatistics.do" class="menu menu6"><i class="fas fa-chart-pie icon"></i><br>통계조회</a></li>
 				<li><a href="${pageContext.request.contextPath}/user/home.do" class="menu menu7"><i class="fas fa-door-open icon"></i><br>나가기</a></li>
 			</ul>
 			<div class="logoWrap">

@@ -11,16 +11,18 @@
 		var	subUrlName = subUrl[subUrl.length-1];
 		
 		// do 이름으로 구분 (작업 시작하면 주석풀고 페이지에 맞게 설정하면 됨)
-		/* switch (subUrlName) {
-		case "add.do":
+		if(subUrlName == "Rent.do") {
 			$(".item1").addClass("sideView");
 			$(".item1").append("<i class='fas fa-angle-right iconView'></i>");
-			break
-		case "list.do":
+		}
+		if(subUrlName == "Return.do") {
 			$(".item2").addClass("sideView");
 			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
-			break;
-		}   */
+		}		
+		if(subUrlName == "Overdue.do" || subUrlName.match("recom") != null) {
+			$(".item4").addClass("sideView");
+			$(".item4").append("<i class='fas fa-angle-right iconView'></i>");
+		}
 	})
 </script>
 
