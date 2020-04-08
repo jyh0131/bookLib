@@ -231,7 +231,7 @@
 			<span>/</span>
 			<span class="recomPls">${recom.bookCode.pls.plsName }</span>
 		</p>
-		<p class="recomAdd"><a href="#">추천도서 등록</a></p>
+		<p class="recomAdd"><a href="${pageContext.request.contextPath }/admin/book/recomList.do">추천도서 등록</a></p>
 	</div>
 </article>
 	

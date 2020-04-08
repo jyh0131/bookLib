@@ -67,17 +67,20 @@ public class RequestBookDaoImpl implements RequestBookDao {
 	public List<RequestBook> selectRequestBookByOptionAll(RequestBook rb, String year, String month) {
 		StringBuilder sql = new StringBuilder("select reqst_book_no, reqst_book_name, reqst_book_author, reqst_book_trnslr, request_book_pls, "
 				+ "reqst_mb_id, reqst_date, wh_cdt, cnt \r\n" 
-				+ "	from vw_request_book "
-				+ " where year(reqst_date) = ? ");
-		if(month != null) sql.append("and month(reqst_date) = ? ");
-		if(rb.getWhCdt() > -1) sql.append("and wh_cdt = ? ");
+				+ "	from vw_request_book ");
+		StringBuilder where = new StringBuilder("where ");
+		if(year != null) where.append("year(reqst_date) = ? and ");
+		if(month != null) where.append("month(reqst_date) = ? and ");
+		if(rb.getWhCdt() > -1) where.append("wh_cdt = ? and ");
+		where.replace(where.lastIndexOf("and"), where.length(), " ");
+		sql.append(where);
 		sql.append("order by reqst_date");
 		
 		List<RequestBook> list = null;
 		try(Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql.toString())){
 			int argCnt = 1;
-			pstmt.setString(argCnt++, year);
+			if(year != null) pstmt.setString(argCnt++, year);
 			if(month != null) pstmt.setString(argCnt++, month);
 			if(rb.getWhCdt() > -1) pstmt.setInt(argCnt++, rb.getWhCdt());
 			LogUtil.prnLog(pstmt);
