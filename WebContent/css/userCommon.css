@@ -38,12 +38,98 @@ a {
 }
 
 
+/* style class */
+.fontW700{
+	font-weight: 700;
+}
 
+.pageTitle {
+	border-left: 5px solid #014E9E;
+	border-bottom: 1px solid #D9D9D9;
+	padding-left: 15px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.btnBlue {
+	display: inline-block;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #476FAD;
+	cursor: pointer;
+}
+
+.btnOrange {
+	display: inline-block;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #ff9900;
+	cursor: pointer;
+}
+
+.btnPurple {
+	display: inline-block;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #725cc6;
+	cursor: pointer;
+}
+
+.btnLightBlue {
+	display: inline-block;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #3493DD;
+	cursor: pointer;
+}
+
+.btnAqua {
+	display: inline-block;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #0CA0AE;
+	cursor: pointer;
+}
+
+.btnPink {
+	display: inline-block;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: 700;
+	background-color: #e8396f;
+	cursor: pointer;
+}
 
 /* color class */
 .orange {color: #ff9900;}
 .purple {color: #725cc6;}
 .gray {color: gray;}
+.lightgray {color: #D9D9D9;}
+.white {color: #fff;}
+.pink {color: #e8396f;}
+.blue{color: #014e9e;}
+.aqua{color: #0CA0AE;}
+.lightBlue{color: #3493DD;}
+.dftBlue{color: blue;}
+.red{color: red;}
+
+.lightGreyBg {background-color: #D9D9D9;}
+.pinkBg {background-color: #E8396F;}
+.purpleBg {background-color: #725cc6;}
+.orangeBg{background-color: #ff9900;}
+.blueBg {background-color: #014E9E;}
+.lightBlueBg{background-color: #3493DD;}
 
 
 /* header style */

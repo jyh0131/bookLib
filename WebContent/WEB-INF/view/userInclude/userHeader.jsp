@@ -72,9 +72,9 @@
 					<a class="menu" href="#">독서문화강좌</a>
 				</li>
 				<li>
-					<a class="menu" href="#">도서관서비스</a>
+					<a class="menu" href="${pageContext.request.contextPath}/user/book/requestAdd.do">도서관서비스</a>
 					<ul class="subMenu">
-						<li><a href="#">희망도서신청</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/book/requestAdd.do">희망도서신청</a></li>
 					</ul>
 				</li>
 				<li>
