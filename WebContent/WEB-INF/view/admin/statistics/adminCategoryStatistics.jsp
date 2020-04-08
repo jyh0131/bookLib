@@ -7,30 +7,8 @@
 <article class="contentWrap">
 <style>
 	#chart_div{
-		width: 1200px;
+		width: 900px;
 		height: 500px;
-	}
-	#book_statistics_header{
-		overflow: hidden;
-	}
-	#book_statistics_header_left {
-		line-height:80px;
-		font-size:1.4em;
-		width: 400px;
-		height: 80px;
-		float: left;
-	}
-	#book_statistics_header_right {
-		line-height:80px;
-		font-size:1.4em;
-		width: 400px;
-		height: 80px;
-		float: left;
-	}
-	.checkingDate{
-		width: 135px;
-		height: 35px;
-		margin-top: 20px;
 	}
 </style>
 <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
@@ -64,42 +42,39 @@
 	  var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 	  chart.draw(data, options);
 	}
-	$(function() {
-		$(".checkingDate").on("change", function() {
-			alert("확인");
-		})
-	})
 </script>
+
 	<div>
-		<h2 class="pageTitle">도서 보유 현황</h2>
-		<div id="book_statistics_header">
-			<div id="book_statistics_header_left">
-				<h2>총 보유권수 : ${totalBooks} 권</h2>			
-			</div>
-			<div id="book_statistics_header_right">
-				<h2>총 폐기도서 : ${disposal } 권</h2>
+		<div>
+			<select>
+				<option>년</option>
+				<option>2019</option>
+				<option>2020</option>
+			</select>
+			<select>
+				<option>월</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+				<option>11</option>
+				<option>12</option>
+			</select>
+		</div>
+		<div>
+			<div>
+				<h3>총 보유권수</h3>
+				<h1>${totalBooks}권</h1>
 			</div>
 			<div>
-				<select class="checkingDate" name="yearStatistics">
-					<option>년</option>
-					<option value="2019">2019년</option>
-					<option value="2019">2020년</option>
-				</select>
-				<select class="checkingDate" name="monthStatistics">
-					<option>월</option>
-					<option value="1">1월</option>
-					<option value="2">2월</option>
-					<option value="3">3월</option>
-					<option value="4">4월</option>
-					<option value="5">5월</option>
-					<option value="6">6월</option>
-					<option value="7">7월</option>
-					<option value="8">8월</option>
-					<option value="9">9월</option>
-					<option value="10">10월</option>
-					<option value="11">11월</option>
-					<option value="12">12월</option>
-				</select>
+				<h3>총 폐기도서</h3>
+				<h1>${disposal }권</h1>
 			</div>
 		</div>
 		<div id="chart_div"></div>	

@@ -85,7 +85,8 @@
 					newTd5.innerHTML = "<td><input type='text' name='book_plsName' value='"+col5+"'></td>"
 					newTd6.innerHTML = "<td><input type='text' name='book_plsName' value='"+col5+"'></td><td><input type='text' name='book_lend_date' value='"+col6+"'></td>"
 					newTd7.innerHTML = "<td><input type='text' name='book_plsName' value='"+col5+"'></td><td><input type='text' name='book_lend_date' value='"+col6+"'></td><td><input type='text' name='book_lend_due_date' value='"+col7+"'></td>"
-					newTr.innerHTML = "<tr><td><input type='text' class='code'></td><td><input type='text' name='book_name' value='"+col2+"'></td><td><input type='text' name='book_authrName' value='"+col3+"'></td><td><input type='text' name='book_pblicteYear' value='"+col4+"'></td><td><input type='text' name='book_plsName' value='"+col5+"'></td><td><input type='text' name='book_lend_date' value='"+col6+"'></td><td><input type='text' name='book_lend_due_date' value='"+col7+"'></td><td><input type='checkbox' name='book_code' value='"+col1+"'></td></tr>";	
+/* 					newTr.innerHTML = "<tr><td><input type='text' class='code'></td><td><input type='text' name='book_name' value='"+col2+"'></td><td><input type='text' name='book_authrName' value='"+col3+"'></td><td><input type='text' name='book_pblicteYear' value='"+col4+"'></td><td><input type='text' name='book_plsName' value='"+col5+"'></td><td><input type='text' name='book_lend_date' value='"+col6+"'></td><td><input type='text' name='book_lend_due_date' value='"+col7+"'></td><td><input type='checkbox' name='book_code' value='"+col1+"'></td></tr>"; */	
+					newTr.innerHTML = "<tr><td>"+col1+"</td><td>"+col2+"</td><td>"+col3+"</td><td>"+col4+"</td><td>"+col5+"<td>"+col6+"<td>"+col7+"</td><td><input type='checkbox' name='book_code' value='"+col1+"'></td></tr>";	
 					var parent = window.opener.document.getElementById("book_table").childElementCount;
 					var size =  parseInt($("#lendBookCnt", opener.document).val());
 					size +1;
@@ -139,18 +140,18 @@
 		<c:forEach var="book" items="${rentBook}">			
 			<c:if test="${book.lendPsbCdt==0 }">
 				<tr class="item">			
-					<td class="book_code" name="book_code">${book.bookCode}</td>
-					<td name="book_name">${book.bookName }</td>
+					<td class="book_code">${book.bookCode}</td>
+					<td>${book.bookName }</td>
 					<c:if test="${book.trnslrName==null}">
-						<td name="book_authrName">${book.authrName }</td>
+						<td>${book.authrName }</td>
 					</c:if>
 					<c:if test="${book.trnslrName!=null}">
-						<td name="book_authrName">${book.authrName }/${book.trnslrName }</td>
+						<td>${book.authrName }/${book.trnslrName }</td>
 					</c:if>
-					<td name="book_pblicteYear"><fmt:formatDate value="${book.pblicteYear}"/></td>
-					<td name="book_plsName">${book.pls.plsName }</td>
-					<td class="lend_date" name="book_lend_date"></td>
-					<td class="lend_due_date" name="book_lend_due_date"></td>
+					<td><fmt:formatDate value="${book.pblicteYear}"/></td>
+					<td>${book.pls.plsName }</td>
+					<td class="lend_date"></td>
+					<td class="lend_due_date"></td>
 					<td><input type="checkbox" name="chk"></td>
 				</tr>
 			</c:if>

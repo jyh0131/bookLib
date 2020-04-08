@@ -46,3 +46,4 @@ select count(*) from middle_classification where lclas_no = 3 group by lclas_no 
 select * from large_classification l join middle_classification m on l.lclas_no = m.lclas_no where l.lclas_no = 1;
 select * from large_classification where lclas_no = 01;
 
+select count(b.book_code) as 'duringLendBooks' from book b left join lending l on b.book_code = l.book_cd where b.lend_psb_cdt = 1 and DATEDFF(curdate(), l.rturn_due_date)>0;

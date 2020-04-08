@@ -7,7 +7,7 @@ import com.yi.dao.BookDao;
 import com.yi.dao.impl.BookDaoImpl;
 import com.yi.mvc.CommandHandler;
 
-public class AdminLendingStatisticsHandler implements CommandHandler {
+public class AdminCategoryStatisticsHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -21,7 +21,7 @@ public class AdminLendingStatisticsHandler implements CommandHandler {
 			req.setAttribute("duringLend", duringLend);
 			req.setAttribute("OverdueBooks", OverdueBooks);
 			req.setAttribute("NoLendingBooks", NoLendingBooks);
-			return "/WEB-INF/view/admin/statistics/adminLendingStatistics.jsp";
+			return "/WEB-INF/view/admin/statistics/adminCategoryStatistics.jsp";
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 
