@@ -19,9 +19,9 @@
 			$(".item2").addClass("sideView");
 			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
 		}		
-		if(subUrlName == "Overdue.do" || subUrlName.match("recom") != null) {
-			$(".item4").addClass("sideView");
-			$(".item4").append("<i class='fas fa-angle-right iconView'></i>");
+		if(subUrlName == "Overdue.do") {
+			$(".item3").addClass("sideView");
+			$(".item3").append("<i class='fas fa-angle-right iconView'></i>");
 		}
 	})
 </script>

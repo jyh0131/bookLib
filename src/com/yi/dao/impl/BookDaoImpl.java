@@ -640,6 +640,39 @@ public class BookDaoImpl implements BookDao {
 		}
 		return null;
 	}
+
+	@Override
+	public int selectOverdueBooks() {
+		String sql = "select count(b.book_code) as 'duringLendBooks' from book b left join lending l on b.book_code = l.book_cd where b.lend_psb_cdt = 1 and DATEDIFF(curdate(), l.rturn_due_date)>0 and l.rturn_date is null";
+		try (Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while (rs.next()) {
+				return rs.getInt("duringLendBooks");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int selectNoLendingBooks() {
+		
+		String sql = "select count(b.book_code) as 'LendCntXBooks' from book b  where b.lend_psb_cdt = 2";
+		try (Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while (rs.next()) {
+				return rs.getInt("LendCntXBooks");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
 
 
