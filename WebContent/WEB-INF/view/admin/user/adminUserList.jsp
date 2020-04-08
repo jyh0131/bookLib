@@ -10,12 +10,15 @@
 	} */
 	
 	input[name='schType'] {
-		margin-left: 10px;
+		margin-left: 25px;
 	}
 	
 	input[name='schText'] {
-		font-size: 16px;
-		padding: 0 5px;
+	    font-size: 16px;
+  	  	padding: 1px 5px;
+    	margin-left: 30px;
+    	margin-right: 10px;
+    	width: 240px;
 	}
 	
 	div#result {
@@ -55,31 +58,48 @@
 		display: inline-block;
 	}
 	
-	.textLeft {text-align: left;}
+	.textLeft {text-align: left;
+				float:left;}
 	
-	.width70 {width: 70px;}
-	.width110 {width: 110px;}
 	.width150 {width: 150px;}
+	.width40 {width: 40px;}
+	.width90 {width: 90px;}
+	.width220 {width: 220px;}
+	.width110 {width: 110px;}
 	.width80 {width: 80px;}
-	.width50 {width: 50px;}
 	.width60 {width: 60px;}
-	.width200 {width: 200px;}
+	.width30 {width: 30px;}
+	.width200{width: 200px;}
+	.width50 {width: 50px;}
 	
 	
 	.textStyle1 {
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
+		font-size: 13px;
 	}
 	
 	.searchNone {
 		font-size: 18px;
 		padding: 30px;
 	}
+	span{
+		font-size: 13px;
+	}
 	
+	.fontSW{
+		font-size: 15px;
+   	 	font-weight: 800;
+	}
 </style>
 
 <script>
+$(function() {
+	$("input[type='submit']").click(function() {
+		
+	})
+})
 
 </script>
 
@@ -89,9 +109,9 @@
 		
 		<div class="listWrap">
 			<div class="searchBox">
-				<form action="list.do" method="post">
-					<input class="rdoId" type="radio" name="schType" value="회원ID" checked/> 회원ID
-					<input class="rdoName" type="radio" name="schType" value="회원명"/> 회원명
+				<form action="userList.do" method="post">
+					<input class="rdoName" type="radio" name="schType" value="회원명" checked/> 회원명
+					<input class="rdoId" type="radio" name="schType" value="회원ID" /> 회원ID
 					<input class="rdoBirthday" type="radio" name="schType" value="생년월일"/> 생년월일
 
 					<input type="text" name="schText" placeholder="검색어를 입력하세요."/>
@@ -101,60 +121,73 @@
 				<div id="result">
 					<table id="memberList">
 						<tr>
-							<th class="width70">아이디</th>
-							<th class="width70">이름</th>
-							<th class="width110">생년월일</th>
-							<th class="width150">주소</th>
-							<th class="width80">전화번호</th>
-							<th class="width50">총대여<br>권수</th>
+							<th class="width150">아이디</th>
+							<th class="width40">이름</th>
+							<th class="width90">생년월일</th>
+							<th class="width220">주소</th>
+							<th class="width110">전화번호</th>
+							<th class="width40">총대여<br>권수</th>
 							<th class="width50">현재대여<br>권수</th>
-							<th class="width50">등급</th>
-							<th class="width110">가입일</th>
+							<th class="width40">등급</th>
+							<th class="width80">가입일</th>
 							<th class="width50">탈퇴여부</th>
-							<th class="width50">대여가능<br>여부</th>
-							<th class="width50">연체횟수</th>
+							<th class="width60">대여가능<br>여부</th>
+							<th class="width40">연체횟수</th>
 							<th class="width200">관리</th>
 						</tr>
 						<c:if test="${memberListNull }">
 							<tr>
-								<td class="searchNone" colspan="15">검색되는 회원이 없습니다.</td>
+								<td class="searchNone" colspan="13">검색되는 회원이 없습니다.</td>
 							</tr>
 						</c:if>
 						<c:if test="${memberListNull == null }">
-							<c:forEach var="bList" items="${memberList }">
+							<c:forEach var="memberList" items="${memberList}">
 								<tr>
-									<td class="id">${memberList.mberId }</td>
-									<td class="name textStyle1">${memberList.mberName }</td>
+									<c:choose>
+										<c:when test="${memberList.odCnt >= 5}">
+											<td class="fontSW"><span class="red fontSW">${memberList.mberId }</span></td> 
+											<td class="fontSW"> <span class="red fontSW">${memberList.mberName}</span></td> 
+										</c:when>
+										<c:when test="${memberList.odCnt <= 5}"> 
+											<td class="textStyle1"> <span>${memberList.mberId }</span></td>
+											<td class="textStyle1"> <span>${memberList.mberName}</span></td>
+										</c:when>
+									</c:choose> 	
+									
 									<td class="birthday textStyle1"><fmt:formatDate value="${memberList.mberBrthdy }" pattern="yyyy-MM-dd"/></td>
-									<td class="address textStyle1">${memberList.mberZip } + ${memberList.mberbassAd } ${memberList.detailAd }</td>
+									<td class="address textStyle1"><span class="textLeft">${memberList.mberZip}${memberList.mberBassAd}${memberList.mberDetailAd}</span></td>
 									<td class="phone textStyle1">${memberList.mberTel }</td>
 									<td class="total">${memberList.totalLeCnt }</td>
-									<td class="Price"><fmt:formatNumber value="${memberList.bookPrice }" type="number"/> </td>
-									<td class="cnt">${bList.bookCnt }</td>
-									<td class="lendCdt">
-										<c:if test="${bList.lendPsbCdt == 0 }"><span class="fontW700">대여가능</span></c:if>
-										<c:if test="${bList.lendPsbCdt == 1 }"><span class="dftBlue fontW700">대여중</span></c:if>
-										<c:if test="${bList.lendPsbCdt == 2 }"><span class="pink fontW700">대여<br>불가능</span></c:if>
+									<td class="lendBookCnt">${memberList.lendBookCnt }</td>
+									<td class="grade">
+									<c:if test="${memberList.grade.gradeNo ==1}"><span >일반</span></c:if>
+									<c:if test="${memberList.grade.gradeNo ==2}"><span class="dftBlue fontSW">우수</span></c:if>
 									</td>
-									<td class="totalLeCnt">${bList.totalLeCnt }</td>
-									<td class="imgPath">
-										<c:if test="${bList.bookImgPath != null }">
-											<span class="fontW700 orange">있음</span>
-										</c:if>
-										<c:if test="${bList.bookImgPath == null }">
-											없음
-										</c:if> 
+									<td class="joinDt"><fmt:formatDate value="${memberList.joinDt}" pattern="yyyy-MM-dd"/></td>
+									<td class="wdrCdt">
+										<c:if test="${memberList.wdrCdt ==0}"><span>가입</span></c:if>
+										<c:if test="${memberList.wdrCdt ==1}"><span class="orange fontSW">탈퇴</span></c:if> 
 									</td>
-									<td class="lc">${bList.lcNo.lclasName } / ${bList.mlNo.mlsfcName }</td>
-									<td class="registDate"><fmt:formatDate value="${bList.registDate }" pattern="yyyy-MM-dd"/></td>
-									<td class="dsuseCdt">
-										<c:if test="${bList.dsuseCdt == 0 }"><span class="fontW700 dftBlue">N</span></c:if>
-										<c:if test="${bList.dsuseCdt == 1 }"><span class="fontW700 pink">Y</span></c:if>
+									<td class="lendPsbCdt">
+										<c:if test="${memberList.lendPsbCdt ==0}"><span>대여가능</span></c:if>
+										<c:if test="${memberList.lendPsbCdt ==1}"><span style="font-size: 14px;"><b>대여불가능</b></span></c:if>
 									</td>
+									
+									
+										<c:choose>
+											<c:when test="${memberList.odCnt >= 5}">
+												<td class="odCnt"> <span class="red fontSW">${memberList.odCnt}</span></td> 
+											</c:when>
+											<c:when test="${memberList.odCnt <= 5}"> 
+												<td class="odCnt"><span>${memberList.odCnt}</span></td> 
+											</c:when>
+										</c:choose>
+									 
 									<td class="mgn">
-										<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?code=${bList.bookCode}">수정</a>
-										<a class="dsuse btnPurple" href="${pageContext.request.contextPath }/admin/book/dsuseUpdate.do?code=${bList.bookCode }">폐기/취소</a>
-										<a class="remove btnLightBlue" href="${pageContext.request.contextPath }/admin/book/remove.do?code=${bList.bookCode }">데이터삭제</a>
+										<%-- <a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?code=${bList.bookCode}">수정</a> --%>
+										<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/user/userUpdate.do?code=${memberList.mberId}">정보수정</a>
+										<a class="wdrCdtRight btnPurple" href="${pageContext.request.contextPath }/admin/user/wdrCdtRight.do?code=${memberList.mberId}">탈퇴여부</a>
+										<a class="lendPsbCdtRight btnAqua" href="${pageContext.request.contextPath }/admin/user/lendPsbCdtRight.do?code=${memberList.mberId}">대여권한</a>
 									</td>
 								</tr>
 							</c:forEach>

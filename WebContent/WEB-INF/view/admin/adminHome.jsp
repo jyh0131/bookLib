@@ -197,7 +197,7 @@
 			</div>
 			<div class="libImg">
 				<%-- <c:if>으로 이미지가 있으면 넣고 없으면 no-img로 나타나게 하기. 지금은 임시로 no-img넣어둠 --%>
-				<img src="${pageContext.request.contextPath }/images/no-image.png" alt="" />
+				<img src="${pageContext.request.contextPath }/images/no-image.png"/>
 			</div>			
 		</div>
 	</div>

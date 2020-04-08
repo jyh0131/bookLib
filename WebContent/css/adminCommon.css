@@ -49,6 +49,14 @@ td, th {
 	font-weight: 700;
 }
 
+.fontW900{
+	font-weight: 900;
+}
+
+.fontS16{
+	font-size: 16px;
+}
+
 .pageTitle {
 	padding: 10px;
 	border-bottom : 1px solid #D9D9D9;
@@ -122,6 +130,7 @@ td, th {
 .lightBlue{color: #3493DD;}
 .dftBlue{color: blue;}
 .red{color: red;}
+.RGB{color: #6B66FF;}
 
 .lightGreyBg {background-color: #D9D9D9;}
 .pinkBg {background-color: #E8396F;}

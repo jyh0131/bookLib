@@ -84,56 +84,10 @@ public class ZipCode {
 		this.buldNoViceNo = buldNoViceNo;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + buldNoOriginNo;
-		result = prime * result + buldNoViceNo;
-		result = prime * result + ((ctprvn == null) ? 0 : ctprvn.hashCode());
-		result = prime * result + ((roadName == null) ? 0 : roadName.hashCode());
-		result = prime * result + ((signgu == null) ? 0 : signgu.hashCode());
-		result = prime * result + zipCode;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ZipCode other = (ZipCode) obj;
-		if (buldNoOriginNo != other.buldNoOriginNo)
-			return false;
-		if (buldNoViceNo != other.buldNoViceNo)
-			return false;
-		if (ctprvn == null) {
-			if (other.ctprvn != null)
-				return false;
-		} else if (!ctprvn.equals(other.ctprvn))
-			return false;
-		if (roadName == null) {
-			if (other.roadName != null)
-				return false;
-		} else if (!roadName.equals(other.roadName))
-			return false;
-		if (signgu == null) {
-			if (other.signgu != null)
-				return false;
-		} else if (!signgu.equals(other.signgu))
-			return false;
-		if (zipCode != other.zipCode)
-			return false;
-		return true;
-	}
 
 	@Override
 	public String toString() {
-		return "ZipCode [zipCode=" + zipCode + ", ctprvn=" + ctprvn + ", signgu=" + signgu + ", roadName=" + roadName
-				+ ", buldNoOriginNo=" + buldNoOriginNo + ", buldNoViceNo=" + buldNoViceNo + "]";
+		return String.format("(%d)", zipCode);
 	}
 
 

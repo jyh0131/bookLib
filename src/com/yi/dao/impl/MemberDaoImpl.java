@@ -89,7 +89,7 @@ public class MemberDaoImpl implements MemberDao {
 	
 		Member mber = new Member(mberId, mberName, mberBrthdy, mberZip, mberBassAd, mberDetailAd, mberTel, mberImg, totalLeCnt, lendBookCnt, grade, lendPsbCdt, joinDt, wdrCdt, odCnt);
 		
-		mber.setMemberImgPath(rs.getString("mber_img_path"));
+		//mber.setMemberImgPath(rs.getString("mber_img_path"));
 		
 		return mber;
 	}
@@ -491,7 +491,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<Member> searchMemberByName(Member member) {
-		String sql = "select mber_id, mber_name, mber_brthdy, mber_zip, mber_bass_ad, mber_detail_ad, mber_tel, mber_img, total_le_cnt, lend_book_cnt, grade, join_dt , wdr_cdt, lend_psb_cdt, od_cnt\r\n" + 
+		String sql = "select mber_id, mber_name, mber_brthdy, mber_zip, mber_bass_ad, mber_detail_ad, mber_tel, total_le_cnt, lend_book_cnt, grade, join_dt , wdr_cdt, lend_psb_cdt, od_cnt\r\n" + 
 				"from member\r\n" + 
 				"where mber_name like ? ";
 		List<Member> list = null;
