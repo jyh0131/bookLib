@@ -58,7 +58,7 @@ try{
     return;
 }
 System.out.println("sendMail.jsp에서 이제 전송전"); 
-out.println("<script>alert('Send Mail Success!!');location.href='"+request.getContextPath()+"'/bookLib/AdminLendingOverdue.jsp';</script>");
+out.println("<script>alert('Send Mail Success!!');location.href='/bookLib/AdminLendingOverdue.jsp';</script>");
 // 성공 시
 
 %>
