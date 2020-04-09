@@ -52,7 +52,7 @@ public interface BookDao {
 	
 	int selectNoLendingBooks();
 	
-	List<Integer> selectCountByCateDate(Date date);
+	int[] selectCountByCateDate(Date date);
 	
 	int [] selectLendingCategoryCnt(Date date);
 	

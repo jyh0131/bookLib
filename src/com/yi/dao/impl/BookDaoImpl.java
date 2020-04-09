@@ -675,24 +675,32 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public List<Integer> selectCountByCateDate(Date date) {
-		List<Integer> list = new ArrayList<>();
-		String sql = "select count(*) as 'category_regist_cnt' from book\r\n" + 
-					"where regist_date  between ? and DATE_sub(?, interval -1 month) group by lc_no";
+	public int[] selectCountByCateDate(Date date) {
+		int[] cateCounts = new int[10];
+		String sql = "select \r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =1 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate1',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =2 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate2',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =3 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate3',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =4 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate4',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =5 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate5',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =6 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate6',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =7 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate7',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =8 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate8',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =9 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate9',\r\n" + 
+				"	(select count(*) from book b left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =10 and b.regist_date between ? and DATE_sub(?, interval -1 month)) as 'cate10'";
 		try(Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
-			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			for(int i =1; i<21;i++) {
+				pstmt.setTimestamp(i, new Timestamp(date.getTime()));
+			}
 			ResultSet rs = pstmt.executeQuery();
-			
 			while(rs.next()) {
-				list.add(getCateCounts2(rs));
-				
+				cateCounts = getCateCounts(rs);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return list;
+		return cateCounts;
 	}
 	
 	private int getCateCounts2(ResultSet rs) throws SQLException {

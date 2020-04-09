@@ -3,7 +3,6 @@ package com.yi.handler.admin.statistics;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +37,7 @@ public class AdminBookStatisticsHandler implements CommandHandler {
 			Date d = sdf.parse(wantDate);
 //			LendingDao lendingDao = LendingDaoImpl.getInstance();
 			BookDao bookDao = BookDaoImpl.getInstance();
-			List<Integer> cnt = bookDao.selectCountByCateDate(d);
+			int[] cnt = bookDao.selectCountByCateDate(d);
 			System.out.println("cnt의 값 : "+ cnt.toString());
 			
 //			for(int i: cnt) {
