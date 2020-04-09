@@ -10,7 +10,7 @@ public class UserBookReqstAddHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// TODO Auto-generated method stub
-		return "/WEB-INF/view/user/book/userReqstAddForm.jsp";
+		return "/WEB-INF/view/user/book/userBookReqstAddForm.jsp";
 	}
 
 }

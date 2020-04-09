@@ -82,7 +82,7 @@
 					<ul class="subMenu">
 						<li><a href="#">내정보수정</a></li>
 						<li><a href="#">이용현황</a></li>
-						<li><a href="#">희망도서신청현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/book/requestList.do">희망도서신청현황</a></li>
 					</ul>
 				</li>
 			</ul>

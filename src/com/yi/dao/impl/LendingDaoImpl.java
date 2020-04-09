@@ -657,4 +657,24 @@ public class LendingDaoImpl implements LendingDao {
 		}
 		return 0;
 	}
+
+	@Override
+	public int showAtoBLendingCnt(Date date) {		
+		String sql = "select count(*) as 'LendCntXBooks' from lending where lend_date between date(?) and DATE(DATE_sub(?, interval -1 month))";
+		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);)
+				{
+			System.out.println(pstmt.toString());
+			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				return rs.getInt("LendCntXBooks");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+
 }

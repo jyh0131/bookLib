@@ -27,12 +27,6 @@ public class MemberDaoImpl implements MemberDao {
 		return instance;
 	}
 
-	private String nowTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date time = new Date();
-		String now = sdf.format(time);
-		return now;
-	}
 
 	@Override
 	public Member selectMemberByNo(Member member) {
@@ -375,7 +369,6 @@ public class MemberDaoImpl implements MemberDao {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -515,7 +508,6 @@ public class MemberDaoImpl implements MemberDao {
 				members[2] = rs.getInt("vipmember");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return members;
@@ -626,7 +618,6 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public Member selectLendingMemberByNo(Member member) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -764,6 +755,33 @@ public class MemberDaoImpl implements MemberDao {
 		return mber;
 	}
 
+
+	public List<Integer> selectMemberCountDate(Date date) {
+		List<Integer> list = new ArrayList<>();
+		String sql = "select count(*) as 'category_regist_cnt' from member m left join grade g on m.grade = g.grade_no \r\n" + 
+				"where m.join_dt between ? and DATE_sub(?, interval -1 year) group by g.grad_name";
+		try(Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			System.out.println(pstmt);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(getCateCounts2(rs));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	private int getCateCounts2(ResultSet rs) throws SQLException {
+		int cate1 = rs.getInt("category_regist_cnt");
+		return cate1;
+	}
+//github.com/jyh0131/bookLib.git
 
 //	public Member selectLendingMemberByNo(Member member) {
 ////		String sql = "select m.mber_id , m.mber_name , g.grad_name , m.lend_psb_cdt , (g.book_le_cnt - count(l.rturn_date)) as 'lend_book_cnt'\r\n"

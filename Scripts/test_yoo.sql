@@ -60,6 +60,7 @@ from large_classification lc left join middle_classification ml on lc.lclas_no =
 where lc.lclas_no = 111;
 
 
+
 select mber_id, mber_pass, mber_name, mber_brthdy, mber_zip, mber_bass_ad, mber_detail_ad, mber_tel, mber_img, total_le_cnt, lend_book_cnt, grade, grad_name, book_le_cnt, lend_psb_cdt, join_dt, wdr_cdt,od_cnt from member m left join grade g on m.grade = g.grade_no where mber_id ='7susdmlqka';
 
 select mber_id, mber_pass, mber_name, mber_brthdy, mber_zip, mber_bass_ad, mber_detail_ad, mber_tel, mber_img, mber_img_path, total_le_cnt, lend_book_cnt, grade, grad_name, book_le_cnt, lend_psb_cdt, join_dt, wdr_cdt,od_cnt from member m left join grade g on m.grade = g.grade_no where mber_id = '7susdmlqka';
@@ -68,3 +69,14 @@ select mber_id, mber_pass, mber_name, mber_brthdy, mber_zip, mber_bass_ad, mber_
 select mber_id, mber_name, mber_pass, mber_brthdy, mber_zip, mber_bass_ad, mber_detail_ad, mber_tel, mber_img_path
 from member
 where mber_id = '7susdmlqka';
+
+-- 신청도서
+select reqst_book_no, reqst_book_name, reqst_book_author, reqst_book_trnslr, request_book_pls, reqst_date, wh_cdt, cnt 
+from vw_request_book 
+order by reqst_book_no;
+
+select reqst_book_no, reqst_book_name, reqst_book_author, reqst_book_trnslr, request_book_pls, reqst_mb_id, reqst_date, wh_cdt, cnt 
+from vw_request_book
+where year(reqst_date) = '2020' and month(reqst_date) = '4' and wh_cdt = 0;
+
+

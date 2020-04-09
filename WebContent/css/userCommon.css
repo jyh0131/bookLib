@@ -19,6 +19,10 @@ a {
 	color: #383838;
 }
 
+table {
+	border-collapse: collapse;
+}
+
 /* float 사용시 overflow: hidden; 사용할 수 없을 시에 적용 */
 .clearfix::after{
 	content: "";
