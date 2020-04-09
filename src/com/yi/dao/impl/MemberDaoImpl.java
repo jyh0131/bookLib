@@ -642,6 +642,32 @@ public class MemberDaoImpl implements MemberDao {
 		return 0;
 	}
 
+	@Override
+	public List<Integer> selectMemberCountDate(Date date) {
+		List<Integer> list = new ArrayList<>();
+		String sql = "select count(*) as 'category_regist_cnt' from member m left join grade g on m.grade = g.grade_no \r\n" + 
+				"where m.join_dt between ? and DATE_sub(?, interval -1 year) group by g.grad_name";
+		try(Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			System.out.println(pstmt);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(getCateCounts2(rs));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	private int getCateCounts2(ResultSet rs) throws SQLException {
+		int cate1 = rs.getInt("category_regist_cnt");
+		return cate1;
+	}
 
 //	public Member selectLendingMemberByNo(Member member) {
 ////		String sql = "select m.mber_id , m.mber_name , g.grad_name , m.lend_psb_cdt , (g.book_le_cnt - count(l.rturn_date)) as 'lend_book_cnt'\r\n"

@@ -1,5 +1,6 @@
 package com.yi.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.yi.model.Book;
@@ -50,4 +51,10 @@ public interface BookDao {
 	int selectOverdueBooks();
 	
 	int selectNoLendingBooks();
+	
+	List<Integer> selectCountByCateDate(Date date);
+	
+	int [] selectLendingCategoryCnt(Date date);
+	
+	int [] selectLendingCate();
 }

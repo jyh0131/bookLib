@@ -673,6 +673,87 @@ public class BookDaoImpl implements BookDao {
 		}
 		return 0;
 	}
+
+	@Override
+	public List<Integer> selectCountByCateDate(Date date) {
+		List<Integer> list = new ArrayList<>();
+		String sql = "select count(*) as 'category_regist_cnt' from book\r\n" + 
+					"where regist_date  between ? and DATE_sub(?, interval -1 month) group by lc_no";
+		try(Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(getCateCounts2(rs));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	private int getCateCounts2(ResultSet rs) throws SQLException {
+		int cate1 = rs.getInt("category_regist_cnt");
+		return cate1;
+	}
+
+	@Override
+	public int[] selectLendingCategoryCnt(Date date) {
+		int[] cateCounts = new int[10];
+		String sql ="select \r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =1) as 'cate1',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =2) as 'cate2',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =3) as 'cate3',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =4) as 'cate4',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =5) as 'cate5',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =6) as 'cate6',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =7) as 'cate7',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =8) as 'cate8',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =9) as 'cate9',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 month) and lc.lclas_no =10) as 'cate10';";
+		try(Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			for(int i =1; i<21;i++) {
+				pstmt.setTimestamp(i, new Timestamp(date.getTime()));
+			}
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				cateCounts = getCateCounts(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cateCounts;
+	}
+
+	@Override
+	public int[] selectLendingCate() {
+		int[] cateCounts = new int[10];
+		String sql = "select \r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =1) as 'cate1',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =2) as 'cate2',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =3) as 'cate3',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =4) as 'cate4',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =5) as 'cate5',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =6) as 'cate6',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =7) as 'cate7',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =8) as 'cate8',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =9) as 'cate9',\r\n" + 
+				"	(select count(*) from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where lc.lclas_no =10) as 'cate10'";
+		try(Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while(rs.next()) {
+				cateCounts = getCateCounts(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cateCounts;
+	}
 }
 
 

@@ -1,6 +1,7 @@
 package com.yi.dao;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import com.yi.model.Book;
@@ -61,4 +62,8 @@ public interface LendingDao {
 	int updateMemberOdcnt(Member m) throws SQLException;
 
 	int updateLendingBookMember(Member member);
+	
+	int showAtoBLendingCnt(Date date);
+	
+
 }
