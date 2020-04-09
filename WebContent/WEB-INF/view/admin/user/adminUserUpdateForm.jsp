@@ -16,7 +16,8 @@
 	}
 	
 	#id{
-		width:140px;
+   	 	width: 251px;
+    	background: lightgray;
 	}
 	
 	.addBox {
@@ -47,11 +48,7 @@
 	.addBox input[type="file"] {
 		font-size: 16px;
 	}
-	
-	.addBox input[type="submit"]{
-		font-size: 20px;
-		margin: 50px 200px;
-	}
+
 	
 	[type="date"] {
 	background: #fff
@@ -60,13 +57,15 @@
 	}
 
 	[type="date"]::-webkit-inner-spin-button {
+		-webkit-appearance: none;
 		display: none;
 	}
 
 	[type="date"]::-webkit-calendar-picker-indicator {
+		-webkit-appearance: none;
 		opacity: 0;
 	}
-	
+
 	.addBox .fas {
 		color: #D9D9D9;
 	}
@@ -91,6 +90,36 @@
 	    height: 250px;
 	}
 	
+	input[type="file"]{
+	position: absolute;
+    top: 385px;
+    left: 13px;
+	}
+	
+	.submitBtn{
+		width:100px;
+		position: relative;
+	}
+	
+		
+	#cancel{
+    font-size: 20px;
+    width: 100px;
+    text-align: center;
+    position: absolute;
+    top: 16px;
+    left: 344px;
+
+	}
+	
+	.addBox input[type="submit"]{
+    font-size: 20px;
+    margin: 31px 150px;
+    position: absolute;
+    top: -15px;
+    left: 55px;
+	}
+	
 </style>
 <!-- 주소검색용 스크립트 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -101,7 +130,7 @@ function imageURL(input) {
         var reader = new FileReader();
 
         reader.onload = function(e) {
-            $('.loadImg').attr('src', e.target.result)
+            $('.loadImg').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
     }
@@ -122,6 +151,7 @@ $(function() {
 	today = year + '-' + month + '-' + day;
 	document.getElementById("dateField").setAttribute("max", today);
 })
+
 
 function address() {
 	new daum.Postcode({
@@ -196,53 +226,50 @@ function address() {
 					return false;
 				}
 				
-				alert("[" +  $("#name").val() + "]님의 회원가입이 완료되었습니다.");
+				alert("[" +  $("#name").val() + "]님의 정보수정이 완료되었습니다.");
 		})
 		
-		$("#IdCheck").click(function() {
-			var id = $("input[name='id']").val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/login/idCheck.do",
-				type : "get",
-				data : {"id" : id},
-				success : function(res) {
-					console.log(res);
-					
-					
-					if (res != null) {
-						alert("중복되는 아이디입니다");
-						$("input[name='id']").val("");
-					}else if(res == null){
-						alert("사용가능한 아이디입니다.");
-					}
-				}
-			})
+		$("#cancel").click(function() {
+			var cancel = confirm("회원정보 수정을 취소하시겠어요?");
+			if(cancel){
+				location.href="${pageContext.request.contextPath}/admin/user/userList.do";
+				return false;
+			}
+			return false;
 		})
+		
+		$(".loadImgBtn").change(function() {
+			var changeImg = $(".loadImgBtn").val().split("\\");
+			var imgName = changeImg[changeImg.length-1];
+			var imgSrc = $(".loadImgBtn").val();
+			
+			alert(imgSrc);
+			
+			console.log(imgSrc);
+		})
+		
 	})
 	
 </script>
 <article class="contentWrap">
 	<div class="wrap">
-		<h2 class="pageTitle">회원등록</h2>
+		<h2 class="pageTitle">회원정보 수정</h2>
 		
 		<div class="addBox">
-			<form action="userAdd.do" method="post" enctype="multipart/form-data" autocomplete="off">
+			<form action="userUpdate.do" method="post" enctype="multipart/form-data">
 				<p>
 					<label>아이디 </label>
-					<input type="text" name="id" id="id" placeholder="회원아이디"/>
-					<button class="btnOrange plsSearch" type="button" id="IdCheck">중복확인</button>
-					<i class="fas fa-feather-alt"></i>
-					<span class="error">5~20자의 영문 소문자와 숫자,특수기호(@_-.)만 사용 가능합니다.</span>
+					<input class="w395" type="text" name="id" id="id" readonly value="${item.mberId }"/>
 				</p>
 				<p>
 					<label>이 름</label>
-					<input class="w395" type="text" name="name" id="name" placeholder="이름"/>
+					<input class="w395" type="text" name="name" id="name" value="${item.mberName}"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)</span>
 				</p>
 				<p>
 					<label>비밀번호</label>
-					<input class="w395" type="password" name="pass" placeholder="비밀번호"/>
+					<input class="w395" type="password" name="pass" value="${item.mberPass}"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span>
 				</p>
@@ -254,41 +281,58 @@ function address() {
 				</p>
 				<p>
 					<label>생년월일</label> 
-					<input type="date" class="w395" name="birthday" id="dateField" min="1900-01-01">
+					
+					<input type="date" class="w395" name="birthday" id="dateField" min="1900-01-01" value="<fmt:formatDate value='${item.mberBrthdy}' pattern='yyyy-MM-dd'/>">
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">생년월일을 선택해주세요.</span>
 				</p>
 				<p>
 					<label>휴대전화</label>
-					<input class="w395" type="text" name="phone" placeholder="휴대전화"/>
+					<input class="w395" type="text" name="phone" value="${item.mberTel }"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">(-)을 포함한 번호를 입력하세요.</span>
 				</p>
 				<p>
 					<label>주소</label> 
-					<input type="text" name="zipCode" id="zip" placeholder="우편번호">
+					<input type="text" name="zipCode" id="zip" value="${item.mberZip.zipCode }">
 					<button class="btnOrange plsSearch" type="button" id="btn">검색</button>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">주소를 검색해주세요.</span>
 				</p>
 				<p>
-					<input class="w395" type="text" name="baseAddress" id="base" placeholder="기본주소"> 
+					<input class="w395" type="text" name="baseAddress" id="base" value="${item.mberBassAd} "> 
 				</p>
 				<p>
-					<input class="w395" type="text" name="detailAddress" id="detail" placeholder="상세주소">
+					<input class="w395" type="text" name="detailAddress" id="detail" value="${item.mberDetailAd}">
 				</p>
 				
 				<p>
 					<label>회원 이미지</label>
-					<input type="file" name="memberImgPath" onchange="imageURL(this);" />
+					<span class="memberImg">
+						<c:if test="${item.memberImgPath !=null }">
+							[현재 이미지: ${item.memberImgPath }]<br>
+						</c:if>
+						<c:if test="${item.memberImgPath == null }">
+							등록된 이미지가 없음
+						</c:if>
+					</span><br><br>
+					<input type="file" name="memberImgPath" class="loadImgBtn" onchange="imageURL(this);"/>
 				</p>
 				<div class="submitBtn">
-					<input type="submit" value="회원 등록" class="btnPurple"/>
+					<input type="submit" value="정보 수정" class="btnPurple"/>
+					<button class="btnPurple" id="cancel">취소</button>
 				</div>
 			</form>
 		</div>
 		<div class="getImg">
-			<img class="loadImg" src="${pageContext.request.contextPath }/images/no-image.png" />
+			<c:choose>
+				<c:when test="${item.memberImgPath !=null }">
+					<img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.memberImgPath}"/>
+				</c:when>
+				<c:when test="${item.memberImgPath ==null }">
+					<img class="loadImg" src="${pageContext.request.contextPath }/images/no-image.png" />
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
 

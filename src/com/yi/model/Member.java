@@ -26,6 +26,30 @@ public class Member {
 	
 	
 	
+	public Member(String mberId, String mberPass, String mberName, Date mberBrthdy, ZipCode mberZip, String mberBassAd,
+			String mberDetailAd, String mberTel, byte[] mberImg, int totalLeCnt, int lendBookCnt, Grade grade,
+			int lendPsbCdt, Date joinDt, int wdrCdt, int odCnt, String mberBrthStr, String memberImgPath) {
+		super();
+		this.mberId = mberId;
+		this.mberPass = mberPass;
+		this.mberName = mberName;
+		this.mberBrthdy = mberBrthdy;
+		this.mberZip = mberZip;
+		this.mberBassAd = mberBassAd;
+		this.mberDetailAd = mberDetailAd;
+		this.mberTel = mberTel;
+		this.mberImg = mberImg;
+		this.totalLeCnt = totalLeCnt;
+		this.lendBookCnt = lendBookCnt;
+		this.grade = grade;
+		this.lendPsbCdt = lendPsbCdt;
+		this.joinDt = joinDt;
+		this.wdrCdt = wdrCdt;
+		this.odCnt = odCnt;
+		this.mberBrthStr = mberBrthStr;
+		this.memberImgPath = memberImgPath;
+	}
+
 	public String getMemberImgPath() {
 		return memberImgPath;
 	}
@@ -56,6 +80,23 @@ public class Member {
 		this.mberBassAd = mberBassAd;
 		this.mberDetailAd = mberDetailAd;
 		this.mberTel = mberTel;
+	}
+	
+	
+
+	public Member(String mberId, String mberPass, String mberName, Date mberBrthdy, ZipCode mberZip, String mberBassAd,
+			String mberDetailAd, String mberTel, Grade grade, String memberImgPath) {
+		super();
+		this.mberId = mberId;
+		this.mberPass = mberPass;
+		this.mberName = mberName;
+		this.mberBrthdy = mberBrthdy;
+		this.mberZip = mberZip;
+		this.mberBassAd = mberBassAd;
+		this.mberDetailAd = mberDetailAd;
+		this.mberTel = mberTel;
+		this.grade = grade;
+		this.memberImgPath = memberImgPath;
 	}
 
 	public Member(String mberId, String mberPass, String mberName, Date mberBrthdy, ZipCode mberZip, String mberBassAd,
@@ -139,7 +180,7 @@ public class Member {
 
 	public Member(String mberId, String mberName, Date mberBrthdy, ZipCode mberZip, String mberBassAd,
 			String mberDetailAd, String mberTel, int totalLeCnt, int lendBookCnt, Grade grade, int lendPsbCdt,
-			Date joinDt, int wdrCdt, int odCnt) {
+			Date joinDt, int wdrCdt, int odCnt, String memberImgPath) {
 		super();
 		this.mberId = mberId;
 		this.mberName = mberName;
@@ -155,6 +196,7 @@ public class Member {
 		this.joinDt = joinDt;
 		this.wdrCdt = wdrCdt;
 		this.odCnt = odCnt;
+		this.memberImgPath = memberImgPath;
 	}
 
 

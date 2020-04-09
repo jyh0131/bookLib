@@ -43,19 +43,13 @@ public class UserMemberJoinHandler implements CommandHandler {
 			
 			
 			try{
-				
 				String id = multi.getParameter("id");
 				String birthStr = multi.getParameter("birthday");
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date birthday = sdf.parse(birthStr);
-				
 				String name = multi.getParameter("name");
-				
 				MemberDao userDao = MemberDaoImpl.getInstance();
-//				String phone = req.getParameter("phone");
-//				ZipCode zip = new ZipCode(Integer.parseInt(req.getParameter("zipCode")));
-//				String base = req.getParameter("baseAddress");
-//				String detail = req.getParameter("detailAddress");
+				
 				
 				req.setAttribute("name",name);
 				
@@ -77,12 +71,8 @@ public class UserMemberJoinHandler implements CommandHandler {
 				member.setTotalLeCnt(0);
 				member.setJoinDt(new Date());
 				
-				
-				//Member member = new Member(id,pass,name,birthday,zip,phone,base,detail);
 				userDao.insertMember(member);
-				
-				
-
+			
 				res.sendRedirect(req.getContextPath()+"/user/home.do");
 				return null;
 			}catch (Exception e) {

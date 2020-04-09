@@ -90,15 +90,57 @@
 	
 	.fontSW{
 		font-size: 15px;
-   	 	font-weight: 800;
+   	 	font-weight: 700;
 	}
 </style>
 
 <script>
 $(function() {
-	$("input[type='submit']").click(function() {
-		
+	$(".wdrCdtRight").click(function() {
+		var wdrCdt = $(this).parent().prevAll(".wdrCdt").text().trim();
+		if(wdrCdt=="가입"){
+			var res = confirm("회원을 탈퇴상태로 변경하시겠습니까?");
+			if(res == false){
+				return false;
+			}else if(res){
+				alert("탈퇴여부가 변경되었습니다.");
+			}
+		}
+		if(wdrCdt=="탈퇴"){
+			var res = confirm("탈퇴회원입니다. 가입상태로 바꾸시겠습니까?");
+			if(res == false){
+				return false;
+			}else if(res){
+				arlet("가입상태로 변경되었습니다.");
+			}
+		}
 	})
+	
+	
+	$(".lendPsbCdtRight").click(function() {
+		var lendPsbCdt = $(this).parent().prevAll(".lendPsbCdt").text().trim();
+		
+		if(lendPsbCdt =="대여가능"){
+			var res = confirm("대여권한을 변경하시겠습니까?");
+			if(res==false){
+				return false;
+			}else{
+				alert("대여불가능으로 변경되었습니다.");
+			}
+		}
+		if(lendPsbCdt =="대여불가능"){
+			var res = confirm("대여권한을 변경하시겠습니까?");
+			if(res==false){
+				return false;
+			}else{
+				alert("대여가능으로 변경되었습니다.");
+			}
+		}
+	})
+	
+	
+	
+	
 })
 
 </script>
@@ -135,7 +177,7 @@ $(function() {
 							<th class="width40">연체횟수</th>
 							<th class="width200">관리</th>
 						</tr>
-						<c:if test="${memberListNull }">
+						<c:if test="${memberListNull}">
 							<tr>
 								<td class="searchNone" colspan="13">검색되는 회원이 없습니다.</td>
 							</tr>
@@ -185,9 +227,9 @@ $(function() {
 									 
 									<td class="mgn">
 										<%-- <a class="update btnOrange" href="${pageContext.request.contextPath }/admin/book/update.do?code=${bList.bookCode}">수정</a> --%>
-										<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/user/userUpdate.do?code=${memberList.mberId}">정보수정</a>
-										<a class="wdrCdtRight btnPurple" href="${pageContext.request.contextPath }/admin/user/wdrCdtRight.do?code=${memberList.mberId}">탈퇴여부</a>
-										<a class="lendPsbCdtRight btnAqua" href="${pageContext.request.contextPath }/admin/user/lendPsbCdtRight.do?code=${memberList.mberId}">대여권한</a>
+										<a class="update btnOrange" href="${pageContext.request.contextPath }/admin/user/userUpdate.do?id=${memberList.mberId}">정보수정</a>
+										<a class="wdrCdtRight btnPurple" href="${pageContext.request.contextPath }/admin/user/wdrCdtRight.do?id=${memberList.mberId}">탈퇴여부</a>
+										<a class="lendPsbCdtRight btnAqua" href="${pageContext.request.contextPath }/admin/user/lendPsbCdtRight.do?id=${memberList.mberId}">대여권한</a>
 									</td>
 								</tr>
 							</c:forEach>

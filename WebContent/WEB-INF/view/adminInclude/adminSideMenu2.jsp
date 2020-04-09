@@ -21,6 +21,11 @@
 			$(".item2").addClass("sideView");
 			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
 		}
+		
+		if(subUrlName.match("userUpdate.do") != null) {
+			$(".item2").addClass("sideView");
+			$(".item2").append("<i class='fas fa-angle-right iconView'></i>");
+		}
 
 	})
 </script>
