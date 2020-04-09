@@ -68,7 +68,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 
 	@Override
 	public List<Librarian> selectLibrarianByAll() {
-		String sql =  "select lb_id, lb_pass, lb_name ,lb_birthday ,lb_zip ,lb_bass_ad ,lb_detail_ad ,lb_tel, lb_img ,title ,join_date ,work_cdt from librarian";
+		String sql =  "select * from librarian";
 		
 		List<Librarian> list =null;
 		try(Connection con = JDBCUtil.getConnection();
@@ -266,7 +266,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 	@Override
 	public List<Librarian> searchLibrarianByID(Librarian librarian) {
 		List<Librarian> list = new ArrayList<>();
-		String sql = "select lb_id, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, title, join_date, work_cdt  \r\n" + 
+		String sql = "select lb_id, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, title, join_date, work_cdt,lb_img_path  \r\n" + 
 				"from librarian\r\n" + 
 				"where lb_id like ? ";
 		try (Connection con = JDBCUtil.getConnection();
@@ -289,7 +289,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 	@Override
 	public List<Librarian> searchLibrarianByName(Librarian librarian) {
 		List<Librarian> list = new ArrayList<>();
-		String sql = "select lb_id, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, title, join_date, work_cdt  \r\n" + 
+		String sql = "select lb_id, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, title, join_date, work_cdt,lb_img_path  \r\n" + 
 				"from librarian\r\n" + 
 				"where lb_name like ? ";
 		try (Connection con = JDBCUtil.getConnection();

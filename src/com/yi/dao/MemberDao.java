@@ -1,5 +1,6 @@
 package com.yi.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.yi.model.Member;
@@ -9,6 +10,7 @@ public interface MemberDao {
 	Member loginMember(Member member);
 	Member findMemberId(Member member);
 	Member findMemberPw(Member member);
+	Member JSPSelectUpdateMember(Member member);
 
 	List<Member> selectMemberByAll();
 	List<Member> searchMemberByID(Member member);
@@ -27,5 +29,6 @@ public interface MemberDao {
 	List<Member> selectMemberByCodeName2(Member name);
 	int updateOdCnt(Member member);
 	int selectByOdCnt(Member member);
+	List<Integer> selectMemberCountDate(Date date);
 
 }

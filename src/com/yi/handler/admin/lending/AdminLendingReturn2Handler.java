@@ -54,10 +54,10 @@ public class AdminLendingReturn2Handler implements CommandHandler {
 
 //				List<Lending> list = lendingDao.selectLendingByAll();
 //				List<Lending> list = lendingDao.selectLendingByMberIdAndLendBookAll(lending);
-				System.out.println("대여목록 불러옴");
+				
 				ObjectMapper om = new ObjectMapper();
 				String json = om.writeValueAsString(list);
-				System.out.println("리스트를 담음");
+				
 				/*System.out.println("list : " + list.toString());*/
 				/*System.out.println("json : " + json.toString());*/
 				res.setContentType("application/json;charset=UTF-8");
