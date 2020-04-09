@@ -101,7 +101,7 @@ div.box h1 {
 	<div class="searchBox">
 		<h1>LIBRARY 도서검색</h1>
 		<form action="">
-			<input type="text" name="bookSch" placeholder="검색어를 입력하세요." /> <input
+			<input type="text" name="bookSch" placeholder="도서 제목을 입력하세요" /> <input
 				type="submit" value="검색" class="bookSchbtn" />
 		</form>
 	</div>
