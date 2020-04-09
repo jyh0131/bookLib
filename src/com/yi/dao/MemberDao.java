@@ -10,6 +10,7 @@ public interface MemberDao {
 	Member loginMember(Member member);
 	Member findMemberId(Member member);
 	Member findMemberPw(Member member);
+	Member JSPSelectUpdateMember(Member member);
 
 	List<Member> selectMemberByAll();
 	List<Member> searchMemberByID(Member member);

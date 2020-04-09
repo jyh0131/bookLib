@@ -21,7 +21,9 @@ public class AdminUserAddHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
+			
 			return "/WEB-INF/view/admin/user/adminUserInsertForm.jsp";
+			
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String uploadPath = req.getRealPath("upload");
 			File dir = new File(uploadPath);
@@ -38,12 +40,12 @@ public class AdminUserAddHandler implements CommandHandler {
 														new DefaultFileRenamePolicy());
 			
 			try {
-				MemberDao dao = MemberDaoImpl.getInstance();
+				String id = multi.getParameter("id");
 				String birthStr = multi.getParameter("birthday");
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				Date birthday = sdf.parse(birthStr);
 				String name = multi.getParameter("name");
-				
+				MemberDao dao = MemberDaoImpl.getInstance();
 				
 				Member member = new Member();
 				member.setMberId(multi.getParameter("id"));
