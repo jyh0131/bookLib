@@ -19,10 +19,10 @@ create view vw_request_book as
 select reqst_book_no , rb1.reqst_book_name , reqst_book_author , reqst_book_trnslr , request_book_pls , 
 	reqst_mb_id , reqst_date , wh_cdt , rb2.cnt
 	from request_book rb1, 
-		(select reqst_book_name , count(*) as cnt from request_book group by reqst_book_name) rb2
+		(select reqst_book_name , count(*) as cnt from request_book group by reqst_book_name, reqst_book_author, request_book_pls) rb2
 	where rb1.reqst_book_name = rb2.reqst_book_name
 	group by rb1.reqst_book_name
-	order by reqst_date;
+	order by reqst_book_no;
 
 -- 신청도서 검색 (회원용)
 DROP VIEW IF EXISTS vw_request_book_member;
@@ -30,7 +30,7 @@ create view vw_request_book_member as
 select reqst_book_no , rb1.reqst_book_name , reqst_book_author , reqst_book_trnslr , request_book_pls , 
 	reqst_mb_id , reqst_date , wh_cdt , rb2.cnt
 	from request_book rb1, 
-		(select reqst_book_name , count(*) as cnt from request_book group by reqst_book_name) rb2
+		(select reqst_book_name , count(*) as cnt from request_book group by reqst_book_name, reqst_book_author, request_book_pls) rb2
 	where rb1.reqst_book_name = rb2.reqst_book_name;
 
 
