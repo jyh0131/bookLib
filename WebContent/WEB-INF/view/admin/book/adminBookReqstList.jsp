@@ -137,8 +137,12 @@
 			$("#f1").attr("action", "bookReqstExcelAdd.do");
 			$("#f1").submit();
 		})
+		
 	})
 </script>
+<c:if test="${error != null }">
+	<p>error!!</p>
+</c:if>
 <article class="contentWrap">
 	<h2 class="pageTitle">신청도서 조회</h2>
 	
@@ -188,13 +192,16 @@
 						<th>입고선택</th>
 						<th>입고취소</th>
 					</tr>
-					<c:if test="${list == null }">
-						<tr>
-							<td class="noData" colspan="9">조회되는 신청도서가 없습니다.</td>
-						</tr>
-					</c:if>
 					<c:if test="${list != null }">
 						<c:forEach var="item" items="${list }">
+							<%-- 엑셀데이터 input --%>
+							<input type="hidden" name="no" value="${item.requestBookNo }"/>
+							<input type="hidden" name="bookName" value="${item.requestBookName }"/>
+							<input type="hidden" name="auth" value="${item.requestBookAuthor }" />
+							<input type="hidden" name="trns" value="${item.requestBookTrnslr }"/>
+							<input type="hidden" name="pls" value="${item.requestBookPls }"/>
+							<input type="hidden" name="cnt" value="${item.overlapCnt } 명" />
+							<input type="hidden" name="date" value="${item.requestDate }"/>
 							<tr>
 								<td>${item.requestBookNo }</td>
 								<td>${item.requestBookName }</td>
@@ -211,22 +218,20 @@
 								<c:if test="${item.whCdt == 0}">								
 									<td><input type="checkbox" class="chkY" name="chk" value="${item.requestBookName },${item.requestBookPls },${item.requestBookAuthor }" data-name="${item.requestBookName }" data-pls="${item.requestBookPls }" data-auth="${item.requestBookAuthor }"/></td>
 									<td>N</td>
+									<input type="hidden" name="whCdtRes" value="미입고"/>
 								</c:if>
 								<c:if test="${item.whCdt == 1}">
 									<td>Y</td>
 									<td><input type="checkbox" class="chkN" name="chk" value="${item.requestBookName },${item.requestBookPls },${item.requestBookAuthor }" data-name="${item.requestBookName }" data-pls="${item.requestBookPls }" data-auth="${item.requestBookAuthor }"/></td>
+									<input type="hidden" name="whCdtRes" value="입고완료"/>
 								</c:if>
 							</tr>
-							<%-- 엑셀데이터 input --%>
-							<input type="hidden" name="no" value="${item.requestBookNo }"/>
-							<input type="hidden" name="bookName" value="${item.requestBookName }"/>
-							<input type="hidden" name="auth" value="${item.requestBookAuthor }" />
-							<input type="hidden" name="trns" value="${item.requestBookTrnslr }"/>
-							<input type="hidden" name="pls" value="${item.requestBookPls }"/>
-							<input type="hidden" name="cnt" value="${item.overlapCnt } 명" />
-							<input type="hidden" name="date" value="${item.requestDate }"/>
-							<input type="hidden" name="whCdt" value="${item.whCdt}"/>
 						</c:forEach>
+					</c:if>
+					<c:if test="${list == null }">
+						<tr>
+							<td class="noData" colspan="9">조회되는 신청도서가 없습니다.</td>
+						</tr>
 					</c:if>
 				</table>
 			</div>

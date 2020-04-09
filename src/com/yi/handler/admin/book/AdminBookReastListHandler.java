@@ -70,40 +70,6 @@ public class AdminBookReastListHandler implements CommandHandler {
 				
 				return "/WEB-INF/view/admin/book/adminBookReqstList.jsp";
 				
-				/*if(search != null && excelBtn == null && whCdtItem == null) {					
-				}*/
-				
-				/*if(search == null && excelBtn == null && whCdtItem != null) {
-					String[] items = req.getParameterValues("chk");
-					
-					try {
-						RequestBookDao dao = RequestBookDaoImpl.getInstance();
-						
-						for(int i=0; i<items.length; i++) {
-							System.out.println(items[i]);
-							String[] item = items[i].split(",");
-							RequestBook rb = new RequestBook();
-							rb.setWhCdt(1);
-							rb.setRequestBookName(item[0]);
-							rb.setRequestBookPls(item[1]);
-							rb.setRequestBookAuthor(item[2]);
-							
-							dao.updateReuestBookByWhCdt(rb);
-						}
-
-						res.sendRedirect(req.getContextPath()+"/admin/book/bookReqstList.do");
-						return null;
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
-				}*/
-				
-				/*if(search == null && excelBtn != null && whCdtItem == null) {
-					
-				}*/
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}			
