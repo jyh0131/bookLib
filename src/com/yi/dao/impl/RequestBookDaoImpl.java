@@ -44,7 +44,7 @@ public class RequestBookDaoImpl implements RequestBookDao {
 		String sql = "select reqst_book_no, reqst_book_name, reqst_book_author, reqst_book_trnslr, request_book_pls, reqst_mb_id, "
 						+ "reqst_date, wh_cdt, cnt \r\n" 
 						+ "	from vw_request_book "
-						+ "	order by reqst_date ";
+						+ "	order by reqst_book_no ";
 		List<RequestBook> list = null;
 		try (Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -64,17 +64,19 @@ public class RequestBookDaoImpl implements RequestBookDao {
 	}
 	
 	@Override
-	public List<RequestBook> selectRequestBookByOptionAll(RequestBook rb, String year, String month) {
+	public List<RequestBook> selectRequestBookByOptionAll(int whCdt, String year, String month) {
 		StringBuilder sql = new StringBuilder("select reqst_book_no, reqst_book_name, reqst_book_author, reqst_book_trnslr, request_book_pls, "
 				+ "reqst_mb_id, reqst_date, wh_cdt, cnt \r\n" 
 				+ "	from vw_request_book ");
 		StringBuilder where = new StringBuilder("where ");
 		if(year != null) where.append("year(reqst_date) = ? and ");
 		if(month != null) where.append("month(reqst_date) = ? and ");
-		if(rb.getWhCdt() > -1) where.append("wh_cdt = ? and ");
-		where.replace(where.lastIndexOf("and"), where.length(), " ");
-		sql.append(where);
-		sql.append("order by reqst_date");
+		if(whCdt > -1) where.append("wh_cdt = ? and ");
+		int andIndex = where.lastIndexOf("and");
+		if(andIndex > -1) {
+			where.replace(andIndex, where.length(), " ");
+			sql.append(where);
+		}
 		
 		List<RequestBook> list = null;
 		try(Connection con = JDBCUtil.getConnection();
@@ -82,9 +84,8 @@ public class RequestBookDaoImpl implements RequestBookDao {
 			int argCnt = 1;
 			if(year != null) pstmt.setString(argCnt++, year);
 			if(month != null) pstmt.setString(argCnt++, month);
-			if(rb.getWhCdt() > -1) pstmt.setInt(argCnt++, rb.getWhCdt());
+			if(whCdt > -1) pstmt.setInt(argCnt++, whCdt);
 			LogUtil.prnLog(pstmt);
-			
 			try (ResultSet rs = pstmt.executeQuery()){
 				if(rs.next()) {
 					list = new ArrayList<>();
@@ -206,6 +207,24 @@ public class RequestBookDaoImpl implements RequestBookDao {
 		}
 		return 0;
 	}
+	
+	@Override
+	public int updateReuestBookByWhCdt(RequestBook rb) {
+		String sql = "update request_book set wh_cdt = ? where reqst_book_name = ? and request_book_pls = ? and reqst_book_author = ?";
+		
+		try (Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, rb.getWhCdt());
+			pstmt.setString(2, rb.getRequestBookName());
+			pstmt.setString(3, rb.getRequestBookPls());
+			pstmt.setString(4, rb.getRequestBookAuthor());
+			LogUtil.prnLog(pstmt);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	@Override
 	public int updateRequestBook(RequestBook rb) {
@@ -262,7 +281,6 @@ public class RequestBookDaoImpl implements RequestBookDao {
 		}
 		return 0;
 	}
-	
 
 //	@Override
 //	public List<RequestBook> selectRequestBookByDateAndWhCdt(RequestBook rb) {

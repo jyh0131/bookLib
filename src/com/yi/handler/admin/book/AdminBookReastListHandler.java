@@ -8,6 +8,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yi.dao.RequestBookDao;
+import com.yi.dao.impl.RequestBookDaoImpl;
+import com.yi.model.RequestBook;
 import com.yi.mvc.CommandHandler;
 
 public class AdminBookReastListHandler implements CommandHandler {
@@ -19,19 +22,92 @@ public class AdminBookReastListHandler implements CommandHandler {
 			// 올해 년도부터 5년전 까지 년도 숫자 넘기기
 			Date today = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-			int year = Integer.parseInt(sdf.format(today));
+			int yearNum = Integer.parseInt(sdf.format(today));
 			List<Integer> yearList = new ArrayList<Integer>();
 			
 			for(int i=0; i<5; i++) {
-				yearList.add(year);
-				year--;
+				yearList.add(yearNum);
+				yearNum--;
 			}
 			
+			try {				
+				RequestBookDao dao = RequestBookDaoImpl.getInstance();
+				List<RequestBook> list = dao.selectRequestBookByAll();
+				
+				req.setAttribute("yearList", yearList);
+				req.setAttribute("list", list);
+				return "/WEB-INF/view/admin/book/adminBookReqstList.jsp";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
+		} else if(req.getMethod().equalsIgnoreCase("post")) {
+			Date today = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+			int yearNum = Integer.parseInt(sdf.format(today));
+			List<Integer> yearList = new ArrayList<Integer>();
+			
+			for(int i=0; i<5; i++) {
+				yearList.add(yearNum);
+				yearNum--;
+			}
 			req.setAttribute("yearList", yearList);
-			return "/WEB-INF/view/admin/book/adminBookReqstList.jsp";
+			
+			/*String search = req.getParameter("search");
+			String excelBtn = req.getParameter("excelBtn");
+			String whCdtItem = req.getParameter("whCdtItem");*/
+			
+			try {
+				String year = req.getParameter("year").equals("") ? null : req.getParameter("year");
+				String month = req.getParameter("month").equals("") ? null : req.getParameter("month");
+				String getWhCdt = req.getParameter("whCdt"); 
+				int whCdt = Integer.parseInt(getWhCdt);
+				
+				RequestBookDao dao = RequestBookDaoImpl.getInstance();
+				List<RequestBook> list = dao.selectRequestBookByOptionAll(whCdt, year, month);
+				
+				req.setAttribute("list", list);
+				
+				return "/WEB-INF/view/admin/book/adminBookReqstList.jsp";
+				
+				/*if(search != null && excelBtn == null && whCdtItem == null) {					
+				}*/
+				
+				/*if(search == null && excelBtn == null && whCdtItem != null) {
+					String[] items = req.getParameterValues("chk");
+					
+					try {
+						RequestBookDao dao = RequestBookDaoImpl.getInstance();
+						
+						for(int i=0; i<items.length; i++) {
+							System.out.println(items[i]);
+							String[] item = items[i].split(",");
+							RequestBook rb = new RequestBook();
+							rb.setWhCdt(1);
+							rb.setRequestBookName(item[0]);
+							rb.setRequestBookPls(item[1]);
+							rb.setRequestBookAuthor(item[2]);
+							
+							dao.updateReuestBookByWhCdt(rb);
+						}
+
+						res.sendRedirect(req.getContextPath()+"/admin/book/bookReqstList.do");
+						return null;
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+				}*/
+				
+				/*if(search == null && excelBtn != null && whCdtItem == null) {
+					
+				}*/
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
 		}
-		
 		return null;
 	}
 

@@ -59,4 +59,12 @@ select count(ml.mlsfc_no)
 from large_classification lc left join middle_classification ml on lc.lclas_no = ml.lclas_no 
 where lc.lclas_no = 111;
 
+-- 신청도서
+select reqst_book_no, reqst_book_name, reqst_book_author, reqst_book_trnslr, request_book_pls, reqst_date, wh_cdt, cnt 
+from vw_request_book 
+order by reqst_book_no;
+
+select reqst_book_no, reqst_book_name, reqst_book_author, reqst_book_trnslr, request_book_pls, reqst_mb_id, reqst_date, wh_cdt, cnt 
+from vw_request_book
+where year(reqst_date) = '2020' and month(reqst_date) = '4' and wh_cdt = 0;
 

@@ -34,7 +34,7 @@ public class DBCPInit extends HttpServlet {
 	private void initConnectionPool() {
 		try {
 			String url = "jdbc:mysql://localhost:3306/yi_java3st_3team?" //DB이름
-					+ "useUnicode=true&characterEncoding=utf8";
+					+ "useUnicode=true&characterEncoding=utf8&useSSL=false";
 			String user = "root";
 			String pass= "rootroot";
 			ConnectionFactory connFactory = new DriverManagerConnectionFactory(url, user, pass);
