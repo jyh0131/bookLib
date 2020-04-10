@@ -53,12 +53,16 @@
 		padding: 10px 20px;
 	}
 </style>
+<script>
+	
+</script>
 <div class="articleBg">
 	<article class="contentWrap">
 		<div class="wrap">
 			<h3 class="pageTitle">희망도서신청</h3>
 			<div class="formWrap">
-				<form action="">
+				<form action="requestAdd.do" method="post">
+					<input type="hidden" name="id" value="${MemId }"/>
 					<p>신청도서명</p>
 					<p>
 						<input type="text" name="bookName"/> 

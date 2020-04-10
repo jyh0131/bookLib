@@ -44,7 +44,7 @@ public class AdminBookReastExcelAddHandler implements CommandHandler {
 			WritableSheet sheet = null;
 			Label label = null;
 			
-			file = new File(uploadPath+"\\"+fileName+(fileNum++)+".xls");
+			file = new File(uploadPath+"\\"+fileName+"_"+(fileNum++)+".xls");
 			if(!file.exists()) {
 				file.createNewFile();
 			} else {
@@ -66,11 +66,6 @@ public class AdminBookReastExcelAddHandler implements CommandHandler {
 			String[] date = req.getParameterValues("date");
 			String[] whCdt = req.getParameterValues("whCdtRes");
 			
-			for(int i=0; i<whCdt.length; i++) {
-				System.out.print("whCdt: " + whCdt[i]);
-			}
-			
-			
 			Map<String, String> titleMap = new HashMap<String, String>();
 			for(int i=0; i<8; i++) {
 				titleMap.put(keys[i], title[i]);
@@ -87,7 +82,7 @@ public class AdminBookReastExcelAddHandler implements CommandHandler {
 				dataMap.put("trns", trns[i]);
 				dataMap.put("pls", pls[i]);
 				dataMap.put("cnt", cnt[i]);
-				dataMap.put("date", date[i]);
+				dataMap.put("date", date[i].replace("00:00:00.0", " "));
 				dataMap.put("whCdt", whCdt[i]);
 				list.add(dataMap);
 			}
