@@ -4,69 +4,104 @@
 <%@ include file="../../adminInclude/adminHeader.jsp" %>
 <%@ include file="../../adminInclude/adminSideMenu3.jsp" %>
 <style>
-	#mber_container{
-		width: 1000px;
-		margin: 0 auto;
+	#mber_container {
+		width: 1130px;		
 		overflow: hidden;
 	}
-	#mber_form_container{
-		border: 1px solid steelblue;
+	
+	#mber_form_container {
+		border: 1px solid #476fad;
+		background-color : #476fad;
+		color : #fff;
 		width: 350px;
-		height:150px;
+		height: 150px;
 		float: left;
-		margin: 10px 0 0 50px;
 	}
-	#mber_form_container p{
+	
+	#mber_form_container p {
 		margin: 10px;
 		font-size: 1.5em;
-	}	
-	#mber_form_container input[type='radio']{
-		margin: 25px;
+		color: #fff;
 	}
-	#mber_form_container input[type='text']{
+	
+	#mber_form_container input[type='radio'] {
+		margin: 25px;
+		color: #fff;
+	}
+	
+	#mber_form_container input[type='text'] {
 		height: 50px;
 		width: 240px;
 	}
-	#mber_form_container #mber_search{
+	
+	#mber_form_container #mber_search {
 		width: 60px;
 		height: 52px;
 	}
-	#mber_form_container2{
-		border: 1px solid steelblue;
+	
+	#mber_form_container2 {
+		border: 1px solid #476fad;
+		background-color : #476fad;
 		width: 350px;
-		height:150px;
-		margin: 10px 50px 0 0;
+		height: 150px;
 		float: right;
+		color: #fff;
 	}
-		#mber_form_container2 p{
-		margin: 10px;
+	
+	#mber_form_container2 p {
+		margin: 8px;
+		
 	}
-	#mber_form_container2 p label{
+	
+	#mber_form_container2 p label {
 		width: 150px;
 		float: left;
+		color: #fff;
 	}
-	#book_table{
-		width: 969px;
+	#book_form_container p {
+		margin: 10px;
+	}
+	
+	#book_form_container input[type='text'] {
+		height: 20px;
+	}
+	
+	#book_form_container #mber_search {
+		padding: 5px 10px;
+	}
+	
+	#book_table {
 		border-collapse: collapse;
 		display: block;
-		margin: 50px auto 0;
+		margin-top:45px;
+		text-align: center;
 	}
-	#book_table tr{
-		width: 100%;		
+	#book_table tr:first-child th {
+		padding: 10px;
+		background: #476fad;
+		color: #fff;
 	}
-	#book_table td, #book_table th{
+	#book_table tr {
+		width: 100%;
+	}
+	
+	#book_table td, #book_table th {
 		border: 1px solid steelblue;
 		width: 120px;
 	}
-	#returnSubmit{
-		width: 969px;
-		border: 1px solid steelblue;
-		margin: 0 auto;
+	#returnSubmit {
+		background-color :#476fad;
+		width:1127px;
+		border: 1px solid #476fad;
+	}
+	#returnSubmit button{
+		margin: 5px;
 	}
 </style>
 <script>
 	$(function() {
 		$("#mber_search").click(function() {
+			$("#book_table>tr").remove();
 			var choiceValue = $("input[name='choiceMemberColums']:checked").val();
 			if(choiceValue == undefined){
 				alert("회원 아이디나 회원 명을 선택해주세요");
@@ -80,52 +115,46 @@
 	})
 	$("#cancel").click(function() {
 			$("#book_table input[type='checkbox']").prop("checked", false);
-		/* 	$("#book_table input[type='checkbox']").val(0); */
 			alert("모두 취소되었습니다.");
 	})
 	$("#returnForm").submit(function() {
- 			var i = $("input [type='checkbox']:checked").length;
- 			console.log(i);
- 			alert(i);
- 			if(i == 0){
- 				return false;
- 			}
-		})
+ 		var i = $("input [type='checkbox']:checked").length;
+ 		console.log(i);
+ 		alert(i);
+ 		if(i == 0){
+ 			return false;
+ 		}
+	})
 </script>
 <article class="contentWrap">
-
-		<div id="mber_container">
-			<div id="mber_form_container">
-					<p>
-						<input type="radio" name="choiceMemberColums" value="id">회원ID
-						<input type="radio" name="choiceMemberColums" value="name">회원명
-						<input type="text" name="memberSearch">
-						<button id="mber_search">검색</button>
-					</p>
-			</div>
-			<div id="mber_form_container2">
-				<p>
-					<label>회원ID</label>
-					<input type="text" name="mber_id" id="mber_id">
-				</p>
-				<p>
-					<label>회원이름</label>
-					<input type="text" name="mber_name" id="mber_name">
-				</p>
-				<p>
-					<label>회원등급</label>
-					<input type="text" name="grade" id="grade">
-				</p>
-				<p>
-					<label>연체여부</label>
-					<input type="text" name="overdueCdt" id="overdueCdt">
-				</p>
-				<p>
-					<label>연체횟수</label>
-					<input type="text" name="odCnt" id="odCnt">
-				</p>			
-			</div>
+	<h2 class="pageTitle">반납 관리</h2>
+	<div id="mber_container">
+		<div id="mber_form_container">
+			<p>
+				<input type="radio" name="choiceMemberColums" value="id">회원ID
+				<input type="radio" name="choiceMemberColums" value="name">회원명
+				<input type="text" name="memberSearch">
+				<button id="mber_search" class="btnLightBlue">검색</button>
+			</p>
 		</div>
+		<div id="mber_form_container2">
+			<p>
+				<label>회원ID</label> <input type="text" name="mber_id" id="mber_id" readonly="readonly">
+			</p>
+			<p>
+				<label>회원이름</label> <input type="text" name="mber_name" id="mber_name" readonly="readonly">
+			</p>
+			<p>
+				<label>회원등급</label> <input type="text" name="grade" id="grade" readonly="readonly">
+			</p>
+			<p>
+				<label>연체여부</label> <input type="text" name="overdueCdt" id="overdueCdt" readonly="readonly">
+			</p>
+			<p>
+				<label>연체횟수</label> <input type="text" name="odCnt" id="odCnt" readonly="readonly">
+			</p>			
+		</div>
+	</div>
 	<form action="${pageContext.request.contextPath}/admin/lending/Return.do" method="post" id="returnForm">
 		<table id="book_table">
 			<tr>
@@ -140,9 +169,8 @@
 			</tr>
 		</table>
 		<div id="returnSubmit">
-			<button id="cancel">취소</button>
-			<input type="submit" value="반납">
-			<!-- <button id="return">반납</button> -->
+			<button id="cancel" class="btnOrange">취소</button>
+			<button id="rent" class="btnLightBlue">반납</button> 
 			<input type="hidden" value="" name="member_id" id="member_id">
 		</div>
 	</form>

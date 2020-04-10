@@ -37,9 +37,9 @@ public class AdminMemberStatisticsHandler implements CommandHandler {
 			Date d = sdf.parse(wantDate);
 			Date d2 = sdf.parse(wantDate2);
 			MemberDao memberDao = MemberDaoImpl.getInstance();
-			List<Integer> cnt = memberDao.selectMemberCountDate(d);
+			int[] cnt = memberDao.selectMemberCountDate(d);
 			System.out.println("cnt의 값 : "+ cnt.toString());
-			List<Integer> cnt2 = memberDao.selectMemberCountDate(d2);
+			int[] cnt2 = memberDao.selectMemberCountDate(d2);
 			System.out.println("cnt2의 값 : "+ cnt2.toString());
 			Map<String, Object> map = new HashMap<>();
 			map.put("wantDate", cnt);

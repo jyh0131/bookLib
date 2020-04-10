@@ -5,26 +5,28 @@
 <%@ include file="../../adminInclude/adminSideMenu3.jsp"%>
 <style>
 	#mber_container {
-		width: 1000px;
-		margin: 0 auto;
+		width: 1130px;		
 		overflow: hidden;
 	}
 	
 	#mber_form_container {
-		border: 1px solid steelblue;
+		border: 1px solid #476fad;
+		background-color : #476fad;
+		color : #fff;
 		width: 350px;
 		height: 150px;
 		float: left;
-		margin: 10px 0 0 50px;
 	}
 	
 	#mber_form_container p {
 		margin: 10px;
 		font-size: 1.5em;
+		color: #fff;
 	}
 	
 	#mber_form_container input[type='radio'] {
 		margin: 25px;
+		color: #fff;
 	}
 	
 	#mber_form_container input[type='text'] {
@@ -38,28 +40,24 @@
 	}
 	
 	#mber_form_container2 {
-		border: 1px solid steelblue;
+		border: 1px solid #476fad;
+		background-color : #476fad;
 		width: 350px;
 		height: 150px;
-		margin: 10px 50px 0 0;
 		float: right;
+		color: #fff;
 	}
 	
 	#mber_form_container2 p {
-		margin: 10px;
+		margin: 8px;
+		
 	}
 	
 	#mber_form_container2 p label {
 		width: 150px;
 		float: left;
+		color: #fff;
 	}
-	
-	#book_form_container {
-		border: 1px solid steelblue;
-		width: 969px;
-		margin: 50px auto 0;
-	}
-	
 	#book_form_container p {
 		margin: 10px;
 	}
@@ -73,13 +71,17 @@
 	}
 	
 	#book_table {
-		width: 969px;
+		/* width: 969px; */
 		border-collapse: collapse;
 		display: block;
-		margin: 0 auto;
+		/* margin: 0 auto; */
 		text-align: center;
 	}
-	
+	#book_table tr:first-child th {
+		padding: 10px;
+		background: #476fad;
+		color: #fff;
+	}
 	#book_table tr {
 		width: 100%;
 	}
@@ -88,46 +90,20 @@
 		border: 1px solid steelblue;
 		width: 120px;
 	}
-
-	#book_table td:first-child input[type='text']{
-		width: 110px;
-	}
-	#book_table td:nth-child(2) input[type='text']{
-		width: 200px;
-	}
-	#book_table td:nth-child(3) input[type='text']{
-		width: 80px;
-	}
-	#book_table td:nth-child(4) input[type='text']{
-		width: 110px;
-	}
-	#book_table td:nth-child(5) input[type='text']{
-		width: 80px;
-	}
-	#book_table td:nth-child(6) input[type='text']{
-		width: 100px;
-	}
-	#book_table td:nth-child(7) input[type='text']{
-		width: 100px;
-	}
-	table td:last-child input[type='text']{
-		width: 50px;
-		text-align: center;
-	}
 	#rentSubmit {
-	width: 969px;
-	border: 1px solid steelblue;
-	margin: 0 auto;
+		background-color :#476fad;
+		width:1127px;
+		border: 1px solid #476fad;
+	}
+	#rentSubmit button{
+		margin: 5px;
 	}
 </style>
 <script>
 	$(function() {
-		$("#mber_search")
-				.click(
-						function() {
-							var choiceValue = $(
-									"input[name='choiceMemberColums']:checked")
-									.val();
+		$("#mber_search").click(function() {
+			$("#book_table>tr").remove();
+			var choiceValue = $("input[name='choiceMemberColums']:checked").val();
 							if (choiceValue == undefined) {
 								alert("회원 아이디나 회원 명을 선택해주세요");
 								return;
@@ -174,37 +150,11 @@
  				return false;
  			}
 		})
-/* 		$("input [name='chk2']").change(function() {
-			var chkValue = $(this).prop("checked");
-			if(chkValue == true){
-				$(this).val(1);
-			}
-			else if(chkValue == false){
-				$(this).val(0);
-			}
-		}) */
-
-/* 		$("input [name='chk2']").click(function() {
-			var chkValue = $(this).prop("checked");
-			if(chkValue == true){
-				$(this).val(1);
-			}
-			else if(chkValue == false){
-				$(this).val(0);
-			}
-		}) */
-		/* 		$("#rent").click(function() {
-		 var id = $("#member_id").val();
-		 var bookCode = document.getElementsByName("book_code").value;
-		 for(var i = 0; i<bookCode.length; i++){
-		 console.log(bookCode[i].toString());
-		 }
-		 }) */
-
 	})
 </script>
 <article class="contentWrap">
-	<div id="mber_container">
+	<h2 class="pageTitle">대여 관리</h2>
+	<div id="mber_container">	
 		<div id="mber_form_container">
 			<p>
 				<input type="radio" name="choiceMemberColums" value="id">회원ID
@@ -218,22 +168,19 @@
 		<div id="mber_form_container2">
 			<form>
 				<p>
-					<label>회원ID</label> <input type="text" name="mber_id" id="mber_id">
+					<label>회원ID</label> <input type="text" name="mber_id" id="mber_id" readonly="readonly">
 				</p>
 				<p>
-					<label>회원이름</label> <input type="text" name="mber_name"
-						id="mber_name">
+					<label>회원이름</label> <input type="text" name="mber_name" id="mber_name" readonly="readonly">
 				</p>
 				<p>
-					<label>회원등급</label> <input type="text" name="grade" id="grade">
+					<label>회원등급</label> <input type="text" name="grade" id="grade" readonly="readonly">
 				</p>
 				<p>
-					<label>대여가능여부</label> <input type="text" name="overdueCdt"
-						id="overdueCdt">
+					<label>대여가능여부</label> <input type="text" name="overdueCdt" id="overdueCdt" readonly="readonly">
 				</p>
 				<p>
-					<label>대여가능권수</label> <input type="text" name="lendBookCnt"
-						id="lendBookCnt">
+					<label>대여가능권수</label> <input type="text" name="lendBookCnt" id="lendBookCnt" readonly="readonly">
 				</p>
 			</form>
 		</div>
@@ -260,8 +207,7 @@
 			</tr>
 		</table>
 		<div id="rentSubmit">
-			<button id="cancel" class="btnLightBlue">취소</button>
-			<!-- <input type="submit" value="대여" id="rent"> -->
+			<button id="cancel" class="btnOrange">취소</button>
 			<button id="rent" class="btnLightBlue">대여</button>
 			<input type="hidden" value="" name="member_id" id="member_id">
 		</div>
