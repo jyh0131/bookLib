@@ -9,8 +9,12 @@ public class UserBookListHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		// TODO Auto-generated method stub
-		return "/WEB-INF/view/user/book/userBookList.jsp";
+		if(req.getMethod().equalsIgnoreCase("get")) {		
+			return "/WEB-INF/view/user/book/userBookList.jsp";
+		} else if (req.getMethod().equalsIgnoreCase("post")) {
+			return "/WEB-INF/view/user/book/userBookList.jsp";
+		}
+		return null;
 	}
 
 }

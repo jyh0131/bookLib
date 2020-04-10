@@ -25,6 +25,61 @@
 		}, function() {
 			$(this).hide();
 		})
+		
+		// 로그인 회원만 이동 가능 [관리자, 비회원은 들어갈 수 없도록 함]
+		$(".joinMem").click(function() {
+			var isMenu = $(this).text();
+			
+			if(isMenu == "도서관서비스" || isMenu == "희망도서신청"){
+				$.ajax({
+					url:"${pageContext.request.contextPath}/user/book/requestAdd.do",
+					type:"get",
+					datatype: "json", 
+					success:function(res){
+						console.log(res);
+						if(res.result == "notLogin") {
+							alert("로그인 후 이용가능합니다.");
+							location.href = "${pageContext.request.contextPath}/login/login.do";
+						}
+						
+						if(res.result == "libLogin") {
+							alert("회원에게 제공되는 서비스입니다.");
+							location.href = "${pageContext.request.contextPath}/user/home.do";
+						}
+					}
+				})
+			}
+			
+			if(isMenu == "나의 도서관" || isMenu == "내정보수정"){
+				return false;
+			}
+			
+			if(isMenu == "이용현황"){
+				console.log("이용현황");
+			}
+			
+			if(isMenu == "희망도서신청현황"){
+				$.ajax({
+					url:"${pageContext.request.contextPath}/user/book/requestList.do",
+					type:"get",
+					datatype: "json", 
+					success:function(res){
+						console.log(res);
+						if(res.result == "notLogin") {
+							alert("로그인 후 이용가능합니다.");
+							location.href = "${pageContext.request.contextPath}/login/login.do";
+						}
+						
+						if(res.result == "libLogin") {
+							alert("회원에게 제공되는 서비스입니다.");
+							location.href = "${pageContext.request.contextPath}/user/home.do";
+						}
+					}
+				})
+			}
+			
+			//return false;
+		})
 	})
 </script>
 </head>
@@ -72,17 +127,17 @@
 					<a class="menu" href="#">독서문화강좌</a>
 				</li>
 				<li>
-					<a class="menu" href="${pageContext.request.contextPath}/user/book/requestAdd.do">도서관서비스</a>
+					<a class="menu joinMem" href="${pageContext.request.contextPath}/user/book/requestAdd.do">도서관서비스</a>
 					<ul class="subMenu">
-						<li><a href="${pageContext.request.contextPath}/user/book/requestAdd.do">희망도서신청</a></li>
+						<li><a class="joinMem" href="${pageContext.request.contextPath}/user/book/requestAdd.do">희망도서신청</a></li>
 					</ul>
 				</li>
 				<li>
-					<a class="menu" href="#">나의도서관</a>
+					<a class="menu joinMem" href="#">나의도서관</a>
 					<ul class="subMenu">
-						<li><a href="#">내정보수정</a></li>
-						<li><a href="#">이용현황</a></li>
-						<li><a href="${pageContext.request.contextPath}/user/book/requestList.do">희망도서신청현황</a></li>
+						<li><a class="joinMem" href="#">내정보수정</a></li>
+						<li><a class="joinMem" href="#">이용현황</a></li>
+						<li><a class="joinMem" href="${pageContext.request.contextPath}/user/book/requestList.do">희망도서신청현황</a></li>
 					</ul>
 				</li>
 			</ul>
