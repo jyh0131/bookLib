@@ -112,8 +112,8 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		//System.out.println("titlename" + lib.getTitle().getTitleName());
 		//String sql = "insert into librarian(lb_id, lb_pass, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, title ,join_date ,work_cdt) values\r\n" + 
 		//		"(?, ?, ?,?,?,?,?,?,?,?,?,?);";
-		String sql = "insert into librarian(lb_id, lb_pass, lb_name,title ,join_date ,work_cdt, lb_img_path) values\r\n" + 
-				"(?, ?, ?, ?, ?, ?, ?);";
+		String sql = "insert into librarian(lb_id, lb_pass, lb_name, title ,join_date ,work_cdt) values\r\n" + 
+				"(?, ?, ?, ?, ?, ?);";
 		try(Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, lib.getLbId());
@@ -128,7 +128,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			pstmt.setInt(4, lib.getTitle().getTitleNo());
 			pstmt.setTimestamp(5, new Timestamp(lib.getJoinDate().getTime()));
 			pstmt.setInt(6, lib.getWorkCdt());
-			pstmt.setString(7, lib.getLibImgPath());
+			//pstmt.setString(7, lib.getLibImgPath());
 			LogUtil.prnLog(pstmt);
 			
 			return pstmt.executeUpdate();
