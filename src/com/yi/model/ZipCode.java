@@ -85,10 +85,12 @@ public class ZipCode {
 	}
 
 
-	@Override
-	public String toString() {
-		return String.format("(%d)", zipCode);
+		@Override
+		public String toString() {
+		if(zipCode==0) {
+			return "";
+		}else {
+			return String.format("(%d)", zipCode);
+		}			
 	}
-
-
 }

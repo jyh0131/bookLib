@@ -76,16 +76,17 @@ public class MemberDaoImpl implements MemberDao {
 		int totalLeCnt = rs.getInt("total_le_cnt");
 		int lendBookCnt = rs.getInt("lend_book_cnt");
 		Grade grade = new Grade(rs.getInt("grade"));
-		byte[] mberImg = rs.getBytes("mber_img");
+		//byte[] mberImg = rs.getBytes("mber_img");
 		//String memberImgPath = rs.getString("mber_img_path");
 		Date joinDt = rs.getTimestamp("join_dt");
 		int wdrCdt = rs.getInt("wdr_cdt");
 		int lendPsbCdt = rs.getInt("lend_psb_cdt");
 		int odCnt = rs.getInt("od_cnt");
+		String memberImgPath = rs.getString("mber_img_path");
 	
-		Member mber = new Member(mberId, mberName, mberBrthdy, mberZip, mberBassAd, mberDetailAd, mberTel, mberImg, totalLeCnt, lendBookCnt, grade, lendPsbCdt, joinDt, wdrCdt, odCnt);
+		Member mber = new Member(mberId, mberName, mberBrthdy, mberZip, mberBassAd, mberDetailAd, mberTel, totalLeCnt, lendBookCnt, grade, lendPsbCdt, joinDt, wdrCdt, odCnt, memberImgPath);
 		
-		mber.setMemberImgPath(rs.getString("mber_img_path"));
+		//mber.setMemberImgPath(rs.getString("mber_img_path"));
 		
 		
 		return mber;
