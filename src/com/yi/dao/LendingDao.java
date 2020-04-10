@@ -9,7 +9,7 @@ import com.yi.model.Lending;
 import com.yi.model.Member;
 
 public interface LendingDao {
-	Lending selectLendingByNo(Lending lending);
+	Lending selectLendingByNo(int no);
 
 	List<Lending> selectLendingByAll();
 

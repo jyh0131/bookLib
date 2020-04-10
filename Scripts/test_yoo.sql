@@ -84,3 +84,20 @@ mber_img, mber_img_path, total_le_cnt, lend_book_cnt, grade, grad_name, book_le_
 join_dt, wdr_cdt,od_cnt 
 from member m left join grade g on m.grade = g.grade_no 
 where mber_id = 'jojo123@naver.com';
+
+select l.lend_rturn_no , l.mber_id , b.book_code, b.book_name , b.authr_name , b.trnslr_name, b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , 
+		b.pls, pls.pls_name , b.pblicte_year , lend_date , rturn_due_date, rturn_psm_cdt, rturn_date, overdue_cdt 
+	from lending l left join book b on l.book_cd = b.book_code 
+				left join large_classification lc on lc.lclas_no = b.lc_no 
+				left join middle_classification ml on ml.mlsfc_no = b.ml_no and lc.lclas_no = ml.lclas_no 
+				left join publishing_company pls on pls.pls_no = b.pls 
+	where mber_id = 'jojo123@naver.com' and rturn_date is null 
+	order by lend_date desc;
+
+select lend_rturn_no , mber_id , book_cd , lend_date , rturn_due_date , rturn_psm_cdt , rturn_date , overdue_cdt 
+	from lending 
+	where lend_rturn_no = 54;
+	
+select * from lending where lend_rturn_no = 56;
+
+update lending set rturn_due_date = '2020.04.16' where lend_rturn_no = 56;

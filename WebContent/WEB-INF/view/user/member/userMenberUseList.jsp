@@ -69,21 +69,66 @@
 	
 	table {
 		width: 100%;
+		font-size: 12px;
+		/* text-align: center; */
+		table-layout: fixed;
+	    word-break: break-all;
+	    height: auto;
 	}
 	
-	.list {
-		border-top: 3px solid #476FAD;
-	}
+	.list {border-top: 3px solid #476FAD;}
 	
-	tr{
-		border-bottom: 1px solid #D9D9D9;
-	}
+	tr{border-bottom: 1px solid #D9D9D9;}
 	
-	th, td {
-		padding: 15px;
-	}
+	th, td {padding: 15px 5px;}
 	
+	.center {text-align: center;}
+	
+	.w150 {width: 150px;}
+	.w50 {width: 50px;}
+	.w25 {width: 25px;}
 </style>
+<script>
+	$(function(){		
+		$("#searchBtn").click(function() {
+			$("#f1").submit();
+		})
+		
+		$("#rturnPsmBtn").click(function() {
+			var cnt = 0;
+			$(".chk").each(function(i, obj) {
+				if($(obj).prop("checked")){
+					cnt++;
+				}
+			})
+			
+			if(cnt == 0) {
+				alert("도서를 선택해주세요.");
+				return false;
+			}
+			
+			alert("반납연기가 신청되었습니다.");
+			$("#f1").attr("action", "rturnPsmCdtUpdate.do");
+			$("#f1").submit();
+		})
+		
+		var chks = false;
+		$(".check").click(function() {
+			if(chks == false) {
+				$(".chk").prop("checked", true);
+				chks = true;
+				return;
+			}
+			if(chks) {
+				$(".chk").prop("checked", false);
+				chks = false;
+				return;
+			}
+			return false;
+		})
+	})
+
+</script>
 <div class="articleBg">
 	<article class="contentWrap">
 		<div class="wrap">
@@ -115,9 +160,9 @@
 				</div>
 			</div>
 			<div class="lendList">
-				<form action="">
+				<form action="uesList.do" method="post" id="f1">
 					<div class="box">
-						<select name="lend">
+						<select name="selCdt">
 							<option value="total">전체</option>
 							<option value="lendCdt">대여중 도서</option>
 						</select>
@@ -128,16 +173,15 @@
 					<div class="list">
 						<table>
 							<tr>
-								<th>도서코드</th>
-								<th>도서명</th>
+								<th class="w150">도서명</th>
 								<th>저자/역자</th>
-								<th>발행일</th>
 								<th>출판사</th>
 								<th>대여일</th>
+								<th class="w50">연체여부</th>
+								<th>반납연기여부</th>
 								<th>반납예정일</th>
 								<th>반납일</th>
-								<th>반납연기여부</th>
-								<th>선택</th>
+								<th class="w25">선택</th>
 							</tr>
 							<c:if test="${lendList == null }">
 								<tr>
@@ -147,19 +191,43 @@
 							<c:if test="${lendList != null }">
 								<c:forEach var="item" items="${lendList }">
 									<tr>
-										<td>${item.bookCd.bookCode }</td>
 										<td>${item.bookCd.bookName }</td>
+										
 										<c:if test="${item.bookCd.trnslrName == null }">
 											<td>${item.bookCd.authrName}</td>
 										</c:if>
 										<c:if test="${item.bookCd.trnslrName != null }">
 											<td>${item.bookCd.authrName} / ${item.bookCd.trnslrName }</td>
 										</c:if>
-										<td><fmt:formatDate value="${item.bookCd.pblicteYear }" pattern="yyyy-MM-dd"/></td>
+										
 										<td>${item.bookCd.pls.plsName }</td>
-										<td><fmt:formatDate value="${item.lendDate }" pattern="yyyy-MM-dd"/></td>
-										<td><fmt:formatDate value="${item.rturnDueDate }" pattern="yyyy-MM-dd"/></td>
-										<td><fmt:formatDate value="${item.rturnDate }"/></td>
+										<td class="center"><fmt:formatDate value="${item.lendDate }" pattern="yyyy-MM-dd"/></td>
+										
+										<c:if test="${item.overdueCdt == 0 }">
+											<td class="center">-</td>
+										</c:if>
+										<c:if test="${item.overdueCdt == 1 }">
+											<td class="center">연체</td>
+										</c:if>
+										
+										<c:if test="${item.rturnPsmCdt == 0 }">
+											<td class="center">-</td>
+										</c:if>
+										<c:if test="${item.rturnPsmCdt == 1 }">
+											<td class="center">반납연기</td>
+										</c:if>
+										
+										<td class="center"><fmt:formatDate value="${item.rturnDueDate }" pattern="yyyy-MM-dd"/></td>
+										<td class="center"><fmt:formatDate value="${item.rturnDate }" pattern="yyyy-MM-dd"/></td>
+										
+										<fmt:formatDate var="dDay" value="${item.rturnDueDate }" pattern="yyyy-MM-dd"/>
+										<fmt:formatDate var="now" value="${today }" pattern="yyyy-MM-dd"/>
+										<c:if test="${item.rturnDate == null && item.rturnPsmCdt == 0 && dDay > now}">
+											<td class="center"><input type="checkbox" name="chk" class="chk" value="${item.lendRturnNo }"/></td>
+										</c:if>
+										<c:if test="${item.rturnDate != null || item.rturnPsmCdt == 1 || dDay < now}">
+											<td class="center">-</td>
+										</c:if>
 									</tr>
 								</c:forEach>
 							</c:if>

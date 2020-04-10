@@ -1,6 +1,7 @@
 package com.yi.handler.user.member;
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,7 @@ public class UserMemberUseListHandler implements CommandHandler {
 				
 				req.setAttribute("memInfo", memInfo);
 				req.setAttribute("lendList", lendList);
+				req.setAttribute("today", new Date());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -72,6 +74,36 @@ public class UserMemberUseListHandler implements CommandHandler {
 			return "/WEB-INF/view/user/member/userMenberUseList.jsp";
 			
 		} else if(req.getMethod().equalsIgnoreCase("post")) {
+			String id = (String)req.getSession().getAttribute("MemId");
+			String selCdt = req.getParameter("selCdt");
+			
+			try {
+				MemberDao memDao = MemberDaoImpl.getInstance();
+				Member member = new Member(id);
+				Member memInfo = memDao.selectMemberByNo(member);
+				req.setAttribute("memInfo", memInfo);
+				
+				LendingDao dao = LendingDaoImpl.getInstance();
+				List<Lending> lendList;
+				Lending lending = new Lending(member);
+				
+				if(selCdt.equals("total")) {
+					lendList = dao.selectLendingByMberIdAndLendBookTotalAll(lending);
+					req.setAttribute("lendList", lendList);
+					req.setAttribute("today", new Date());
+					return "/WEB-INF/view/user/member/userMenberUseList.jsp";
+				}
+				
+				if(selCdt.equals("lendCdt")) {
+					lendList = dao.selectLendingByMberIdAndLendBookAll(lending);
+					req.setAttribute("lendList", lendList);
+					req.setAttribute("today", new Date());
+					return "/WEB-INF/view/user/member/userMenberUseList.jsp";
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 		}
 		

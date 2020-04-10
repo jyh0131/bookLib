@@ -148,7 +148,7 @@
 			var authrName = $("input[name='authrName']").val();
 			var lcNo = $("select[name='lcNo']").val();
 			
-			if(bookName == "" && authrName == "" && lcNo == -1){
+			if(bookName == "" && authrName == "" && lcNo == ""){
 				alert("검색어를 입력해주세요.");
 				location.href="${pageContext.request.contextPath}/user/book/list.do";
 				return false;

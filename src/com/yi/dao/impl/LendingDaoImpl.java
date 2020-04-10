@@ -30,11 +30,11 @@ public class LendingDaoImpl implements LendingDao {
 	};
 
 	@Override
-	public Lending selectLendingByNo(Lending lending) {
-		String sql = "select lend_rturn_no , mber_id , book_cd , lend_date , rturn_due_date , rturn_psm_cdt , rturn_date , overdue_cdt ,overdue_date "
+	public Lending selectLendingByNo(int no) {
+		String sql = "select lend_rturn_no , mber_id , book_cd , lend_date , rturn_due_date , rturn_psm_cdt , rturn_date , overdue_cdt "
 				+ "	from lending " + "	where lend_rturn_no = ? ";
 		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setInt(1, lending.getLendRturnNo());
+			pstmt.setInt(1, no);
 			LogUtil.prnLog(pstmt);
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -178,12 +178,14 @@ public class LendingDaoImpl implements LendingDao {
 
 	@Override
 	public List<Lending> selectLendingByMberIdAndLendBookTotalAll(Lending lending) {
-		String sql = "select l.mber_id , b.book_code, b.book_name , b.authr_name , b.trnslr_name, b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , \r\n"
+		String sql = "select l.lend_rturn_no, l.mber_id , b.book_code, b.book_name , b.authr_name , b.trnslr_name, b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , \r\n"
 				+ "	   b.pls, pls.pls_name , b.pblicte_year , lend_date , rturn_due_date, rturn_psm_cdt, rturn_date, overdue_cdt \r\n"
 				+ "	from lending l left join book b on l.book_cd = b.book_code \r\n"
 				+ "				   left join large_classification lc on lc.lclas_no = b.lc_no \r\n"
 				+ "				   left join middle_classification ml on ml.mlsfc_no = b.ml_no and lc.lclas_no = ml.lclas_no \r\n"
-				+ "				   left join publishing_company pls on pls.pls_no = b.pls \r\n" + "	where mber_id = ?";
+				+ "				   left join publishing_company pls on pls.pls_no = b.pls \r\n" 
+				+ "	where mber_id = ? " 
+				+ " order by lend_date desc";
 
 		List<Lending> list = null;
 
@@ -207,13 +209,14 @@ public class LendingDaoImpl implements LendingDao {
 
 	@Override
 	public List<Lending> selectLendingByMberIdAndLendBookAll(Lending lending) {
-		String sql = "select l.mber_id , b.book_code, b.book_name , b.authr_name , b.trnslr_name, b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , \r\n"
+		String sql = "select l.lend_rturn_no, l.mber_id , b.book_code, b.book_name , b.authr_name , b.trnslr_name, b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , \r\n"
 				+ "	   b.pls, pls.pls_name , b.pblicte_year , lend_date , rturn_due_date, rturn_psm_cdt, rturn_date, overdue_cdt \r\n"
 				+ "	from lending l left join book b on l.book_cd = b.book_code \r\n"
 				+ "				   left join large_classification lc on lc.lclas_no = b.lc_no \r\n"
 				+ "				   left join middle_classification ml on ml.mlsfc_no = b.ml_no and lc.lclas_no = ml.lclas_no \r\n"
 				+ "				   left join publishing_company pls on pls.pls_no = b.pls \r\n"
-				+ "	where mber_id = ? and rturn_date is null";
+				+ "	where mber_id = ? and rturn_date is null "
+				+ " order by lend_date desc";
 
 		List<Lending> list = null;
 
@@ -261,6 +264,7 @@ public class LendingDaoImpl implements LendingDao {
 	}
 
 	private Lending getUseJoinLendgin(ResultSet rs) throws SQLException {
+		int lendRturnNo = rs.getInt("l.lend_rturn_no");
 		Member mberId = new Member(rs.getString("l.mber_id"));
 		Book bookCd = new Book(rs.getString("b.book_code"));
 		bookCd.setBookName(rs.getString("b.book_name"));
@@ -274,10 +278,10 @@ public class LendingDaoImpl implements LendingDao {
 		Date lendDate = rs.getTimestamp("lend_date");
 		Date rturnDueDate = rs.getTimestamp("rturn_due_date");
 		int rturnPsmCdt = rs.getInt("rturn_psm_cdt");
-		Date rturnDate = rs.getTimestamp("rturn_date");
+		Date rturnDate = rs.getTimestamp("rturn_date");;
 		int overdueCdt = rs.getInt("overdue_cdt");
 
-		return new Lending(mberId, bookCd, lendDate, rturnDueDate, rturnPsmCdt, rturnDate, overdueCdt);
+		return new Lending(lendRturnNo, mberId, bookCd, lendDate, rturnDueDate, rturnPsmCdt, rturnDate, overdueCdt);
 	}
 
 	private Lending getUseJoinLendgin2(ResultSet rs) throws SQLException {

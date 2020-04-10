@@ -40,11 +40,13 @@
 						if(res.result == "notLogin") {
 							alert("로그인 후 이용가능합니다.");
 							location.href = "${pageContext.request.contextPath}/login/login.do";
+							return false;
 						}
 						
 						if(res.result == "libLogin") {
 							alert("회원에게 제공되는 서비스입니다.");
 							location.href = "${pageContext.request.contextPath}/user/home.do";
+							return false;
 						}
 					}
 				})
@@ -64,11 +66,13 @@
 						if(res.result == "notLogin") {
 							alert("로그인 후 이용가능합니다.");
 							location.href = "${pageContext.request.contextPath}/login/login.do";
+							return false;
 						}
 						
 						if(res.result == "libLogin") {
 							alert("회원에게 제공되는 서비스입니다.");
 							location.href = "${pageContext.request.contextPath}/user/home.do";
+							return false;
 						}
 					}
 				})
@@ -84,11 +88,13 @@
 						if(res.result == "notLogin") {
 							alert("로그인 후 이용가능합니다.");
 							location.href = "${pageContext.request.contextPath}/login/login.do";
+							return false;
 						}
 						
 						if(res.result == "libLogin") {
 							alert("회원에게 제공되는 서비스입니다.");
 							location.href = "${pageContext.request.contextPath}/user/home.do";
+							return false;
 						}
 					}
 				})
