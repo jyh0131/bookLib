@@ -1,8 +1,8 @@
-package com.yi.handler.user.book;
+package com.yi.handler.user.member;
 
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.yi.dao.RequestBookDao;
-import com.yi.dao.impl.RequestBookDaoImpl;
+import com.yi.dao.LendingDao;
+import com.yi.dao.MemberDao;
+import com.yi.dao.impl.LendingDaoImpl;
+import com.yi.dao.impl.MemberDaoImpl;
+import com.yi.model.Lending;
 import com.yi.model.Member;
-import com.yi.model.RequestBook;
 import com.yi.mvc.CommandHandler;
 
-public class UserBookReqstAddHandler implements CommandHandler {
+public class UserMemberUseListHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -52,35 +54,25 @@ public class UserBookReqstAddHandler implements CommandHandler {
 				return null;
 			}
 			
-			return "/WEB-INF/view/user/book/userBookReqstAddForm.jsp";
-		} else if(req.getMethod().equalsIgnoreCase("post")) {
-			String bookName = req.getParameter("bookName");
-			String authr = req.getParameter("authr");
-			String trnslr = req.getParameter("trnslr").equals("") ? null : req.getParameter("trnslr");
-			String pls = req.getParameter("pls");
-			String id = (String)req.getSession().getAttribute("MemId");
-			
-			System.out.println("id : " + id);
-			
 			try {
-				RequestBook rb = new RequestBook();
-				rb.setRequestBookName(bookName);
-				rb.setRequestBookAuthor(authr);
-				rb.setRequestBookTrnslr(trnslr);
-				rb.setRequestBookPls(pls);
-				rb.setRequestMbId(new Member(id));
-				rb.setRequestDate(new Date());
-				rb.setWhCdt(0);
+				MemberDao memDao = MemberDaoImpl.getInstance();
+				Member member = new Member(id);
+				Member memInfo = memDao.selectMemberByNo(member);
 				
-				RequestBookDao dao = RequestBookDaoImpl.getInstance();
-				dao.insertRequestBook(rb);
+				LendingDao dao = LendingDaoImpl.getInstance();
+				Lending lending = new Lending(member);
+				List<Lending> lendList = dao.selectLendingByMberIdAndLendBookTotalAll(lending);
 				
-				res.sendRedirect(req.getContextPath()+"/user/book/requestList.do ");
-				return null;
-				
+				req.setAttribute("memInfo", memInfo);
+				req.setAttribute("lendList", lendList);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			return "/WEB-INF/view/user/member/userMenberUseList.jsp";
+			
+		} else if(req.getMethod().equalsIgnoreCase("post")) {
+			
 		}
 		
 		return null;

@@ -1,5 +1,7 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="javax.mail.Transport"%>
 <%@page import="javax.mail.Message"%>
+<%@page import="javax.mail.internet.MimeMessage"%>
 <%@page import="javax.mail.internet.InternetAddress"%>
 <%@page import="javax.mail.Address"%>
 <%@page import="com.yi.handler.admin.lending.SMTPAuthenticatior"%>
@@ -7,17 +9,25 @@
 <%@page import="javax.mail.Session"%>
 <%@page import="javax.mail.Authenticator"%>
 <%@page import="java.util.Properties"%>
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
 
-System.out.println("sendMail.jsp에 들어옴");
 
-String from = request.getParameter("from");
-String to = request.getParameter("to");
-String subject = request.getParameter("subject");
-String content = request.getParameter("content");
+
+
+
+
+
+
+
+
+String from = "ku0788@naver.com";
+String[] to = request.getParameterValues("to");//받을 사람의 주소...... 1개씩 처리 또는 단체로 처리해야 하는데
+String subject = "대구 도서관에서 안내드립니다.";
+String content = "님께서 대출 하신 도서가 연체 중에 있습니다. 빠른 시일 내 방문하셔서 반납해주시길 바랍니다.";
 // 입력값 받음
  
 Properties p = new Properties(); // 정보를 담을 객체
@@ -42,11 +52,16 @@ try{
     MimeMessage msg = new MimeMessage(ses); // 메일의 내용을 담을 객체
     msg.setSubject(subject); // 제목
      
-    Address fromAddr = new InternetAddress(from);
+    InternetAddress fromAddr = new InternetAddress(from);
     msg.setFrom(fromAddr); // 보내는 사람
      
-    Address toAddr = new InternetAddress(to);
-    msg.addRecipient(Message.RecipientType.TO, toAddr); // 받는 사람
+   /*  Address toAddr = new InternetAddress(to); */
+    Address[] toAddr = new InternetAddress[to.length];
+	for(int i =0; i<to.length; i++){
+		toAddr[i] = new InternetAddress(to[i]);
+	}
+    msg.addRecipients(Message.RecipientType.TO, toAddr); // 받는 사람 */
+     /* msg.setRecipients(Message.RecipientType.TO, toAddr); */
      
     msg.setContent(content, "text/html;charset=UTF-8"); // 내용과 인코딩
      
@@ -58,7 +73,8 @@ try{
     return;
 }
 System.out.println("sendMail.jsp에서 이제 전송전"); 
-out.println("<script>alert('Send Mail Success!!');location.href='${pageContext.request.contextPath}/admin/lending/Overdue.do';</script>");
+/* out.println("<script>alert('Send Mail Success!!');location.href='${pageContext.request.contextPath}/admin/lending/AdminLendingOverdue.jsp';</script>"); */
+out.println("<script>alert('Send Mail Success!!');location.href='/WEB-INF/view/admin/lending/AdminLendingOverdue.jsp';</script>");
 // 성공 시
 %>
 

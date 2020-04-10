@@ -174,7 +174,9 @@
 		font-weight: 700;
 	}
 </style>
-
+<script>
+	
+</script>
 <article class="contentWrap homeCnt">
 	<div class="box">
 		<div class="rentBtnBox">

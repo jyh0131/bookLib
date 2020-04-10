@@ -53,37 +53,76 @@
 		padding: 10px 20px;
 	}
 </style>
+<script>
+	$(function(){
+		$(".cancel").click(function(){
+			alert("희망도서신청을 취소합니다.");
+			location.href = "${pageContext.request.contextPath}/user/home.do";
+		})
+		
+		$("form").submit(function() {
+			$(".error").css("visibility", "hidden");
+			
+			var bookName = $("input[name='bookName']");
+			var authr = $("input[name='authr']");
+			var pls = $("input[name='pls']");
+			
+			if(bookName.val() == "") {
+				$(".bookName").css("visibility", "visible");
+				bookName.next().css("color", "red");
+				return false;
+			}
+			
+			if(authr.val() == "") {
+				$(".authr").css("visibility", "visible");
+				authr.next().css("color", "red");
+				return false;
+			}
+			
+			if(pls.val() == "") {
+				$(".pls").css("visibility", "visible");
+				pls.next().css("color", "red");
+				return false;
+			}
+			
+			alert("희망도서가 신청되었습니다.");
+		})
+	})
+</script>
 <div class="articleBg">
 	<article class="contentWrap">
 		<div class="wrap">
 			<h3 class="pageTitle">희망도서신청</h3>
 			<div class="formWrap">
-				<form action="">
+				<form action="requestAdd.do" method="post">
 					<p>신청도서명</p>
 					<p>
 						<input type="text" name="bookName"/> 
 						<i class="fas fa-feather-alt"></i>
 					</p>
-						<span class="error">도서명을 작성해주세요.</span>
+					<span class="error bookName">도서명을 작성해주세요.</span>
 					
 					<p>저자</p>
 					<p>
 						<input type="text" name="authr"/>	
 						<i class="fas fa-feather-alt"></i>					
 					</p>
-						<span class="error">저자를 작성해주세요.</span>
+					<span class="error authr">저자를 작성해주세요.</span>
+					
 					<p>역자</p>
 					<p class="noError">
 						<input type="text" name="trnslr"/>
 					</p>
+					
 					<p>출판사</p>
 					<p>
 						<input type="text" name="pls"/>
 						<i class="fas fa-feather-alt"></i>
 					</p>
-						<span class="error">출판사를 작성해주세요.</span>
+					<span class="error pls">출판사를 작성해주세요.</span>
+					
 					<p class="btns">
-						<input type="reset" value="취소" class="btnPink"/>
+						<input type="button" value="취소" class="btnPink cancel"/>
 						<input type="submit" value="신청" class="btnBlue"/>
 					</p>
 				</form>

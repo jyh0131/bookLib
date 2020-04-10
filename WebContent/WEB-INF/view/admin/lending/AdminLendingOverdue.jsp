@@ -4,31 +4,52 @@
 <%@ include file="../../adminInclude/adminHeader.jsp"%>
 <%@ include file="../../adminInclude/adminSideMenu3.jsp"%>
 <style>
-#overdue_header {
-	width: 800px;
-	margin: 0 auto;
-	overflow: hidden;
-}
-
-#overdue_header_left {
-	float: left;
-}
-
-#overdue_header_right {
-	float: right;
-}
-
-#overdue_body {
-	width: 800px;
-	margin: 0 auto;
-}
-
-#overdue_body table {
-	display: block;
-	width: 600px;
-	margin: 0 auto;
-	text-align: center;
-}
+	#overdue_header {
+		width: 800px;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	
+	#overdue_header_left {
+		float: left;
+	}
+	
+	#overdue_header_right {
+		float: right;
+	}
+	
+	#overdue_table tr:first-child th {
+		padding: 10px;
+		background: #476fad;
+		color: #fff;
+	}
+	#overdue_table td:first-child {
+		width: 250px;
+		padding:10px;
+	} 
+	#overdue_table td:nth-child(2) {
+		width: 150px;
+		text-align: center;
+	} 
+	#overdue_table td:nth-child(3) {
+		width: 150px;
+		padding:10px;
+	} 
+	#overdue_table td:nth-child(4) {
+		width: 150px;
+		padding:10px;
+	} 
+	#overdue_table td:nth-child(5) {
+		width: 12	0px;
+		text-align: center;
+	} 
+	#overdue_table td:last-child {
+		width:70px;
+		text-align: center;
+	} 
+	#overdueBtn{
+		margin-top: 15px;
+	}
 </style>
 <script>
 	$(function() {
@@ -46,22 +67,18 @@
 				flag = true;
 			}
 		})
-
+/* 		$("#emailSend").click(function() {
+			
+		}) */
 	})
 </script>
 <article class="contentWrap">
+
 	<div>
-		<div id="overdue_header">
-			<div id="overdue_header_left">
-				<h1>연체회원 목록</h1>
-			</div>
-			<div id="overdue_header_right">
-				<button id="allCheck">모두 선택/모두 해제</button>
-			</div>
-		</div>
+	<h2 class="pageTitle">연체 조회</h2>
 		<form action="/bookLib/admin/lending/Overdue.do" method="post">
 			<div id="overdue_body">
-				<table>
+				<table id="overdue_table">
 					<tr>
 						<th>회원ID</th>
 						<th>회원명</th>
@@ -82,9 +99,10 @@
 					</c:forEach>
 				</table>
 			</div>
-			<div>
+			<div id="overdueBtn">
 				<p>
-					<button id="emailSend">이메일 보내기</button>
+					<button id="allCheck" class="btnOrange">모두 선택/모두 해제</button>
+					<button id="emailSend" class="btnLightBlue">이메일 보내기</button>
 				</p>
 			</div>
 		</form>

@@ -12,19 +12,17 @@ public class AdminHomeHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		// TODO Auto-generated method stub
-		
-		/*추천도서*/
 		try {
-			RecommendationDao dao = RecommendationDaoImpl.getInstance();
 			
+			/*추천도서*/
+			RecommendationDao dao = RecommendationDaoImpl.getInstance();
 			Recommendation recom = dao.selectRecommendationByLastNo();
 			req.setAttribute("recom", recom);
+			return "/WEB-INF/view/admin/adminHome.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return "/WEB-INF/view/admin/adminHome.jsp";
+		return null;
 	}
 
 }

@@ -29,6 +29,6 @@ public interface MemberDao {
 	List<Member> selectMemberByCodeName2(Member name);
 	int updateOdCnt(Member member);
 	int selectByOdCnt(Member member);
-	List<Integer> selectMemberCountDate(Date date);
+	int[] selectMemberCountDate(Date date);
 
 }
