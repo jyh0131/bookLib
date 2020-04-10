@@ -99,8 +99,8 @@
 					        ['Condition', '전체 기간', year+"년", year2+'년'],
 					        ['총 회원 수', ${memberCnt[1]+memberCnt[2]}, res.wantDate2[0]+res.wantDate2[1], res.wantDate[0]+res.wantDate[1]],
 					        /* [year+"01-01", res[0]+res[1], res[0], res[1]], */
-					        ['일반 회원 수',  ${memberCnt[1]}, res.wantDate2[1], res.wantDate[0]],
-					        ['우수 회원 수', ${memberCnt[2]}, res.wantDate2[0], res.wantDate[1]]
+					        ['일반 회원 수',  ${memberCnt[1]}, res.wantDate2[0], res.wantDate[0]],
+					        ['우수 회원 수', ${memberCnt[2]}, res.wantDate2[1], res.wantDate[1]]
 					      ]);
 
 					      var options = {

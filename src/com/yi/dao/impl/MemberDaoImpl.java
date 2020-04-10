@@ -756,30 +756,33 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 
-	public List<Integer> selectMemberCountDate(Date date) {
-		List<Integer> list = new ArrayList<>();
-		String sql = "select count(*) as 'category_regist_cnt' from member m left join grade g on m.grade = g.grade_no \r\n" + 
-				"where m.join_dt between ? and DATE_sub(?, interval -1 year) group by g.grad_name";
+	public int[] selectMemberCountDate(Date date) {
+		int[] cateCounts = new int[10];
+		String sql = "select (select count(*) from member m left join grade g on m.grade = g.grade_no where g.grade_no =1 and m.join_dt between ? and DATE_sub(?, interval -1 year)) as 'general',\r\n" + 
+				"	   (select count(*) from member m left join grade g on m.grade = g.grade_no where g.grade_no =2 and m.join_dt between ? and DATE_sub(?, interval -1 year)) as 'vip'";
 		try(Connection con = JDBCUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
 			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(3, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(4, new Timestamp(date.getTime()));
 			System.out.println(pstmt);
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				list.add(getCateCounts2(rs));
+				cateCounts = getCateCounts2(rs);
 				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return list;
+		return cateCounts;
 	}
 	
-	private int getCateCounts2(ResultSet rs) throws SQLException {
-		int cate1 = rs.getInt("category_regist_cnt");
-		return cate1;
+	private int[] getCateCounts2(ResultSet rs) throws SQLException {
+		int general = rs.getInt("general");
+		int vip = rs.getInt("vip");
+		return new int[] {general,vip};
 	}
 //github.com/jyh0131/bookLib.git
 
