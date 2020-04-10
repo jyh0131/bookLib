@@ -79,4 +79,8 @@ select reqst_book_no, reqst_book_name, reqst_book_author, reqst_book_trnslr, req
 from vw_request_book
 where year(reqst_date) = '2020' and month(reqst_date) = '4' and wh_cdt = 0;
 
-
+select mber_id, mber_pass, mber_name, mber_brthdy, mber_zip, mber_bass_ad, mber_detail_ad, mber_tel, 
+mber_img, mber_img_path, total_le_cnt, lend_book_cnt, grade, grad_name, book_le_cnt, lend_psb_cdt, 
+join_dt, wdr_cdt,od_cnt 
+from member m left join grade g on m.grade = g.grade_no 
+where mber_id = 'jojo123@naver.com';

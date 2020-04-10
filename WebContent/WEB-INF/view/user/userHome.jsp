@@ -22,7 +22,7 @@ div.searchBox h1 {
 	margin-bottom: 10px;
 	font-size: 36px;
 }
-input[name='bookSch'] {
+input[name='bookName'] {
 	width: 60%;
 	border: none;
 	font-size: 18px;
@@ -100,9 +100,9 @@ div.box h1 {
 <article class="contentWrap">
 	<div class="searchBox">
 		<h1>LIBRARY 도서검색</h1>
-		<form action="">
-			<input type="text" name="bookSch" placeholder="도서 제목을 입력하세요" /> <input
-				type="submit" value="검색" class="bookSchbtn" />
+		<form action="book/list.do" method="post">
+			<input type="text" name="bookName" placeholder="도서 제목을 입력하세요" /> 
+			<input type="submit" value="검색" class="bookSchbtn" />
 		</form>
 	</div>
 	<div class="recomWrap">

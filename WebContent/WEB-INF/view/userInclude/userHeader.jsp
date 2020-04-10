@@ -55,7 +55,23 @@
 			}
 			
 			if(isMenu == "이용현황"){
-				console.log("이용현황");
+				$.ajax({
+					url:"${pageContext.request.contextPath}/user/member/uesList.do",
+					type:"get",
+					datatype: "json", 
+					success:function(res){
+						console.log(res);
+						if(res.result == "notLogin") {
+							alert("로그인 후 이용가능합니다.");
+							location.href = "${pageContext.request.contextPath}/login/login.do";
+						}
+						
+						if(res.result == "libLogin") {
+							alert("회원에게 제공되는 서비스입니다.");
+							location.href = "${pageContext.request.contextPath}/user/home.do";
+						}
+					}
+				})
 			}
 			
 			if(isMenu == "희망도서신청현황"){
@@ -136,7 +152,7 @@
 					<a class="menu joinMem" href="#">나의도서관</a>
 					<ul class="subMenu">
 						<li><a class="joinMem" href="#">내정보수정</a></li>
-						<li><a class="joinMem" href="#">이용현황</a></li>
+						<li><a class="joinMem" href="${pageContext.request.contextPath}/user/member/uesList.do">이용현황</a></li>
 						<li><a class="joinMem" href="${pageContext.request.contextPath}/user/book/requestList.do">희망도서신청현황</a></li>
 					</ul>
 				</li>

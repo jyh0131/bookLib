@@ -434,7 +434,7 @@ public class MemberDaoImpl implements MemberDao {
 		String mberTel = rs.getString("mber_tel");
 		int totalLeCnt = rs.getInt("total_le_cnt");
 		int lendBookCnt = rs.getInt("lend_book_cnt");
-		Grade grade = new Grade(rs.getInt("grade"));
+		Grade grade = new Grade(rs.getInt("grade"), rs.getString("grad_name"), rs.getInt("book_le_cnt"));
 		int lendPsbCdt = rs.getInt("lend_psb_cdt");
 		Date joinDt = rs.getTimestamp("join_dt");
 		int wdrCdt = rs.getInt("wdr_cdt");
