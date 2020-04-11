@@ -14,6 +14,22 @@
 <script src="${pageContext.request.contextPath}/js/userCommon.js"></script>
 <script>
 	$(function(){
+		
+		/* top이동 버튼 이벤트 */
+		$(window).scroll(function() {
+			if($(this).scrollTop() > 200) {
+				$(".topBtn").fadeIn();
+			} else {
+				$(".topBtn").fadeOut();
+			}
+		})
+		
+		$(".topBtn").click(function() {
+			$("html, boby").animate({scrollTop: 0}, 400);
+			return false;
+		})
+		
+		
 		$(".menu").hover(function() {
 			$(this).next().show();
 		}, function() {
@@ -99,8 +115,6 @@
 					}
 				})
 			}
-			
-			//return false;
 		})
 	})
 </script>
@@ -140,7 +154,7 @@
 					<a class="menu" href="${pageContext.request.contextPath}/user/book/list.do">자료검색</a>
 					<ul class="subMenu">
 						<li><a href="${pageContext.request.contextPath}/user/book/list.do">통합자료검색</a></li>
-						<li><a href="#">신착도서</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/book/newList.do">신착도서</a></li>
 						<li><a href="#">대출베스트</a></li>
 						<li><a href="#">이달의 추천도서</a></li>
 					</ul>

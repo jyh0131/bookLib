@@ -553,7 +553,7 @@ public class LendingDaoImpl implements LendingDao {
 	}
 
 	@Override
-	public List<Lending> selectLendingBastList() {
+	public List<Lending> selectLendingBastList(int cnt) {
 		String sql = "select l1.book_cd , b.book_name, b.book_img_path , b.authr_name , b.trnslr_name , b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , \r\n"
 				+ "		b.pls , p.pls_name ,l2.totlaCnt\r\n"
 				+ "	from lending l1 left join book b on l1.book_cd = b.book_code \r\n"
@@ -562,17 +562,19 @@ public class LendingDaoImpl implements LendingDao {
 				+ "					left join publishing_company p on b.pls = p.pls_no ,\r\n"
 				+ "		(select book_cd , count(*) as totlaCnt from lending group by book_cd) l2\r\n"
 				+ "	where l1.book_cd = l2.book_cd\r\n" + "	group by l1.book_cd\r\n"
-				+ "	order by l2.totlaCnt desc limit 100";
+				+ "	order by l2.totlaCnt desc limit ?";
 		List<Lending> list = null;
 		try (Connection con = JDBCUtil.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, cnt);
 			LogUtil.prnLog(pstmt);
-			if (rs.next()) {
-				list = new ArrayList<>();
-				do {
-					list.add(getBastList(rs));
-				} while (rs.next());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if (rs.next()) {
+					list = new ArrayList<>();
+					do {
+						list.add(getBastList(rs));
+					} while (rs.next());
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -2,6 +2,8 @@ select user(), database();
 
 select * from book where book_code like '0901.051%';
 
+select * from vw_book group by book_name order by pblicte_year desc limit 10;
+
 -- 도서
 select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year ,
 	   b1.book_price , b2.book_cnt, b1.lend_psb_cdt , b1.total_le_cnt , b1.book_img , b1.lc_no, l.lclas_name , b1.ml_no, m.mlsfc_name,
@@ -101,3 +103,11 @@ select lend_rturn_no , mber_id , book_cd , lend_date , rturn_due_date , rturn_ps
 select * from lending where lend_rturn_no = 56;
 
 update lending set rturn_due_date = '2020.04.16' where lend_rturn_no = 56;
+
+
+select pblicte_year, book_name , book_img_path , authr_name , trnslr_name , b.lc_no , l.lclas_name , b.ml_no , m.mlsfc_name , b.pls , p.pls_name 
+	from book b left join large_classification l on b.lc_no = l.lclas_no 
+				left join middle_classification m on b.ml_no = m.mlsfc_no and l.lclas_no = m.lclas_no 
+				left join publishing_company p on b.pls = p.pls_no 
+	group by book_name
+	order by pblicte_year desc limit 10;

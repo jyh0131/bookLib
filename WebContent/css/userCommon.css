@@ -135,6 +135,15 @@ table {
 .blueBg {background-color: #014E9E;}
 .lightBlueBg{background-color: #3493DD;}
 
+/* top이동 버튼 */
+.topBtn {
+		position: fixed;
+	    font-size: 25px;
+	    padding: 5px 15px;
+	    bottom: 30px;
+	    right: 50px; 
+	    display: none;
+	}
 
 /* header style */
 div.menuTop {

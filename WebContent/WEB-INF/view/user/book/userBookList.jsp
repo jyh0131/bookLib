@@ -128,14 +128,6 @@
 		line-height: 25px;
 	}	
 	
-	.topBtn {
-		position: fixed;
-	    font-size: 25px;
-	    padding: 5px 15px;
-	    bottom: 30px;
-	    right: 50px; 
-	    display: none;
-	}
 </style>
 <script>
 	$(function(){
@@ -155,18 +147,6 @@
 			}
 		})
 		
-		$(window).scroll(function() {
-			if($(this).scrollTop() > 200) {
-				$(".topBtn").fadeIn();
-			} else {
-				$(".topBtn").fadeOut();
-			}
-		})
-		
-		$(".topBtn").click(function() {
-			$("html, boby").animate({scrollTop: 0}, 400);
-			return false;
-		})
 	})
 </script>
 <button class="topBtn btnBlue"><i class="fas fa-angle-up white"></i></button>
