@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../adminInclude/adminHeader.jsp" %>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminCommon.css" type="text/css"/>
 <style>
 	.homeCnt {
 		float: none;
@@ -175,7 +175,9 @@
 	}
 </style>
 <script>
-	
+	var now = new Date();
+	var year = now.getFullYear();
+	var month = now.getMonth()+1;
 </script>
 <article class="contentWrap homeCnt">
 	<div class="box">
@@ -213,23 +215,53 @@
 	<div class="box">
 		<div class="bookCdtBox lightGreyBg bookCdtInfo">
 			<h3>도서현황(월별)</h3>
-			<p>신착도서<span class="updown"> 증가 <i class="fas fa-caret-up"></i></span></p>
-			<p>대여도서<span class="updown"> 증가 <i class="fas fa-caret-up"></i></span></p>
-			<p>연체도서<span class="updown"> 증가 <i class="fas fa-caret-up"></i></span></p>
+			<c:choose>
+				<c:when test="${newRes>0}">
+					<p>신착도서<span class="updown">증가 <i class="fas fa-caret-up">${newRes}권</i></span></p>	
+				</c:when>
+				<c:when test="${newRes<0}">
+					<p>신착도서<span class="updown">감소 <i class="fas fa-caret-down" >${newRes}권</i></span></p>	
+				</c:when>
+				<c:when test="${newRes==0}">
+					<p>신착도서<span class="updown">-- <i>${newRes}권</i></span></p>	
+				</c:when>				
+			</c:choose>
+			<c:choose>
+				<c:when test="${lendingRes>0}">
+					<p>대여도서<span class="updown"> 증가 <i class="fas fa-caret-up" class="cntUp">${lendingRes}권</i></span></p>	
+				</c:when>
+				<c:when test="${lendingRes<0}">
+					<p>대여도서<span class="updown"> 감소 <i class="fas fa-caret-down cntDown"></i>${lendingRes}권</span></p>	
+				</c:when>
+				<c:when test="${lendingRes==0}">
+					<p>대여도서<span class="updown"> -- <i>${lendingRes}권</i></span></p>	
+				</c:when>				
+			</c:choose>
+			<c:choose>
+				<c:when test="${overdueRes>0}">
+					<p>연체도서<span class="updown"> 증가 <i class="fas fa-caret-up">${overdueRes}권</i></span></p>	
+				</c:when>
+				<c:when test="${overdueRes<0}">
+					<p>연체도서<span class="updown"> 감소 <i class="fas fa-caret-down">${overdueRes}권</i></span></p>	
+				</c:when>
+				<c:when test="${overdueRes==0}">
+					<p>연체도서<span class="updown"> -- <i>${overdueRes}권</i></span></p>	
+				</c:when>				
+			</c:choose>
 		</div>
 		<div class="bookCdtBox pinkBg bookBox">
-			<h3 class="white">총신착도서(2020년)</h3>
-			<p class="white">100 <span class="kwon white">권</span></p>
+			<h3 class="white">총신착도서(${y}년)</h3>
+			<p class="white">${newYearCnt } <span class="kwon white">권</span></p>
 			<i class="fas fa-book-reader"></i>
 		</div>
 		<div class="bookCdtBox purpleBg bookBox">
-			<h3 class="white">총대여도서(2020년)</h3>
-			<p class="white">100 <span class="kwon white">권</span></p>
+			<h3 class="white">총대여도서(${y}년)</h3>
+			<p class="white">${lendYearCnt } <span class="kwon white">권</span></p>
 			<i class="fas fa-retweet"></i>
 		</div>
 		<div class="bookCdtBox orangeBg bookBox">
-			<h3 class="white">연체도서(2020년)</h3>
-			<p class="white">100 <span class="kwon white">권</span></p>
+			<h3 class="white">연체도서(${y}년)</h3>
+			<p class="white">${overdueYearCnt } <span class="kwon white">권</span></p>
 			<i class="far fa-calendar-minus"></i>
 		</div>
 	</div>

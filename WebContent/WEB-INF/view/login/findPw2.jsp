@@ -105,7 +105,7 @@ $(function() {
 
 $(function() {
 	$("input[type='button']").click(function() {
-		location.href = "${pageContext.request.contextPath}/login/findId.do";
+		location.href = "${pageContext.request.contextPath}/user/findId.do";
 	})
 })
 
@@ -145,22 +145,14 @@ $(function() {
 			<script>
 				alert("등록된 아이디가 없습니다.");
 			</script>
-			<%
-				session.removeAttribute("error");
-			%>
 		</c:when>
 		
 		<c:when test="${Lib !=null}">
 			<script>
-
 				var flag =confirm("비밀번호는 [ ${Lib} ]입니다. 로그인화면으로 이동하시겠어요?");
 				if(flag==true){
-					location.href = "${pageContext.request.contextPath}/login/login.do";
+					location.href = "${pageContext.request.contextPath}/user/login.do";
 				}
-
-				alert("등록된 아이디의 메일로 임시 번호가 발송되었습니다.");
-				location.href = "${pageContext.request.contextPath}/login/login.do";
-
 			</script>
 			<%
 				session.removeAttribute("Lib");
@@ -169,21 +161,17 @@ $(function() {
 		
 		<c:when test="${Mem !=null}">
 			<script>
-
 				var flag =confirm("비밀번호는 [ ${Mem} ]입니다. 로그인화면으로 이동하시겠어요?");
 				if(flag==true){
-					location.href = "${pageContext.request.contextPath}/login/login.do";
+					location.href = "${pageContext.request.contextPath}/user/login.do";
 				}
-
-				alert("등록된 아이디의 메일로 임시 번호가 발송되었습니다.");
-				location.href = "${pageContext.request.contextPath}/login/login.do";
-
 			</script>
-			<%
+				<%
 				session.removeAttribute("Mem");
 			%>
 		</c:when>
 	</c:choose>
+	
 </article>
 
 

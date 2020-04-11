@@ -119,6 +119,9 @@ $(function() {
 			<script>
 				alert("등록된 아이디가 없습니다.");
 			</script>
+			<%
+				session.removeAttribute("error");
+			%>
 		</c:when>
 		
 		<c:when test="${Lib !=null}">

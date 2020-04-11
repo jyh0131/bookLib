@@ -33,11 +33,11 @@ public interface LendingDao {
 
 	int deleteLending(Lending lending);
 
-	List<Lending> showMemberRentalList(Member mem);
+/*	List<Lending> showMemberRentalList(Member mem);
 
 	List<Lending> showMemberReturnList(Member mem);
 
-	List<Lending> selectLendingByOverDueCdt();
+	List<Lending> selectLendingByOverDueCdt();*/
 
 	List<Lending> selectLendingByMberIdAndLendBookTotalAll(Lending lending);
 
@@ -53,7 +53,7 @@ public interface LendingDao {
 
 	List<Lending> selectLendingByMberIdChecking();
 
-	List<Lending> selectLendingBastList();
+	List<Lending> selectLendingBastList(int cnt);
 
 	int insertLendingUpdateBookMember(Member member, Book book);
 
@@ -65,5 +65,7 @@ public interface LendingDao {
 	
 	int showAtoBLendingCnt(Date date);
 	
+	int showOverdueBooCntMonth(Date date);
 
+	int showOverdueBooCntYear(Date yearD);
 }

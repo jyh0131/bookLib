@@ -129,6 +129,7 @@
 	})
 
 </script>
+<button class="topBtn btnBlue"><i class="fas fa-angle-up white"></i></button>
 <div class="articleBg">
 	<article class="contentWrap">
 		<div class="wrap">

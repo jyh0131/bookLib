@@ -44,11 +44,7 @@ public class UserBookListHandler implements CommandHandler {
 				book.setAuthrName(authrName);
 				book.setLcNo(lc);
 				List<Book> schList = dao.selectBookOnMber(book);		
-				
-				for(Book b : schList) {
-					System.out.println("book : " + b);
-				}
-				
+
 				req.setAttribute("schList", schList);
 				return "/WEB-INF/view/user/book/userBookList.jsp";
 			} catch (Exception e) {

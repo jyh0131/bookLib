@@ -2,6 +2,8 @@ select user(), database();
 
 select * from book where book_code like '0901.051%';
 
+select * from vw_book group by book_name order by pblicte_year desc limit 10;
+
 -- 도서
 select b1.book_code , b1.book_name, b1.authr_name , b1.trnslr_name , b1.pls, p.pls_name , b1.pblicte_year ,
 	   b1.book_price , b2.book_cnt, b1.lend_psb_cdt , b1.total_le_cnt , b1.book_img , b1.lc_no, l.lclas_name , b1.ml_no, m.mlsfc_name,
@@ -101,3 +103,33 @@ select lend_rturn_no , mber_id , book_cd , lend_date , rturn_due_date , rturn_ps
 select * from lending where lend_rturn_no = 56;
 
 update lending set rturn_due_date = '2020.04.16' where lend_rturn_no = 56;
+
+
+select pblicte_year, book_name , book_img_path , authr_name , trnslr_name , b.lc_no , l.lclas_name , b.ml_no , m.mlsfc_name , b.pls , p.pls_name 
+	from book b left join large_classification l on b.lc_no = l.lclas_no 
+				left join middle_classification m on b.ml_no = m.mlsfc_no and l.lclas_no = m.lclas_no 
+				left join publishing_company p on b.pls = p.pls_no 
+	group by book_name
+	order by pblicte_year desc limit 10;
+	
+select l1.book_cd , b.book_name, b.book_img_path , b.authr_name , b.trnslr_name , b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , 
+		b.pls , p.pls_name ,l2.totlaCnt, b2.book_cnt , b.pblicte_year 
+	from lending l1 left join book b on l1.book_cd = b.book_code 
+					left join large_classification lc on b.lc_no = lc.lclas_no 
+					left join middle_classification ml on b.ml_no = ml.mlsfc_no and lc.lclas_no = ml.lclas_no
+					left join publishing_company p on b.pls = p.pls_no ,
+					(select book_cd , count(*) as totlaCnt from lending group by book_cd) l2,
+					(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2
+	where l1.book_cd = l2.book_cd and b.book_name = b2.book_name and b.authr_name = b2.authr_name and b.pls = b2.pls and b.pblicte_year = b2.pblicte_year and 
+			b.book_price = b2.book_price
+	group by l1.book_cd
+	order by l2.totlaCnt desc limit 10;
+	
+select * from vw_book where book_name = '설이';
+
+select * from `member` m;
+
+insert into `member`(mber_id , mber_pass , mber_name , mber_brthdy , mber_zip , mber_tel , join_dt ) 
+values ('yoogj0513@naver.com', '123', '유경진', '1989-05-13', '11111', '000-0000-0000', now());
+
+select * from `member` m where mber_name ='유경진';

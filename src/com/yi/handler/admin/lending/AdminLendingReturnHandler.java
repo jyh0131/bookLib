@@ -25,12 +25,14 @@ public class AdminLendingReturnHandler implements CommandHandler {
 			String id = req.getParameter("member_id");
 			System.out.println("id : "+id);
 			String[] bookCd = req.getParameterValues("book_code2");
-			for(String s: bookCd) {
-				System.out.println(s);
-			}
-			System.out.println("bookCd : "+bookCd.toString());
+			
 			Connection conn = null;
 			try {
+				if(bookCd.length != 0) {
+					for(String s: bookCd) {
+						System.out.println(s);
+					}
+				}
 				conn = JDBCUtil.getConnection();
 				BookDao bookDao = BookDaoImpl.getInstance();
 				MemberDao memberDao = MemberDaoImpl.getInstance();

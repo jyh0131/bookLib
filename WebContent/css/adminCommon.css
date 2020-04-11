@@ -125,7 +125,7 @@ td, th {
 .white {color: #fff;}
 .gray {color: #D9D9D9;}
 .pink {color: #e8396f;}
-.blue{color: #014e9e;}
+.blue{color: #014e9e !important;}
 .aqua{color: #0CA0AE;}
 .lightBlue{color: #3493DD;}
 .dftBlue{color: blue;}
@@ -193,7 +193,14 @@ nav ul li:hover{
 	color: #fff;
 	padding-bottom: 5px;
 }
-
+.cntUp{
+	color: blue;
+}
+.cntDown{
+	font-size: 30px;
+	color: #ff9900;
+	padding-bottom: 5px;
+}
 .menuView {
 	background-color: #014E9E;
 }

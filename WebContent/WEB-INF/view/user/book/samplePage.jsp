@@ -8,7 +8,9 @@
 
 <div class="articleBg">
 	<article class="contentWrap">
-		
+		<div class="wrap">
+			<h3 class="pageTitle">통합자료검색</h3>
+		</div>
 	</article>
 </div>
 	

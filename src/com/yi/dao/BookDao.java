@@ -40,7 +40,7 @@ public interface BookDao {
 
 	int[] selectCountByCate();
 
-	List<Book> selectNewBookList();
+	List<Book> selectNewBookList(int cnt);
 
 	List<Book> lendingBookByName(Book book);
 
@@ -57,4 +57,8 @@ public interface BookDao {
 	int [] selectLendingCategoryCnt(Date date);
 	
 	int [] selectLendingCate();
+
+	int selectCountByCateDateYear(Date yearD);
+
+	int selectLendingCategoryYearCnt(Date yearD);
 }

@@ -553,23 +553,20 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public List<Book> selectNewBookList() {
-		String sql = "select pblicte_year, book_name , book_img_path , authr_name , trnslr_name , b.lc_no , l.lclas_name , b.ml_no , m.mlsfc_name , b.pls , p.pls_name \r\n" + 
-				"	from book b left join large_classification l on b.lc_no = l.lclas_no \r\n" + 
-				"				left join middle_classification m on b.ml_no = m.mlsfc_no and l.lclas_no = m.lclas_no \r\n" + 
-				"				left join publishing_company p on b.pls = p.pls_no \r\n" + 
-				"	group by book_name\r\n" + 
-				"	order by pblicte_year desc limit 100";
+	public List<Book> selectNewBookList(int cnt) {
+		String sql = "select * from vw_book group by book_name order by pblicte_year desc limit ?";
 		List<Book> list = null;
 		try (Connection con = JDBCUtil.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, cnt);
 			LogUtil.prnLog(pstmt);
-			if(rs.next()) {
-				list = new ArrayList<>();
-				do {
-					list.add(getNewBookList(rs));
-				} while(rs.next());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					list = new ArrayList<>();
+					do {
+						list.add(getBookVw(rs));
+					} while(rs.next());
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -761,6 +758,38 @@ public class BookDaoImpl implements BookDao {
 			e.printStackTrace();
 		}
 		return cateCounts;
+	}
+
+	@Override
+	public int selectCountByCateDateYear(Date date) {
+		String sql = "select count(*) as 'LendCntXBooks' from book where regist_date between ? and DATE_sub(?, interval -1 year)";
+		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				return rs.getInt("LendCntXBooks");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int selectLendingCategoryYearCnt(Date date) {
+		String sql = "select count(*) as 'LendCntXBooks' from lending l left join book b on l.book_cd = b.book_code left join large_classification lc on b.lc_no = lc.lclas_no where l.lend_date between ? and DATE_sub(?, interval -1 year)";
+		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				return rs.getInt("LendCntXBooks");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
 
