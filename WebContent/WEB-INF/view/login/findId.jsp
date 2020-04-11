@@ -119,13 +119,16 @@ $(function() {
 			<script>
 				alert("등록된 아이디가 없습니다.");
 			</script>
+			<%
+				session.removeAttribute("error");
+			%>
 		</c:when>
 		
 		<c:when test="${Lib !=null}">
 			<script>
 				var flag =confirm("아이디는 [ ${Lib} ]입니다 로그인화면으로 이동하시겠어요?");
 				if(flag==true){
-					location.href = "${pageContext.request.contextPath}/user/login.do";
+					location.href = "${pageContext.request.contextPath}/login/login.do";
 				}
 			</script>
 			<%
@@ -137,7 +140,7 @@ $(function() {
 			<script>
 				var flag =confirm("아이디는 [ ${Mem} ]입니다 로그인화면으로 이동하시겠어요?");
 				if(flag==true){
-					location.href = "${pageContext.request.contextPath}/user/login.do";
+					location.href = "${pageContext.request.contextPath}/login/login.do";
 				}
 			</script>
 				<%

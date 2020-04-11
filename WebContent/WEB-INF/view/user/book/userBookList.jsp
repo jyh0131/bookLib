@@ -128,14 +128,6 @@
 		line-height: 25px;
 	}	
 	
-	.topBtn {
-		position: fixed;
-	    font-size: 25px;
-	    padding: 5px 15px;
-	    bottom: 30px;
-	    right: 50px; 
-	    display: none;
-	}
 </style>
 <script>
 	$(function(){
@@ -155,18 +147,6 @@
 			}
 		})
 		
-		$(window).scroll(function() {
-			if($(this).scrollTop() > 200) {
-				$(".topBtn").fadeIn();
-			} else {
-				$(".topBtn").fadeOut();
-			}
-		})
-		
-		$(".topBtn").click(function() {
-			$("html, boby").animate({scrollTop: 0}, 400);
-			return false;
-		})
 	})
 </script>
 <button class="topBtn btnBlue"><i class="fas fa-angle-up white"></i></button>
@@ -220,7 +200,6 @@
 										<img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.bookImgPath}" alt="${item.bookName }" />
 									</c:if>
 									<div class="infoBox">
-										<!-- "도서코드", "도서명", "저자/역자", "출판사", "발행일", "분류", "보유권수", "소장위치", "대여가능여부" -->
 										<p class="bookName fontW700">${item.bookName }</p>
 										<p class="bookCode"><span class="gray">도서코드 : </span>${item.bookCode }</p>
 										<p class="wirter"><span class="gray">저자 : </span>${item.authrName } / <span class="gray">역자 : </span>${item.trnslrName }</p>

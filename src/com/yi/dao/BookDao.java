@@ -40,7 +40,7 @@ public interface BookDao {
 
 	int[] selectCountByCate();
 
-	List<Book> selectNewBookList();
+	List<Book> selectNewBookList(int cnt);
 
 	List<Book> lendingBookByName(Book book);
 
