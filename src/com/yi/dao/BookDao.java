@@ -57,4 +57,8 @@ public interface BookDao {
 	int [] selectLendingCategoryCnt(Date date);
 	
 	int [] selectLendingCate();
+
+	int selectCountByCateDateYear(Date yearD);
+
+	int selectLendingCategoryYearCnt(Date yearD);
 }

@@ -193,7 +193,14 @@ nav ul li:hover{
 	color: #fff;
 	padding-bottom: 5px;
 }
-
+.cntUp{
+	color: blue;
+}
+.cntDown{
+	font-size: 30px;
+	color: #ff9900;
+	padding-bottom: 5px;
+}
 .menuView {
 	background-color: #014E9E;
 }

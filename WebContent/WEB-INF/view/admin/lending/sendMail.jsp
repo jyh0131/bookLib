@@ -1,3 +1,9 @@
+<%@page import="com.yi.model.Lending"%>
+<%@page import="java.util.Date"%>
+<%@page import="com.yi.dao.LendingDao"%>
+<%@page import="com.yi.dao.impl.LendingDaoImpl"%>
+<%@page import="com.yi.model.Member"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="javax.mail.Transport"%>
 <%@page import="javax.mail.Message"%>
@@ -24,13 +30,24 @@
 
 
 
-String from = "ku0788@naver.com";
-System.out.println("sendMail.jsp에 들어옴");
+String from = "ku0788@naver.com";//보내는 사람(smtp 네이버를 이용했기에 fixed)
+/* LendingDao lendingDao = LendingDaoImpl.getInstance();
+
+List<Member> to2 = (List<Member>)request.getAttribute("emilTo"); */
 /* String[] to = request.getParameterValues("to");//받을 사람의 주소...... 1개씩 처리 또는 단체로 처리해야 하는데 */
-String[] to = (String[])request.getAttribute("to");
+/* for(Member m : to2){
+	Date now = new Date();
+	Lending lending = lendingDao.selectLendingByMber;
+	String to3 = m.getMberId();
+	String contentName = "대구도서관에서 안내드립니다. "+m.getMberName()+"님께서 대출중인 도서가 연체 중입니다.";
+	
+} */
+
+String[] to = (String[])request.getAttribute("to");//복수에게 보내기 위해 배열로 받음 (받는사람)
+
 System.out.println("받을 사람 주소 String : "+ to.toString()); 
-String subject = "대구 도서관에서 안내드립니다.";
-String content = "님께서 대출 하신 도서가 연체 중에 있습니다. 빠른 시일 내 방문하셔서 반납해주시길 바랍니다.";
+String subject = "대구 도서관에서 안내드립니다.";//제목
+String content = "대출 하신 도서가 연체 중에 있습니다. 빠른 시일 내 방문하셔서 반납해주시길 바랍니다.";//내용 원하는 내용을 더 추가하면 된다.
 // 입력값 받음
  
 Properties p = new Properties(); // 정보를 담을 객체
