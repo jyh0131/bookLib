@@ -22,6 +22,10 @@
 			$(".item3").addClass("asidView");
 		}
 		
+		if(subUrlName == "recom.do") {
+			$(".item4").addClass("asidView");
+		}
+		
 	})
 </script>
 <aside class="asideMenu">
@@ -30,6 +34,6 @@
 		<li><a class="asideMenuItem item1" href="${pageContext.request.contextPath}/user/book/list.do">통합자료검색</a></li>
 		<li><a class="asideMenuItem item2" href="${pageContext.request.contextPath}/user/book/newList.do">신착도서</a></li>
 		<li><a class="asideMenuItem item3" href="${pageContext.request.contextPath}/user/book/bastList.do">대출베스트</a></li>
-		<li><a class="asideMenuItem item4" href="#">이달의 추천도서</a></li>
+		<li><a class="asideMenuItem item4" href="${pageContext.request.contextPath}/uesr/book/recom.do">이달의 추천도서</a></li>
 	</ul>
 </aside>

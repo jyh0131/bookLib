@@ -156,7 +156,7 @@
 						<li><a href="${pageContext.request.contextPath}/user/book/list.do">통합자료검색</a></li>
 						<li><a href="${pageContext.request.contextPath}/user/book/newList.do">신착도서</a></li>
 						<li><a href="${pageContext.request.contextPath}/user/book/bastList.do">대출베스트</a></li>
-						<li><a href="#">이달의 추천도서</a></li>
+						<li><a href="${pageContext.request.contextPath}/uesr/book/recom.do">이달의 추천도서</a></li>
 					</ul>
 				</li>
 				<li>
