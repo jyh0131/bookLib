@@ -81,10 +81,15 @@ div.box h1 {
 	float: left;
 	margin: 0 21px;
 	margin-bottom: 25px;
+	width: 90px;
+	height: 180px;
 }
 .item p {
 	text-align: center;
-	font-size: 14px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .rankImg {
 	width: 90px;
@@ -107,132 +112,61 @@ div.box h1 {
 	</div>
 	<div class="recomWrap">
 		<p class="recomTitle">
-			<span class="orange">N</span>월 추천도서 &nbsp;&nbsp;&gt;
+			<a href="${pageContext.request.contextPath}/uesr/book/recom.do">
+				이달의 <span class="orange">추천도서</span> &nbsp;&nbsp;<i class="fas fa-angle-right"></i>
+			</a>
 		</p>
 		<p class="recomBook">
-			<span class="purple">도서 제목</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+			<span class="purple">${recom.bookCode.bookName }</span> &nbsp;&nbsp;|&nbsp;&nbsp;
 		</p>
-		<p class="recomWriter">작가</p>
-		<p class="recomPls gray">출판사</p>
+		<c:if test="${recom.bookCode.trnslrName == null }"><p class="recomWriter">${recom.bookCode.authrName }</p></c:if>
+		<c:if test="${recom.bookCode.trnslrName != null }"><p class="recomWriter">${recom.bookCode.authrName } / ${recom.bookCode.trnslrName }</p></c:if>
+		<p class="recomPls gray">${recom.bookCode.pls.plsName }</p>
 	</div>
 	<div class="bookRankWrap">
 		<div class="bastBox box">
-			<h1>베스트도서 순위</h1>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/작은 아씨들.jpg" alt="" />
+			<h1><a href="${pageContext.request.contextPath}/user/book/bastList.do">베스트도서 순위 <i class="fas fa-angle-right"></i></a></h1>
+			<c:forEach var="item" items="${lendList }">				
+				<div class="bastBookItem item">
+					<div class="rankImg">
+						<c:if test="${item.bookCd.bookImgPath == null }">
+							<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
+						</c:if>
+						<c:if test="${item.bookCd.bookImgPath != null }">
+							<img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.bookCd.bookImgPath}" alt="${item.bookCd.bookName }" />
+						</c:if>
+					</div>
+					<p class="rankTitle">${item.bookCd.bookName }</p>
+					<c:if test="${item.bookCd.trnslrName == null }">
+						<p class="rankWriter">${item.bookCd.authrName }</p>
+					</c:if>
+					<c:if test="${item.bookCd.trnslrName != null }">
+						<p class="rankWriter">${item.bookCd.authrName } / ${item.bookCd.trnslrName}</p>
+					</c:if>
 				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/작은 아씨들.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/작은 아씨들.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/작은 아씨들.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/작은 아씨들.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/작은 아씨들.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/작은 아씨들.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/작은 아씨들.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
+			</c:forEach>
 		</div>
 		<div class="newBox box">
-			<h1>도서관 신착도서</h1>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/아직 멀었다는 말.jpg" alt="" />
+			<h1><a href="${pageContext.request.contextPath}/user/book/newList.do">도서관 신착도서 <i class="fas fa-angle-right"></i></a></h1>
+			<c:forEach var="newItem" items="${newList }">				
+				<div class="bastBookItem item">
+					<div class="rankImg">
+						<c:if test="${newItem.bookImgPath == null }">
+							<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
+						</c:if>
+						<c:if test="${newItem.bookImgPath != null }">
+							<img class="loadImg" src="${pageContext.request.contextPath }/upload/${newItem.bookImgPath}" alt="${newItem.bookName }" />
+						</c:if>
+					</div>
+					<p class="rankTitle">${newItem.bookName }</p>
+					<c:if test="${newItem.trnslrName == null }">
+						<p class="rankWriter">${newItem.authrName }</p>
+					</c:if>
+					<c:if test="${newItem.trnslrName != null }">
+						<p class="rankWriter">${newItem.authrName } / ${item.bookCd.trnslrName}</p>
+					</c:if>
 				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/아직 멀었다는 말.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/아직 멀었다는 말.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/아직 멀었다는 말.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/아직 멀었다는 말.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/아직 멀었다는 말.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/아직 멀었다는 말.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
-			<div class="bastBookItem item">
-				<div class="rankImg">
-					<img src="../images/아직 멀었다는 말.jpg" alt="" />
-				</div>
-				<p class="rankTitle">책 이름</p>
-				<p class="rankWriter">작가/역자</p>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 </article>
