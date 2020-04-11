@@ -53,12 +53,12 @@
 <div class="articleBg">
 	<article class="contentWrap">
 		<div class="wrap">
-			<h3 class="pageTitle">신착도서</h3>
+			<h3 class="pageTitle">대출베스트</h3>
 
 			<div class="listArea">
 				<div class="rows">
 					<c:if test="${list == null }">
-						<p class="noData">신착 도서가 없습니다.</p>
+						<p class="noData">도서가 없습니다.</p>
 					</c:if>
 					<c:if test="${list != null }">
 						<c:forEach var="item" items="${list }" varStatus="status">
@@ -66,37 +66,37 @@
 								<div class="index">
 									<p>${status.index + 1 }.</p>
 								</div>
-								<c:if test="${item.bookImgPath == null }">
+								<c:if test="${item.bookCd.bookImgPath == null }">
 									<img class="loadImg"
 										src="${pageContext.request.contextPath }/images/book-noImg.png"
 										alt="book-noImg" />
 								</c:if>
-								<c:if test="${item.bookImgPath != null }">
+								<c:if test="${item.bookCd.bookImgPath != null }">
 									<img class="loadImg"
-										src="${pageContext.request.contextPath }/upload/${item.bookImgPath}"
-										alt="${item.bookName }" />
+										src="${pageContext.request.contextPath }/upload/${item.bookCd.bookImgPath}"
+										alt="${item.bookCd.bookName }" />
 								</c:if>
 								<div class="infoBox">
-									<p class="bookName fontW700">${item.bookName }</p>
+									<p class="bookName fontW700">${item.bookCd.bookName }</p>
 									<p class="wirter">
-										<span class="gray">저자 : </span>${item.authrName } / <span
-											class="gray">역자 : </span>${item.trnslrName }</p>
+										<span class="gray">저자 : </span>${item.bookCd.authrName } / <span
+											class="gray">역자 : </span>${item.bookCd.trnslrName }</p>
 									<p class="pls">
-										<span class="gray">출판사 : </span>${item.pls.plsName }</p>
+										<span class="gray">출판사 : </span>${item.bookCd.pls.plsName }</p>
 									<p class="pblicDate">
 										<span class="gray">발행일 : </span>
-										<fmt:formatDate value="${item.pblicteYear }"
+										<fmt:formatDate value="${item.bookCd.pblicteYear }"
 											pattern="yyyy-MM-dd" />
 									</p>
 									<p class="cat">
-										<span class="gray">카테고리 : </span>${item.lcNo.lclasName } /
-										${item.mlNo.mlsfcName }
+										<span class="gray">카테고리 : </span>${item.bookCd.lcNo.lclasName } /
+										${item.bookCd.mlNo.mlsfcName }
 									</p>
 									<p class="bookCnt">
-										<span class="gray">보유권수 : </span>${item.bookCnt }</p>
+										<span class="gray">보유권수 : </span>${item.bookCd.bookCnt }</p>
 									<p class="local">
 										<span class="gray">소장위치 : </span>
-										<fmt:formatNumber value="${item.lcNo.lclasNo }" pattern="00" />
+										<fmt:formatNumber value="${item.bookCd.lcNo.lclasNo }" pattern="00" />
 									</p>
 								</div>
 							</div>

@@ -111,3 +111,18 @@ select pblicte_year, book_name , book_img_path , authr_name , trnslr_name , b.lc
 				left join publishing_company p on b.pls = p.pls_no 
 	group by book_name
 	order by pblicte_year desc limit 10;
+	
+select l1.book_cd , b.book_name, b.book_img_path , b.authr_name , b.trnslr_name , b.lc_no , lc.lclas_name , b.ml_no , ml.mlsfc_name , 
+		b.pls , p.pls_name ,l2.totlaCnt, b2.book_cnt , b.pblicte_year 
+	from lending l1 left join book b on l1.book_cd = b.book_code 
+					left join large_classification lc on b.lc_no = lc.lclas_no 
+					left join middle_classification ml on b.ml_no = ml.mlsfc_no and lc.lclas_no = ml.lclas_no
+					left join publishing_company p on b.pls = p.pls_no ,
+					(select book_cd , count(*) as totlaCnt from lending group by book_cd) l2,
+					(select book_name, authr_name , pls, pblicte_year , book_price , count(*) as book_cnt from book group by book_name, authr_name , pls, pblicte_year , book_price) b2
+	where l1.book_cd = l2.book_cd and b.book_name = b2.book_name and b.authr_name = b2.authr_name and b.pls = b2.pls and b.pblicte_year = b2.pblicte_year and 
+			b.book_price = b2.book_price
+	group by l1.book_cd
+	order by l2.totlaCnt desc limit 10;
+	
+select * from vw_book where book_name = '설이';
