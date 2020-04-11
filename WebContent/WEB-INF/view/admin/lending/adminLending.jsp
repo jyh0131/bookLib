@@ -143,12 +143,17 @@
 			alert("모두 취소되었습니다.");
 		})
  		$("#rentForm").submit(function() {
- 			var i = $("input [type='checkbox']:checked").length;
- 			console.log(i);
- 			alert(i);
- 			if(i == 0){
+ 			/* var i = $("input [name='book_code']:checked").length; */
+ 			if($("input:checkbox[name=book_code]").is(":checked") == false) {
+ 				/* alert("체크값 없음"); */
  				return false;
  			}
+ 			/* alert("체크값 있음"); */
+ 			/* console.log(i);
+ 			alert("체크된 값의 길이"+i);
+ 			if(i == 0){
+ 				return false;
+ 			} */
 		})
 	})
 </script>
