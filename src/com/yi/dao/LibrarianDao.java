@@ -19,4 +19,6 @@ public interface LibrarianDao {
 	int insertLibrarian(Librarian lib); //사서등록
 	int updateLibrarian(Librarian lib); //사서정보수정
 	int deleteLibrarian(Librarian lib);
+	
+	int updateLibTemporaryPw(String pw, String id); // 임시비밀번호
 }

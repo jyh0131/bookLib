@@ -354,5 +354,19 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		return list;
 	}
 
+	@Override
+	public int updateLibTemporaryPw(String pw, String id) {
+		String sql = "update librarian set lb_pass = ? where lb_id = ?";
+		try (Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, pw);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 
 }

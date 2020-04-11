@@ -133,3 +133,6 @@ insert into `member`(mber_id , mber_pass , mber_name , mber_brthdy , mber_zip , 
 values ('yoogj0513@naver.com', '123', '유경진', '1989-05-13', '11111', '000-0000-0000', now());
 
 select * from `member` m where mber_name ='유경진';
+
+update `member` set mber_pass = '' where mber_id = '';
+update librarian set lb_pass = '' where lb_id = '';
