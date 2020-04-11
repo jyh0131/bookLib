@@ -22,6 +22,22 @@ public class Librarian {
 	
 	
 	
+	
+	
+	public Librarian(String lbId, String lbPass, String lbName, Date lbBirthDay, ZipCode lbZip, String lbBassAd,
+			String lbDetailAd, String lbTel, String libImgPath) {
+		super();
+		this.lbId = lbId;
+		this.lbPass = lbPass;
+		this.lbName = lbName;
+		this.lbBirthDay = lbBirthDay;
+		this.lbZip = lbZip;
+		this.lbBassAd = lbBassAd;
+		this.lbDetailAd = lbDetailAd;
+		this.lbTel = lbTel;
+		LibImgPath = libImgPath;
+	}
+
 	public Librarian(String lbId, String lbName, Date lbBirthDay, ZipCode lbZip, String lbBassAd, String lbDetailAd,
 			String lbTel, byte[] lbImg, Title title, Date joinDate, int workCdt, String libImgPath) {
 		super();

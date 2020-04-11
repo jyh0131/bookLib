@@ -97,6 +97,9 @@
 	#returnSubmit button{
 		margin: 5px;
 	}
+	tr:nth-of-type(even) {
+		background-color: #D9D9D9;
+	}
 </style>
 <script>
 	$(function() {
@@ -118,11 +121,9 @@
 			alert("모두 취소되었습니다.");
 	})
 	$("#returnForm").submit(function() {
- 		var i = $("input [type='checkbox']:checked").length;
- 		console.log(i);
- 		alert(i);
- 		if(i == 0){
- 			return false;
+		if($("input:checkbox[name=book_code2]").is(":checked") == false) {
+			alert("체크값 있음");	
+			return false;
  		}
 	})
 </script>
@@ -170,7 +171,7 @@
 		</table>
 		<div id="returnSubmit">
 			<button id="cancel" class="btnOrange">취소</button>
-			<button id="rent" class="btnLightBlue">반납</button> 
+			<button id="return" class="btnLightBlue">반납</button> 
 			<input type="hidden" value="" name="member_id" id="member_id">
 		</div>
 	</form>

@@ -9,6 +9,7 @@ public interface LibrarianDao {
 	Librarian loginLibrarian(Librarian lib);
 	Librarian findLibrarianId(Librarian lib);
 	Librarian findLibrarianPw(Librarian lib);
+	Librarian JSPSelectUpdateLib(Librarian lib);
 	
 	
 	List<Librarian> selectLibrarianByAll(); //사서의 목록,근무여부

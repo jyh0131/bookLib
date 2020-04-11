@@ -18,11 +18,11 @@
 	}
 	
 	.rentBtnBox {
-		float: left;
-		width: 20%;
-		border: 3px solid #D9D9D9;
-		box-sizing: border-box;
-		padding: 35px 30px;
+    float: left;
+    width: 21%;
+    border: 3px solid #D9D9D9;
+    box-sizing: border-box;
+    padding: 49px 30px;
 	}
 	
 	.rentBtnBox div {
@@ -71,12 +71,12 @@
 	}
 	
 	.libImg {
-		float: right;
-		width: 150px;
-		height: 150px;
-		background-color: #fff;
-		border-radius: 150px;
-		overflow: hidden;
+    float: right;
+    width: 180px;
+    height: 180px;
+    background-color: #fff;
+    border-radius: 70px;
+    overflow: hidden;
 	}
 	
 	.libImg img {
@@ -201,7 +201,14 @@
 			</div>
 			<div class="libImg">
 				<%-- <c:if>으로 이미지가 있으면 넣고 없으면 no-img로 나타나게 하기. 지금은 임시로 no-img넣어둠 --%>
-				<img src="${pageContext.request.contextPath }/images/no-image.png"/>
+			<c:choose>
+				<c:when test="${LibImage !=null}">
+					<img class="loadImg" src="${pageContext.request.contextPath }/upload/${LibImage}"/>
+				</c:when>
+				<c:when test="${LibImage ==null}">
+					<img class="loadImg" src="${pageContext.request.contextPath }/images/no-image.png" />
+				</c:when>
+			</c:choose>
 			</div>			
 		</div>
 	</div>

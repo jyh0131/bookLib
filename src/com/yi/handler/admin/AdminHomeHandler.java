@@ -1,5 +1,6 @@
 package com.yi.handler.admin;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,13 +21,14 @@ public class AdminHomeHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
 		try {
 			
 			/*추천도서*/
 			RecommendationDao dao = RecommendationDaoImpl.getInstance();
 			Recommendation recom = dao.selectRecommendationByLastNo();
 			req.setAttribute("recom", recom);
-			/*---------------------------------------------*/
+	/*---------------------------------------------*/
 			/* home에 신착, 대여, 연체 (전월대비 비교)/(금년의 총 카운팅)을 위한 변수 생성  */
 			Calendar cal = Calendar.getInstance();
 			int y = cal.get(Calendar.YEAR);
@@ -78,6 +80,7 @@ public class AdminHomeHandler implements CommandHandler {
 			req.setAttribute("overdueYearCnt", overdueYearCnt);
 			req.setAttribute("y", y);
 			/*---------------------------------------------*/
+
 			return "/WEB-INF/view/admin/adminHome.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();

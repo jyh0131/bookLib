@@ -9,11 +9,7 @@
 <title>Insert title here</title>
 <style>
 	table{
-		/* display: block;
-		width: 629px;
-		margin: 10px auto; */
 		border-collapse: collapse;
-		/* text-align: center; */
 	}
 	th{
 		border: 1px solid black;
@@ -29,6 +25,20 @@
 		width: 629px;
 		margin: 0 auto;
 	}
+	tr:nth-of-type(odd) {
+		background-color: #D9D9D9;
+	}
+	.btnLightBlue {
+		display: inline-block;
+		border: none;
+		padding: 5px 10px;
+		color: #fff;
+		font-weight: 700;
+		background-color: #3493DD;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+</style>
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
@@ -140,7 +150,7 @@
 	</table>
 	<div id="memberSubmit_container">
 		<p>
-			<button id="memberSubmit">선택</button>
+			<button id="memberSubmit" class="btnLightBlue">선택</button>
 		</p>
 	</div>
 </body>
