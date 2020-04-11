@@ -441,23 +441,23 @@ public class LendingDaoImpl implements LendingDao {
 		return list;
 	}
 
-	@Override
-	public List<Lending> showMemberRentalList(Member mem) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Lending> showMemberReturnList(Member mem) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Lending> selectLendingByOverDueCdt() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Lending> showMemberRentalList(Member mem) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public List<Lending> showMemberReturnList(Member mem) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public List<Lending> selectLendingByOverDueCdt() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public int selectAvgRendDate() {
@@ -668,6 +668,38 @@ public class LendingDaoImpl implements LendingDao {
 		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);)
 				{
 			System.out.println(pstmt.toString());
+			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				return rs.getInt("LendCntXBooks");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int showOverdueBooCntMonth(Date date) {
+		String sql = "select count(*) as 'LendCntXBooks' from lending where overdue_cdt = 1 and lend_date between ? and DATE_sub(?, interval -1 month)";
+		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				return rs.getInt("LendCntXBooks");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int showOverdueBooCntYear(Date date) {
+		String sql = "select count(*) as 'LendCntXBooks' from lending where overdue_cdt = 1 and lend_date between ? and DATE_sub(?, interval -1 year)";
+		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
 			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
 			ResultSet rs = pstmt.executeQuery();

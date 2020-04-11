@@ -31,18 +31,10 @@ public class AdminBookStatisticsHandler implements CommandHandler {
 			String y = req.getParameter("year");
 			String m = req.getParameter("month");
 			String wantDate = y+"-"+m+"-01";
-			System.out.println("wantDate : "+wantDate);
-			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date d = sdf.parse(wantDate);
-//			LendingDao lendingDao = LendingDaoImpl.getInstance();
 			BookDao bookDao = BookDaoImpl.getInstance();
 			int[] cnt = bookDao.selectCountByCateDate(d);
-			System.out.println("cnt의 값 : "+ cnt.toString());
-			
-//			for(int i: cnt) {
-//				System.out.println("cnt["+i+"] : "+i);
-//			}
 			ObjectMapper om = new ObjectMapper();
 			String json = om.writeValueAsString(cnt);
 			res.setContentType("application/json;charset=UTF-8");

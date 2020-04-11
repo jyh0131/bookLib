@@ -1,15 +1,19 @@
 package com.yi.handler.admin.lending;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yi.dao.LendingDao;
+import com.yi.dao.MemberDao;
 import com.yi.dao.impl.LendingDaoImpl;
+import com.yi.dao.impl.MemberDaoImpl;
 import com.yi.jdbc.JDBCUtil;
 import com.yi.model.Lending;
+import com.yi.model.Member;
 import com.yi.mvc.CommandHandler;
 
 public class AdminLendingOverdueHandler implements CommandHandler {
@@ -33,9 +37,14 @@ public class AdminLendingOverdueHandler implements CommandHandler {
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 			String[] mberId = req.getParameterValues("chk");
-			for(String s : mberId) {
-				System.out.println("회원 아이디 : "+s);
-			}
+//			MemberDao memberDao = MemberDaoImpl.getInstance();
+//			List<Member> list = new ArrayList<>();
+//			for(String s : mberId) {
+//				System.out.println("회원 아이디 : "+s);
+//				Member memberId= new Member(s);
+//				Member member = memberDao.selectMemberByNo(memberId);
+//				list.add(member);
+//			}
 //			MemberDao memberDao = MemberDaoImpl.getInstance();
 //			List<String> emailList = new ArrayList<>();
 //			for(String s: mberId) {
@@ -44,6 +53,7 @@ public class AdminLendingOverdueHandler implements CommandHandler {
 //				Member memberName = memberDao.selectMemberByNo(mem);
 //				String mberName = memberName.getMberName();
 //			}
+//			req.setAttribute("emailTo", list);
 			req.setAttribute("to", mberId);
 			return "/WEB-INF/view/admin/lending/sendMail.jsp";
 		}
