@@ -97,6 +97,9 @@
 	#returnSubmit button{
 		margin: 5px;
 	}
+	tr:nth-of-type(even) {
+		background-color: #D9D9D9;
+	}
 </style>
 <script>
 	$(function() {

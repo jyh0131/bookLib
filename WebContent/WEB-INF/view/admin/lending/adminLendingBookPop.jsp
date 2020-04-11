@@ -10,43 +10,23 @@
 <style>
 	table{
 		border-collapse: collapse;
-		display: block;
-		width: 1050px;
-		text-align:center;
+	}
+	th{
+		border: 1px solid black;
+		background-color: #476fad;
+		color: #fff;
+		padding: 10px;
+	}
+	td{
+		border: 1px solid black;
+		padding: 10px;
+	}
+	#memberSubmit_container{
+		width: 629px;
 		margin: 0 auto;
-		
 	}
-	th, td{
-		border: 1px solid steelblue;
-	}
-	table td:first-child {
-		width: 110px;
-	}
-	table td:nth-child(2) {
-		width: 200px;
-	}
-	table td:nth-child(3) {
-		width: 80px;
-	}
-	table td:nth-child(4) {
-		width: 110px;
-	}
-	table td:nth-child(5) {
-		width: 80px;
-	}
-	table td:nth-child(6) {
-		width: 100px;
-	}
-	table td:nth-child(7) {
-		width: 100px;
-	}
-	table td:last-child {
-		width: 50px;
-		text-align: center;
-	}
-	div{
-		width: 1050px;
-		margin: 0 auto;
+	tr:nth-of-type(odd) {
+		background-color: #D9D9D9;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

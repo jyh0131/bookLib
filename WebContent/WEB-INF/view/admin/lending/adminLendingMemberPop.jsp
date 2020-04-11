@@ -9,11 +9,7 @@
 <title>Insert title here</title>
 <style>
 	table{
-		/* display: block;
-		width: 629px;
-		margin: 10px auto; */
 		border-collapse: collapse;
-		/* text-align: center; */
 	}
 	th{
 		border: 1px solid black;
@@ -29,6 +25,10 @@
 		width: 629px;
 		margin: 0 auto;
 	}
+	tr:nth-of-type(odd) {
+		background-color: #D9D9D9;
+	}
+</style>
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
