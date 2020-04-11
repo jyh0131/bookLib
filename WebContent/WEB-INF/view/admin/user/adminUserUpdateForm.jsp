@@ -243,8 +243,6 @@ function address() {
 			var imgName = changeImg[changeImg.length-1];
 			var imgSrc = $(".loadImgBtn").val();
 			
-			alert(imgSrc);
-			
 			console.log(imgSrc);
 		})
 		

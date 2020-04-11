@@ -34,16 +34,12 @@ public class AdminStaffUpdateHandler implements CommandHandler {
 			
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			try{
-				String titleNo = req.getParameter("title");
+				String titleName = req.getParameter("title");
+				int titleNo = Integer.parseInt(titleName);
 				
 				String workCdtStr = req.getParameter("workCdt");
-				int workCdt;
-				if(workCdtStr.equals("재직")) {
-					workCdt = 1;
-				}else {
-					workCdt = 0;
-				}
-				
+				int workCdt = Integer.parseInt(workCdtStr);
+		
 				
 				LibrarianDao dao = LibrarianDaoImpl.getInstance();
 				Librarian lib = new Librarian();

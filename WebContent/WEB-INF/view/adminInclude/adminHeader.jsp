@@ -35,6 +35,12 @@
 		case "staff":
 			$(".menu5").addClass("menuView");
 			break
+		//프로필
+		case "profile":
+			$(".menu7").addClass("menuView");
+			break
+			
+			
 		default:
 			$(".menu1").addClass("menuView");
 			break;
@@ -57,7 +63,8 @@
 					<li><a href="${pageContext.request.contextPath}/admin/staff/management.do" class="menu menu5"><i class="fas fa-user-tie icon"></i><br>직원관리</a></li>
 				</c:if>
 				<li><a href="${pageContext.request.contextPath}/admin/statistics/LendingStatistics.do" class="menu menu6"><i class="fas fa-chart-pie icon"></i><br>통계조회</a></li>
-				<li><a href="${pageContext.request.contextPath}/user/home.do" class="menu menu7"><i class="fas fa-door-open icon"></i><br>나가기</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/profile/profilePwCheck.do" class="menu menu7"><i class="far fa-id-card icon"></i><br>프로필</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/home.do" class="menu menu8"><i class="fas fa-door-open icon"></i><br>나가기</a></li>
 			</ul>
 			<div class="logoWrap">
 				<img src="${pageContext.request.contextPath}/images/logo2.png" alt="로고" />

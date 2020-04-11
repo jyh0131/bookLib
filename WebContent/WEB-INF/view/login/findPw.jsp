@@ -151,7 +151,7 @@ $(function() {
 			<script>
 				var flag =confirm("비밀번호는 [ ${Lib} ]입니다. 로그인화면으로 이동하시겠어요?");
 				if(flag==true){
-					location.href = "${pageContext.request.contextPath}/user/login.do";
+					location.href = "${pageContext.request.contextPath}/login/login.do";
 				}
 			</script>
 			<%
@@ -163,7 +163,7 @@ $(function() {
 			<script>
 				var flag =confirm("비밀번호는 [ ${Mem} ]입니다. 로그인화면으로 이동하시겠어요?");
 				if(flag==true){
-					location.href = "${pageContext.request.contextPath}/user/login.do";
+					location.href = "${pageContext.request.contextPath}/login/login.do";
 				}
 			</script>
 				<%

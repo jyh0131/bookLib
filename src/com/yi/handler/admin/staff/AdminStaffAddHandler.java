@@ -34,8 +34,9 @@ public class AdminStaffAddHandler implements CommandHandler {
 			return "/WEB-INF/view/admin/staff/adminStaffAdd.jsp";
 		
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
-			String titleNo = req.getParameter("title");
-			
+			String titleName = req.getParameter("title");
+			int titleNo = Integer.parseInt(titleName);
+
 			LibrarianDao dao = LibrarianDaoImpl.getInstance();
 			Librarian lib = new Librarian();
 			

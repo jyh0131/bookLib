@@ -54,6 +54,7 @@ public class LoginHandler implements CommandHandler {
 						HttpSession session = req.getSession();
 						session.setAttribute("Lib", loginLib.getLbName());
 						session.setAttribute("Title",loginLib.getTitle().getTitleNo());
+						session.setAttribute("LibImage", loginLib.getLibImgPath());
 						res.sendRedirect(req.getContextPath() + "/user/home.do");
 						return null;
 					}
@@ -61,6 +62,7 @@ public class LoginHandler implements CommandHandler {
 						HttpSession session = req.getSession();
 						session.setAttribute("Lib", loginLib.getLbName());
 						session.setAttribute("Title", loginLib.getTitle().getTitleNo());
+						session.setAttribute("LibImage", loginLib.getLibImgPath());
 						res.sendRedirect(req.getContextPath() + "/user/home.do");
 						return null;
 					}
@@ -75,6 +77,7 @@ public class LoginHandler implements CommandHandler {
 					HttpSession session = req.getSession();
 					session.setAttribute("Mem", loginMember.getMberName());
 					session.setAttribute("MemId", loginMember.getMberId());
+					session.setAttribute("MemImage", loginMember.getMemberImgPath());
 					res.sendRedirect(req.getContextPath() + "/user/home.do");
 					return null;
 				}

@@ -58,11 +58,17 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		Date joinDate = rs.getTimestamp("join_date");
 		int workCdt = rs.getInt("work_cdt");
 		Librarian lb = new Librarian(lbId, lbPass, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, title, joinDate, workCdt);
+		if(!isImg) {
+			String ImgPath = rs.getString("lb_img_path");
+			lb.setLibImgPath(ImgPath);
+		}
 		if(isImg) {
 			byte[] lbImg = rs.getBytes("lb_img");
 			lb.setLbImg(lbImg);
 		}
-		LogUtil.prnLog("getLibrarian => " + lb);
+		
+		
+		
 		return lb;
 	}
 
@@ -199,7 +205,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 	@Override
 	public Librarian loginLibrarian(Librarian lib) {
 		String sql = "select lb_id, lb_pass, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, "
-				+ "lb_tel, title, join_date, work_cdt "
+				+ "lb_tel, title, join_date, work_cdt, lb_img_path "
 				+ "from librarian "
 				+ "where lb_id = ? and lb_pass = ?";
 		
@@ -352,6 +358,40 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public Librarian JSPSelectUpdateLib(Librarian lib) {
+		String sql = "select lb_id, lb_pass, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, title, lb_img_path\r\n" + 
+				"from librarian\r\n" + 
+				"where lb_id=?";
+		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, lib.getLbId());
+			try (ResultSet rs = pstmt.executeQuery()){
+				if (rs.next()) {
+					return getJSP(rs);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private Librarian getJSP(ResultSet rs) throws SQLException {
+		String lbId = rs.getString("lb_id");
+		String lbPass = rs.getString("lb_pass");
+		String lbName = rs.getString("lb_name");
+		Date lbBirthDay =rs.getTimestamp("lb_birthday");
+		ZipCode lbZip = new ZipCode(rs.getInt("lb_zip"));
+		String lbBassAd = rs.getString("lb_bass_ad");
+		String lbDetailAd = rs.getString("lb_detail_ad");
+		String lbTel = rs.getString("lb_tel");
+		String libImgPath = rs.getString("lb_img_path");
+		
+		Librarian lib= new Librarian(lbId, lbPass, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, libImgPath);
+
+		return lib;
 	}
 
 
