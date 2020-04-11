@@ -48,6 +48,7 @@ public class FindIdHandler implements CommandHandler {
 					if(findLibId ==null) {
 						HttpSession session = req.getSession();
 						session.setAttribute("error", "nullId");
+						System.out.println("error : " );
 
 						return "/WEB-INF/view/login/findId.jsp";
 					}

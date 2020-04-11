@@ -15,7 +15,7 @@ import com.yi.model.Librarian;
 import com.yi.model.Member;
 import com.yi.mvc.CommandHandler;
 
-public class FindPwHandler implements CommandHandler {
+public class FindPwHandler2 implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -54,14 +54,17 @@ public class FindPwHandler implements CommandHandler {
 
 						return "/WEB-INF/view/login/findId.jsp";
 					}
-					
-					
-					
+
+					HttpSession session = req.getSession();
+					session.setAttribute("Lib", findLibPw.getLbPass());
+					res.sendRedirect(req.getContextPath() + "/login/findPw.do");
 
 					return null;
 
 				}
-				
+				HttpSession session = req.getSession();
+				session.setAttribute("Mem", findMemberPw.getMberPass());
+				res.sendRedirect(req.getContextPath() + "/login/findPw.do");
 
 				return null;
 

@@ -126,3 +126,10 @@ select l1.book_cd , b.book_name, b.book_img_path , b.authr_name , b.trnslr_name 
 	order by l2.totlaCnt desc limit 10;
 	
 select * from vw_book where book_name = '설이';
+
+select * from `member` m;
+
+insert into `member`(mber_id , mber_pass , mber_name , mber_brthdy , mber_zip , mber_tel , join_dt ) 
+values ('yoogj0513@naver.com', '123', '유경진', '1989-05-13', '11111', '000-0000-0000', now());
+
+select * from `member` m where mber_name ='유경진';
