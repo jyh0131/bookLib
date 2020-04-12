@@ -587,6 +587,7 @@ public class LendingDaoImpl implements LendingDao {
 
 	private Lending getBastList(ResultSet rs) throws SQLException {
 		Book bookCd = new Book();
+		bookCd.setBookCode(rs.getString("l1.book_cd"));
 		bookCd.setBookName(rs.getString("b.book_name"));
 		bookCd.setBookImgPath(rs.getString("b.book_img_path"));
 		bookCd.setAuthrName(rs.getString("b.authr_name"));
@@ -717,6 +718,23 @@ public class LendingDaoImpl implements LendingDao {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public Date selectRturnDueDateByBookCode(String code) {
+		String sql = "select rturn_due_date from lending where book_cd = ? and rturn_date is null";
+		try (Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, code);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					return rs.getTimestamp("rturn_due_date");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 

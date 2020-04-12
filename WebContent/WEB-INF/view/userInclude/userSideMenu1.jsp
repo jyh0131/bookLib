@@ -10,7 +10,7 @@
 		var	subUrlName = subUrl[subUrl.length-1];
 		
 		// do 이름으로 구분
-		if(subUrlName == "list.do") {
+		if(subUrlName == "list.do" || subUrlName.match("detail.do") != null) {
 			$(".item1").addClass("asidView");
 		}
 		
