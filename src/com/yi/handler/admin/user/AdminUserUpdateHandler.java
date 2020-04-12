@@ -65,9 +65,6 @@ public class AdminUserUpdateHandler implements CommandHandler {
 				Date birthday = sdf.parse(birthStr);
 				member.setMberBrthdy(birthday);
 				
-				
-				
-			
 				member.setMberTel(multi.getParameter("phone"));
 				member.setMberZip(new ZipCode(Integer.parseInt(multi.getParameter("zipCode"))));
 				member.setMberBassAd(multi.getParameter("baseAddress"));

@@ -137,12 +137,12 @@ public class MemberDaoImpl implements MemberDao {
 			sql.append("mber_detail_ad=?, ");
 		if (member.getMberTel() != null)
 			sql.append("mber_tel=?, ");
-		if (member.getMberImg() != null)
-			sql.append("mber_img=?, ");
-		if (member.getTotalLeCnt() != -1)
+/*		if (member.getMberImg() != null)
+			sql.append("mber_img=?, ");*/
+/*		if (member.getTotalLeCnt() != -1)
 			sql.append("total_le_cnt=?, ");
 		if (member.getLendBookCnt() != -1)
-			sql.append("lend_book_cnt=?, ");
+			sql.append("lend_book_cnt=?, ");*/
 /*		if (member.getGrade().getGradeNo() != -1)
 			sql.append("grade=?, ");
 		if (member.getLendPsbCdt() != -1)
@@ -176,12 +176,12 @@ public class MemberDaoImpl implements MemberDao {
 				pstmt.setString(argCnt++, member.getMberDetailAd());
 			if (member.getMberTel() != null)
 				pstmt.setString(argCnt++, member.getMberTel());
-			if (member.getMberImg() != null)
+/*			if (member.getMberImg() != null)
 				pstmt.setBytes(argCnt++, member.getMberImg());
 			if (member.getTotalLeCnt() != -1)
 				pstmt.setInt(argCnt++, member.getTotalLeCnt());
 			if (member.getLendBookCnt() != -1)
-				pstmt.setInt(argCnt++, member.getLendBookCnt());
+				pstmt.setInt(argCnt++, member.getLendBookCnt());*/
 			/*if (member.getGrade().getGradeNo() != -1)
 				pstmt.setInt(argCnt++, member.getGrade().getGradeNo());
 			if (member.getLendPsbCdt() != -1)

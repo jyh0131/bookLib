@@ -16,14 +16,12 @@ public class Librarian {
 	private Title title;
 	private Date joinDate;
 	private int workCdt;
-	private String LibImgPath;
+	private String libImgPath;
+	
+	
+	
+	
 
-	
-	
-	
-	
-	
-	
 	public Librarian(String lbId, String lbPass, String lbName, Date lbBirthDay, ZipCode lbZip, String lbBassAd,
 			String lbDetailAd, String lbTel, String libImgPath) {
 		super();
@@ -35,7 +33,7 @@ public class Librarian {
 		this.lbBassAd = lbBassAd;
 		this.lbDetailAd = lbDetailAd;
 		this.lbTel = lbTel;
-		LibImgPath = libImgPath;
+		this.libImgPath = libImgPath;
 	}
 
 	public Librarian(String lbId, String lbName, Date lbBirthDay, ZipCode lbZip, String lbBassAd, String lbDetailAd,
@@ -52,7 +50,7 @@ public class Librarian {
 		this.title = title;
 		this.joinDate = joinDate;
 		this.workCdt = workCdt;
-		LibImgPath = libImgPath;
+		this.libImgPath = libImgPath;
 	}
 
 	public Librarian(String lbId, String lbPass, String lbName, Date lbBirthDay, ZipCode lbZip, String lbBassAd,
@@ -70,15 +68,15 @@ public class Librarian {
 		this.title = title;
 		this.joinDate = joinDate;
 		this.workCdt = workCdt;
-		LibImgPath = libImgPath;
+		this.libImgPath = libImgPath;
 	}
 
 	public String getLibImgPath() {
-		return LibImgPath;
+		return libImgPath;
 	}
 
 	public void setLibImgPath(String libImgPath) {
-		LibImgPath = libImgPath;
+		this.libImgPath = libImgPath;
 	}
 
 	public Librarian() {
@@ -376,7 +374,7 @@ public class Librarian {
 		return "Librarian [lbId=" + lbId + ", lbPass=" + lbPass + ", lbName=" + lbName + ", lbBirthDay=" + lbBirthDay
 				+ ", lbZip=" + lbZip + ", lbBassAd=" + lbBassAd + ", lbDetailAd=" + lbDetailAd + ", lbTel=" + lbTel
 				+ ", lbImg=" + Arrays.toString(lbImg) + ", title=" + title + ", joinDate=" + joinDate + ", workCdt="
-				+ workCdt + ", LibImgPath=" + LibImgPath + "]";
+				+ workCdt + ", libImgPath=" + libImgPath + "]";
 	}
 
 }

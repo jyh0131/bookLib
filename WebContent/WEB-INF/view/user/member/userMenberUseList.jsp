@@ -83,7 +83,6 @@
 	th, td {padding: 15px 5px;}
 	
 	.center {text-align: center;}
-	
 	.w150 {width: 150px;}
 	.w50 {width: 50px;}
 	.w25 {width: 25px;}
@@ -227,7 +226,7 @@
 											<td class="center"><input type="checkbox" name="chk" class="chk" value="${item.lendRturnNo }"/></td>
 										</c:if>
 										<c:if test="${item.rturnDate != null || item.rturnPsmCdt == 1 || dDay < now}">
-											<td class="center">-</td>
+											<td class="center">연기 불가</td>
 										</c:if>
 									</tr>
 								</c:forEach>

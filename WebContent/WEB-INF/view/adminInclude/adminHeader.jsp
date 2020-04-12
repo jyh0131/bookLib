@@ -62,10 +62,8 @@
 				</c:if>
 				<li><a href="${pageContext.request.contextPath}/admin/statistics/LendingStatistics.do" class="menu menu6"><i class="fas fa-chart-pie icon"></i><br>통계조회</a></li>
 
-				<li><a href="${pageContext.request.contextPath}/admin/profile/profilePwCheck.do" class="menu menu7"><i class="far fa-id-card icon"></i><br>프로필</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/profile/adminProfilePwCheck.do" class="menu menu7"><i class="far fa-id-card icon"></i><br>프로필</a></li>
 				<li><a href="${pageContext.request.contextPath}/user/home.do" class="menu menu8"><i class="fas fa-door-open icon"></i><br>나가기</a></li>
-
-				<li><a href="${pageContext.request.contextPath}/user/home.do" class="menu menu7"><i class="fas fa-door-open icon"></i><br>나가기</a></li>
 				<li><a class="blue" href="${pageContext.request.contextPath }/login/logout.do"><i class="blue fas fa-sign-in-alt icon"></i><br>로그아웃</a></li>
 
 			</ul>

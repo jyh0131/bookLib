@@ -28,7 +28,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 
 	@Override
 	public Librarian selectLibrarianById(Librarian lib) {
-		String sql = "select lb_id, lb_pass, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, title, join_date, work_cdt from librarian where lb_id = ?";
+		String sql = "select lb_id, lb_pass, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, title, join_date, work_cdt, lb_img_path from librarian where lb_id = ?";
 		try (Connection con = JDBCUtil.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, lib.getLbId());
@@ -57,18 +57,14 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		Title title = new Title(rs.getInt("title"));
 		Date joinDate = rs.getTimestamp("join_date");
 		int workCdt = rs.getInt("work_cdt");
+		String libImgPath = rs.getString("lb_img_path");
 		Librarian lb = new Librarian(lbId, lbPass, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, title, joinDate, workCdt);
-		if(!isImg) {
-			String ImgPath = rs.getString("lb_img_path");
-			lb.setLibImgPath(ImgPath);
-		}
+		lb.setLibImgPath(libImgPath);
+		
 		if(isImg) {
 			byte[] lbImg = rs.getBytes("lb_img");
 			lb.setLbImg(lbImg);
 		}
-		
-		
-		
 		return lb;
 	}
 
@@ -155,7 +151,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		if(lib.getLbBassAd()!=null) sql.append("lb_bass_ad=?, ");
 		if(lib.getLbDetailAd()!=null) sql.append("lb_detail_ad=?, ");
 		if(lib.getLbTel()!=null) sql.append("lb_tel=?, ");
-		if(lib.getLbImg()!=null) sql.append("lb_img=?, ");
+		//if(lib.getLbImg()!=null) sql.append("lb_img=?, ");
 		if(lib.getTitle().getTitleNo() !=-1) sql.append("title=?, ");
 		if(lib.getJoinDate()!=null) sql.append("join_date=?, ");
 		if(lib.getWorkCdt()!=-1) sql.append("work_cdt=?, ");
@@ -173,10 +169,54 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			if(lib.getLbBassAd()!=null) pstmt.setString(argCnt++, lib.getLbBassAd());
 			if(lib.getLbDetailAd()!=null) pstmt.setString(argCnt++, lib.getLbDetailAd());
 			if(lib.getLbTel()!=null) pstmt.setString(argCnt++,lib.getLbTel());
-			if(lib.getLbImg()!=null)pstmt.setBytes(argCnt++, lib.getLbImg());
+			//if(lib.getLbImg()!=null)pstmt.setBytes(argCnt++, lib.getLbImg());
 			if(lib.getTitle().getTitleNo() !=-1)pstmt.setInt(argCnt++, lib.getTitle().getTitleNo());
 			if(lib.getJoinDate()!=null) pstmt.setTimestamp(argCnt++, new Timestamp(lib.getJoinDate().getTime()));
 			if(lib.getWorkCdt()!=-1)pstmt.setInt(argCnt++, lib.getWorkCdt());
+			if(lib.getLibImgPath() !=null)pstmt.setString(argCnt++, lib.getLibImgPath());
+			pstmt.setString(argCnt++, lib.getLbId());
+			LogUtil.prnLog(pstmt);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	
+	@Override
+	public int updateLibrarianJsp(Librarian lib) {
+		StringBuilder sql = new StringBuilder("update librarian set ");
+		if(lib.getLbPass()!=null) sql.append("lb_pass=?, ");
+		if(lib.getLbName()!=null) sql.append("lb_name=?, ");
+		if(lib.getLbBirthDay()!=null) sql.append("lb_birthday=?, ");
+		if(lib.getLbZip()!=null) sql.append("lb_zip=?, ");
+		if(lib.getLbBassAd()!=null) sql.append("lb_bass_ad=?, ");
+		if(lib.getLbDetailAd()!=null) sql.append("lb_detail_ad=?, ");
+		if(lib.getLbTel()!=null) sql.append("lb_tel=?, ");
+		//if(lib.getLbImg()!=null) sql.append("lb_img=?, ");
+		//if(lib.getTitle().getTitleNo() !=-1) sql.append("title=?, ");
+		//if(lib.getJoinDate()!=null) sql.append("join_date=?, ");
+		//if(lib.getWorkCdt()!=-1) sql.append("work_cdt=?, ");
+		if(lib.getLibImgPath() !=null) sql.append("lb_img_path=?,");
+		sql.replace(sql.lastIndexOf(","), sql.length(), " ");
+		sql.append("where lb_id=?");
+		
+		try(Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql.toString())){
+			int argCnt = 1;
+			if(lib.getLbPass()!=null) pstmt.setString(argCnt++, lib.getLbPass());
+			if(lib.getLbName()!=null) pstmt.setString(argCnt++, lib.getLbName());
+			if(lib.getLbBirthDay()!=null) pstmt.setTimestamp(argCnt++, new Timestamp(lib.getLbBirthDay().getTime()));
+			if(lib.getLbZip()!=null) pstmt.setInt(argCnt++, lib.getLbZip().getZipCode());
+			if(lib.getLbBassAd()!=null) pstmt.setString(argCnt++, lib.getLbBassAd());
+			if(lib.getLbDetailAd()!=null) pstmt.setString(argCnt++, lib.getLbDetailAd());
+			if(lib.getLbTel()!=null) pstmt.setString(argCnt++,lib.getLbTel());
+			//if(lib.getLbImg()!=null)pstmt.setBytes(argCnt++, lib.getLbImg());
+			//if(lib.getTitle().getTitleNo() !=-1)pstmt.setInt(argCnt++, lib.getTitle().getTitleNo());
+			//if(lib.getJoinDate()!=null) pstmt.setTimestamp(argCnt++, new Timestamp(lib.getJoinDate().getTime()));
+			//if(lib.getWorkCdt()!=-1)pstmt.setInt(argCnt++, lib.getWorkCdt());
 			if(lib.getLibImgPath() !=null)pstmt.setString(argCnt++, lib.getLibImgPath());
 			pstmt.setString(argCnt++, lib.getLbId());
 			LogUtil.prnLog(pstmt);
@@ -402,8 +442,8 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		String lbTel = rs.getString("lb_tel");
 		String libImgPath = rs.getString("lb_img_path");
 		
-		Librarian lib= new Librarian(lbId, lbPass, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel, libImgPath);
-
+		Librarian lib= new Librarian(lbId, lbPass, lbName, lbBirthDay, lbZip, lbBassAd, lbDetailAd, lbTel,libImgPath);
+		lib.setLibImgPath(libImgPath);
 		return lib;
 	}
 

@@ -10,7 +10,8 @@
 	}
 	
 	.w395 {
-		width: 250px;
+		width: 475px;
+   		height: 50px;
 	}
 	
 	#zip{
@@ -22,19 +23,24 @@
 	}
 	
 	.addBox {
-		width: 700px;
-		margin-left: 300px;
+    width: 606px;
+    margin-left: 300px;
+    margin-top: 70px;
 	}
 	
 	.addBox p {
-		padding-top: 10px;
-		padding-bottom: 10px;
-		font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    width: 284px;
 	}
 	
 	.addBox label {
-		width: 200px;
-		display: inline-block;
+width: 200px;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-left: 146px;
+    font-size: 28px;
 	}
 	#base, #detail{
 		margin-left: 204px;
@@ -48,8 +54,10 @@
 	}
 	
 	.addBox input[type="submit"]{
-		font-size: 20px;
-		margin: 50px 200px;
+    font-size: 20px;
+    margin: 26px 125px;
+    width: 227px;
+    height: 62px;
 	}
 	
 	.addBox .fas {
@@ -91,30 +99,12 @@
 			}
 			
 			var pass = $("input[name='pass']");		
-			if (pass.val() != passCheck.val() || pass=="") {
+			if (pass.val() != "${libInfo.lbPass}" || pass.val()=="") {
 				errors(pass);
 				return false;
+			}else if(pass.val() == "${libInfo.lbPass}"){
+				location.href = "${pageContext.request.contextPath}/admin/profile/adminProfile.do";
 			}
-		})
-		
-		$("#IdCheck").click(function() {
-			var id = $("input[name='id']").val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/login/idCheck.do",
-				type : "get",
-				data : {"id" : id},
-				success : function(res) {
-					console.log(res);
-					
-					
-					if (res != null) {
-						alert("중복되는 아이디입니다");
-						$("input[name='id']").val("");
-					}else if(res == null){
-						alert("사용가능한 아이디입니다.");
-					}
-				}
-			})
 		})
 	})
 	
@@ -122,12 +112,11 @@
 <article class="contentWrap">
 	<div class="wrap">
 		<h2 class="pageTitle">비밀번호 재확인</h2>
-		
 		<div class="addBox">
-			<form action="profilePwCheck.do" method="post" autocomplete="off">
+			<form action="adminProfilePwCheck.do" method="post" autocomplete="off">
 				<p>
-					<label>비밀번호</label>
-					<input class="w395" type="password" name="pass" placeholder="비밀번호"/>
+					<label>비밀번호 재입력</label>
+					<input class="w395" type="password" name="pass"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">비밀번호가 일치하지 않습니다.</span>
 				</p>

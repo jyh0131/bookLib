@@ -68,8 +68,26 @@
 				})
 			}
 			
-			if(isMenu == "나의 도서관" || isMenu == "내정보수정"){
-				return false;
+			if(isMenu == "나의도서관" || isMenu == "내정보수정"){
+				$.ajax({
+					url:"${pageContext.request.contextPath}/user/member/profilePwCheck.do",
+					type:"get",
+					datatype: "json", 
+					success:function(res){
+						console.log(res);
+						if(res.result == "notLogin") {
+							alert("로그인 후 이용가능합니다.");
+							location.href = "${pageContext.request.contextPath}/login/login.do";
+							return false;
+						}
+						
+						if(res.result == "libLogin") {
+							alert("회원에게 제공되는 서비스입니다.");
+							location.href = "${pageContext.request.contextPath}/user/home.do";
+							return false;
+						}
+					}
+				})
 			}
 			
 			if(isMenu == "이용현황"){
@@ -136,13 +154,13 @@
 						</c:if>
 						
 						<c:if test="${Lib != null }">
-							<li><a href="#">[${Lib }]</a> 님 환영합니다!</li>
+							<li>[${Lib }] 님 환영합니다!</li>
 							<li><a href="${pageContext.request.contextPath }/login/logout.do">로그아웃</a></li>
 							<li class="adminBtn"><a href="${pageContext.request.contextPath}/admin/home.do">관리자</a></li>
 						</c:if>
 						
 						<c:if test="${Mem != null }">
-							<li><a href="#">[${Mem }]</a> 님 환영합니다!</li>
+							<li>[${Mem }]  님 환영합니다!</li>
 							<li><a href="${pageContext.request.contextPath }/login/logout.do">로그아웃</a></li>
 						</c:if>
 				</ul>
@@ -169,9 +187,9 @@
 					</ul>
 				</li>
 				<li>
-					<a class="menu joinMem" href="#">나의도서관</a>
+					<a class="menu joinMem" href="${pageContext.request.contextPath}/user/member/profilePwCheck.do">나의도서관</a>
 					<ul class="subMenu">
-						<li><a class="joinMem" href="#">내정보수정</a></li>
+						<li><a class="joinMem" href="${pageContext.request.contextPath}/user/member/profilePwCheck.do">내정보수정</a></li>
 						<li><a class="joinMem" href="${pageContext.request.contextPath}/user/member/uesList.do">이용현황</a></li>
 						<li><a class="joinMem" href="${pageContext.request.contextPath}/user/book/requestList.do">희망도서신청현황</a></li>
 					</ul>

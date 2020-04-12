@@ -16,6 +16,7 @@ public class LoginHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
 		if (req.getMethod().equalsIgnoreCase("get")) {
 			return "/WEB-INF/view/login/login.jsp";
 
@@ -53,6 +54,8 @@ public class LoginHandler implements CommandHandler {
 					if(loginLib.getTitle().getTitleNo() == 0) {
 						HttpSession session = req.getSession();
 						session.setAttribute("Lib", loginLib.getLbName());
+						session.setAttribute("LibId", loginLib.getLbId());
+						session.setAttribute("LibPass", loginLib.getLbPass());
 						session.setAttribute("Title",loginLib.getTitle().getTitleNo());
 						session.setAttribute("LibImage", loginLib.getLibImgPath());
 						res.sendRedirect(req.getContextPath() + "/user/home.do");
@@ -61,6 +64,8 @@ public class LoginHandler implements CommandHandler {
 					if(loginLib.getTitle().getTitleNo() ==1) {
 						HttpSession session = req.getSession();
 						session.setAttribute("Lib", loginLib.getLbName());
+						session.setAttribute("LibId", loginLib.getLbId());
+						session.setAttribute("LibPass", loginLib.getLbPass());
 						session.setAttribute("Title", loginLib.getTitle().getTitleNo());
 						session.setAttribute("LibImage", loginLib.getLibImgPath());
 						res.sendRedirect(req.getContextPath() + "/user/home.do");

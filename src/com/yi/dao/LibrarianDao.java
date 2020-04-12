@@ -22,4 +22,5 @@ public interface LibrarianDao {
 	int deleteLibrarian(Librarian lib);
 	
 	int updateLibTemporaryPw(String pw, String id); // 임시비밀번호
+	int updateLibrarianJsp(Librarian lib);
 }
