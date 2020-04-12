@@ -68,4 +68,6 @@ public interface LendingDao {
 	int showOverdueBooCntMonth(Date date);
 
 	int showOverdueBooCntYear(Date yearD);
+	
+	Date selectRturnDueDateByBookCode(String code);
 }

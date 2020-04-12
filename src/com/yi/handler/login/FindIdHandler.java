@@ -43,6 +43,8 @@ public class FindIdHandler implements CommandHandler {
 				Member findMemberId = userDao.findMemberId(member);
 				Librarian findLibId = libDao.findLibrarianId(libratian);
 				
+				System.out.println("member : " + findMemberId);
+				System.out.println("lib : " + findLibId);
 				
 				if(findMemberId == null) {
 					if(findLibId ==null) {

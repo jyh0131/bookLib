@@ -30,5 +30,6 @@ public interface MemberDao {
 	int updateOdCnt(Member member);
 	int selectByOdCnt(Member member);
 	int[] selectMemberCountDate(Date date);
-
+	
+	int updateTemporaryPw(String pw, String id);
 }

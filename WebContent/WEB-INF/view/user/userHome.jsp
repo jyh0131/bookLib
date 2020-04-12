@@ -126,46 +126,50 @@ div.box h1 {
 	<div class="bookRankWrap">
 		<div class="bastBox box">
 			<h1><a href="${pageContext.request.contextPath}/user/book/bastList.do">베스트도서 순위 <i class="fas fa-angle-right"></i></a></h1>
-			<c:forEach var="item" items="${lendList }">				
-				<div class="bastBookItem item">
-					<div class="rankImg">
-						<c:if test="${item.bookCd.bookImgPath == null }">
-							<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
+			<c:forEach var="item" items="${lendList }">	
+				<a href="${pageContext.request.contextPath }/user/book/detail.do?no=${item.bookCd.bookCode}">
+					<div class="bastBookItem item">
+						<div class="rankImg">
+							<c:if test="${item.bookCd.bookImgPath == null }">
+								<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
+							</c:if>
+							<c:if test="${item.bookCd.bookImgPath != null }">
+								<img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.bookCd.bookImgPath}" alt="${item.bookCd.bookName }" />
+							</c:if>
+						</div>
+						<p class="rankTitle">${item.bookCd.bookName }</p>
+						<c:if test="${item.bookCd.trnslrName == null }">
+							<p class="rankWriter">${item.bookCd.authrName }</p>
 						</c:if>
-						<c:if test="${item.bookCd.bookImgPath != null }">
-							<img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.bookCd.bookImgPath}" alt="${item.bookCd.bookName }" />
+						<c:if test="${item.bookCd.trnslrName != null }">
+							<p class="rankWriter">${item.bookCd.authrName } / ${item.bookCd.trnslrName}</p>
 						</c:if>
 					</div>
-					<p class="rankTitle">${item.bookCd.bookName }</p>
-					<c:if test="${item.bookCd.trnslrName == null }">
-						<p class="rankWriter">${item.bookCd.authrName }</p>
-					</c:if>
-					<c:if test="${item.bookCd.trnslrName != null }">
-						<p class="rankWriter">${item.bookCd.authrName } / ${item.bookCd.trnslrName}</p>
-					</c:if>
-				</div>
+				</a>
 			</c:forEach>
 		</div>
 		<div class="newBox box">
 			<h1><a href="${pageContext.request.contextPath}/user/book/newList.do">도서관 신착도서 <i class="fas fa-angle-right"></i></a></h1>
-			<c:forEach var="newItem" items="${newList }">				
-				<div class="bastBookItem item">
-					<div class="rankImg">
-						<c:if test="${newItem.bookImgPath == null }">
-							<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
+			<c:forEach var="newItem" items="${newList }">
+				<a href="${pageContext.request.contextPath }/user/book/detail.do?no=${newItem.bookCode}">				
+					<div class="bastBookItem item">
+						<div class="rankImg">
+							<c:if test="${newItem.bookImgPath == null }">
+								<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
+							</c:if>
+							<c:if test="${newItem.bookImgPath != null }">
+								<img class="loadImg" src="${pageContext.request.contextPath }/upload/${newItem.bookImgPath}" alt="${newItem.bookName }" />
+							</c:if>
+						</div>
+						<p class="rankTitle">${newItem.bookName }</p>
+						<c:if test="${newItem.trnslrName == null }">
+							<p class="rankWriter">${newItem.authrName }</p>
 						</c:if>
-						<c:if test="${newItem.bookImgPath != null }">
-							<img class="loadImg" src="${pageContext.request.contextPath }/upload/${newItem.bookImgPath}" alt="${newItem.bookName }" />
+						<c:if test="${newItem.trnslrName != null }">
+							<p class="rankWriter">${newItem.authrName } / ${item.bookCd.trnslrName}</p>
 						</c:if>
 					</div>
-					<p class="rankTitle">${newItem.bookName }</p>
-					<c:if test="${newItem.trnslrName == null }">
-						<p class="rankWriter">${newItem.authrName }</p>
-					</c:if>
-					<c:if test="${newItem.trnslrName != null }">
-						<p class="rankWriter">${newItem.authrName } / ${item.bookCd.trnslrName}</p>
-					</c:if>
-				</div>
+				</a>
 			</c:forEach>
 		</div>
 	</div>

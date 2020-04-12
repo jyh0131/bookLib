@@ -3,30 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../adminInclude/adminHeader.jsp"%>
 <%@ include file="../../adminInclude/adminSideMenu5.jsp"%>
-
-<article class="contentWrap">
-
-<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-	google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([
-		    ['Condition', '권수'],
-		    ['대여 가능 도서',  ${lendable}],
-		    ['대여 중 도서',  ${duringLend}],
-		    ['전체 도서',  ${totalBooks}]
-        ]);
-
-        var options = {
-          	title: '대여반납 통계 현황',
-          	pieHole: 0.4,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        	chart.draw(data, options);
-      	}
-</script> -->
+<style>
+	.pageTitle{
+		width: 1250px;
+	}
+</style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	google.charts.load("current", {packages:["corechart"]});
@@ -53,6 +34,7 @@
 		chart.draw(data, options);
 	}
 </script>
+<article class="contentWrap">
 	<div>
 		<h2 class="pageTitle">대여/반납 현황</h2>
 	</div>

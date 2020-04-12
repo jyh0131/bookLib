@@ -132,7 +132,16 @@ select * from `member` m;
 insert into `member`(mber_id , mber_pass , mber_name , mber_brthdy , mber_zip , mber_tel , join_dt ) 
 values ('yoogj0513@naver.com', '123', '유경진', '1989-05-13', '11111', '000-0000-0000', now());
 
+insert into librarian (lb_id , lb_pass , lb_name , title , join_date , work_cdt , lb_birthday ) 
+values ('yoogj0513@gmail.com', '123', '유경진', 0, now(), 1, '1989-05-13');
+
+delete from librarian where lb_id = 'yoogj0513@gmail.com';
+
 select * from `member` m where mber_name ='유경진';
 
 update `member` set mber_pass = '' where mber_id = '';
 update librarian set lb_pass = '' where lb_id = '';
+
+select * from book;
+
+select rturn_due_date from lending where book_cd = '0502.001-1' and rturn_date is null;

@@ -55,15 +55,32 @@ public class FindPwHandler implements CommandHandler {
 						return "/WEB-INF/view/login/findId.jsp";
 					}
 					
+					StringBuffer newKey = createPw();
+					String libPw = libDao.selectLibrarianById(libratian).getLbPass();
+					String newPw = newKey.toString();
+					String libId = libratian.getLbId();
 					
+					req.setAttribute("toName", libratian.getLbName());
+					req.setAttribute("toId", libId);
+					req.setAttribute("toPw", newPw);
+					req.setAttribute("libPw", libPw);
+					req.setAttribute("type", "lib");
 					
-
-					return null;
-
+					return "/WEB-INF/view/login/temporaryPwMail.jsp";
 				}
 				
-
-				return null;
+				StringBuffer newKey = createPw();
+				String newPw = newKey.toString();
+				String mberId = member.getMberId();
+				String mberPw = userDao.selectMemberByNo(member).getMberPass();
+				
+				req.setAttribute("toName", member.getMberName());
+				req.setAttribute("toId", mberId);
+				req.setAttribute("toPw", newPw);
+				req.setAttribute("mberPw", mberPw);
+				req.setAttribute("type", "mber");
+	
+				return "/WEB-INF/view/login/temporaryPwMail.jsp";
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -71,5 +88,19 @@ public class FindPwHandler implements CommandHandler {
 
 		}
 		return null;
+	}
+
+	private StringBuffer createPw() {
+		char[] charSet = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+						'A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'I', 'J', 'K',
+						'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 
+						'V', 'W', 'X', 'Y', 'Z',
+						'!', '@', '#', '$', '%', '^', '&', '+', '=', '.'};
+		StringBuffer newKey = new StringBuffer();
+		for(int i = 0; i<10; i++) {
+			int idx = (int) (charSet.length * Math.random());
+			newKey.append(charSet[idx]);
+		}
+		return newKey;
 	}
 }

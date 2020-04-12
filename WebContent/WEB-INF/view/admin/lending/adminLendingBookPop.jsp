@@ -10,18 +10,24 @@
 <style>
 	table{
 		border-collapse: collapse;
+		font-size: 15px;
+		
 	}
 	th{
 		border: 1px solid black;
 		background-color: #476fad;
 		color: #fff;
 		padding: 10px;
+		font-size: 12px;
 	}
 	td{
 		border: 1px solid black;
 		padding: 10px;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
-	#memberSubmit_container{
+
+	bookSubmit_container{
 		width: 629px;
 		margin: 0 auto;
 	}
@@ -37,6 +43,21 @@
 		background-color: #3493DD;
 		border-radius: 3px;
 		cursor: pointer;
+	}
+	td:first-child{
+		width: 95px;
+		text-align: center;
+	}
+	td:nth-child(3){
+		width: 100px;
+	}
+	td:nth-child(4){
+		width: 100px;
+		text-align: center;
+	}
+	td:nth-child(6), td:nth-child(7){
+		width: 100px;
+		text-align: center;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -147,7 +168,7 @@
 			</c:if>
 		</c:forEach>
 	</table>
-	<div>
+	<div id="bookSubmit_container">
 		<p>
 			<button id="bookSubmit" class="btnLightBlue">º±≈√</button>
 		</p>
