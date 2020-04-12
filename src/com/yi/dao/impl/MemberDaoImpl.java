@@ -786,4 +786,20 @@ public class MemberDaoImpl implements MemberDao {
 		return new int[] {general,vip};
 	}
 
+	@Override
+	public int updateTemporaryPw(String pw, String id) {
+		String sql = "update member set mber_pass = ? where mber_id = ?";
+		
+		try (Connection con = JDBCUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, pw);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
 }

@@ -228,7 +228,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 	@Override
 	public Librarian findLibrarianId(Librarian lib) {
 		String sql = "select lb_id, lb_pass, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img, "
-					+ "title, join_date, work_cdt "
+					+ "title, join_date, work_cdt, lb_img_path "
 					+ "	from librarian " 
 					+ "	where lb_name = ? and lb_birthday = ? ";
 		
@@ -250,7 +250,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 	@Override
 	public Librarian findLibrarianPw(Librarian lib) {
 		String sql = "select lb_id, lb_pass, lb_name, lb_birthday, lb_zip, lb_bass_ad, lb_detail_ad, lb_tel, lb_img,"
-				+ " title, join_date, work_cdt " 
+				+ " title, join_date, work_cdt, lb_img_path " 
 				+ "	from librarian " 
 				+ "	where lb_id = ? and lb_name = ? and lb_birthday = ?";
 		try(Connection con = JDBCUtil.getConnection();
