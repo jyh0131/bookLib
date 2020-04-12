@@ -39,6 +39,14 @@
 		case "profile":
 			$(".menu7").addClass("menuView");
 			break
+		//대여반납
+		case "lending":
+			$(".menu4").addClass("menuView");
+			break
+		//통계
+		case "statistics":
+			$(".menu6").addClass("menuView");
+			break
 			
 			
 		default:
