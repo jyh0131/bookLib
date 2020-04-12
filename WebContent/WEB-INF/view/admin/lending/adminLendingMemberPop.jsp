@@ -10,12 +10,15 @@
 <style>
 	table{
 		border-collapse: collapse;
+		font-size: 17px;
+		margin: 0 auto;
 	}
 	th{
 		border: 1px solid black;
 		background-color: #476fad;
 		color: #fff;
 		padding: 10px;
+		font-size: 12px;
 	}
 	td{
 		border: 1px solid black;
@@ -28,6 +31,9 @@
 	tr:nth-of-type(odd) {
 		background-color: #D9D9D9;
 	}
+	td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6){
+		text-align: center;
+	}
 	.btnLightBlue {
 		display: inline-block;
 		border: none;
@@ -38,7 +44,6 @@
 		border-radius: 3px;
 		cursor: pointer;
 	}
-</style>
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>

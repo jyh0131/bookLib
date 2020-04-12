@@ -86,19 +86,26 @@
 	}
 	
 	#book_table td, #book_table th {
-		border: 1px solid steelblue;
+		border: 1px solid #476fad;
 		width: 120px;
 	}
 	#returnSubmit {
 		background-color :#476fad;
-		width:1127px;
+		width:1128px;
 		border: 1px solid #476fad;
+		overflow: hidden;
+	}
+	#returnSubmit p{
+		float: right;
 	}
 	#returnSubmit button{
 		margin: 5px;
 	}
 	tr:nth-of-type(even) {
 		background-color: #D9D9D9;
+	}
+	.pageTitle{
+		width: 1100px;
 	}
 </style>
 <script>
@@ -115,17 +122,28 @@
 			var url = "${pageContext.request.contextPath}/admin/lending/Member.do?choice=" + choiceValue + "&text=" + searchText;
 			window.open(url, "2", popOption);
 		})
-	})
-	$("#cancel").click(function() {
+		$("#cancel").on("click", function(){
+			alert("btnCancel on click function");
 			$("#book_table input[type='checkbox']").prop("checked", false);
 			alert("모두 취소되었습니다.");
+		});
+		$("#returnForm").submit(function() {
+			/* if($("input:checkbox[name='book_code2']").is(":checked") == false) { */
+			if($("#book_table input[type='checkbox']").is(":checked") == false) {
+				alert("체크 해주세요");	
+				return false;
+	 		}
+		})
 	})
-	$("#returnForm").submit(function() {
-		if($("input:checkbox[name=book_code2]").is(":checked") == false) {
-			alert("체크값 있음");	
-			return false;
- 		}
-	})
+	
+
+	
+// 	$("#cancel").click(function() {
+// 			alert("btnCancel on click function");
+// 			$("#book_table input[type='checkbox']").prop("checked", false);
+// 			alert("모두 취소되었습니다.");
+// 	})
+
 </script>
 <article class="contentWrap">
 	<h2 class="pageTitle">반납 관리</h2>
@@ -170,9 +188,11 @@
 			</tr>
 		</table>
 		<div id="returnSubmit">
-			<button id="cancel" class="btnOrange">취소</button>
-			<button id="return" class="btnLightBlue">반납</button> 
-			<input type="hidden" value="" name="member_id" id="member_id">
+			<!-- <p> -->
+				<button id="cancel" type="button" class="btnOrange">취소</button>
+				<button id="return" class="btnLightBlue">반납</button> 
+				<input type="hidden" value="" name="member_id" id="member_id">
+			<!-- </p> -->
 		</div>
 	</form>
 </article>

@@ -15,6 +15,9 @@
 		height: 35px;
 		margin-top: 20px;
 	}
+	.pageTitle{
+		width: 1080px;
+	}
 </style>
 <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
 <script>

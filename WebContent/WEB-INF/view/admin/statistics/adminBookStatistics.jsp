@@ -4,7 +4,7 @@
 <%@ include file="../../adminInclude/adminHeader.jsp"%>
 <%@ include file="../../adminInclude/adminSideMenu5.jsp"%>
 
-<article class="contentWrap">
+
 <style>
 	#chart_div{
 		width: 1200px;
@@ -31,6 +31,9 @@
 		width: 135px;
 		height: 35px;
 		margin-top: 20px;
+	}
+	.pageTitle{
+		width: 1080px;
 	}
 </style>
 <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
@@ -113,6 +116,7 @@
 		})
 	})
 </script>
+<article class="contentWrap">
 	<div>
 		<h2 class="pageTitle">도서 보유 현황</h2>
 		<div id="book_statistics_header">

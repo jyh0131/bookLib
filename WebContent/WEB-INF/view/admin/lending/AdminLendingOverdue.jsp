@@ -4,20 +4,12 @@
 <%@ include file="../../adminInclude/adminHeader.jsp"%>
 <%@ include file="../../adminInclude/adminSideMenu3.jsp"%>
 <style>
-	#overdue_header {
-		width: 800px;
-		margin: 0 auto;
-		overflow: hidden;
+	#overdue_table {
+		border-collapse: collapse;
 	}
-	
-	#overdue_header_left {
-		float: left;
+	#overdue_table td, #overdue_table th{
+		border: 1px solid #476fad;
 	}
-	
-	#overdue_header_right {
-		float: right;
-	}
-	
 	#overdue_table tr:first-child th {
 		padding: 10px;
 		background: #476fad;
@@ -48,11 +40,33 @@
 		text-align: center;
 	} 
 	#overdueBtn{
-		margin-top: 15px;
+		background-color :#476fad;
+		width: 949px;
+		overflow: hidden;
+	}
+	#overdueBtn p{
+		margin:0;
+		padding:0;
+		float: right;
+	}
+	#overdueBtn button{
+		margin: 10px;
+	}
+	.pageTitle{
+		width: 920px;
+	}
+	tr:nth-of-type(even) {
+		background-color: #D9D9D9;
 	}
 </style>
 <script>
 	$(function() {
+		$("#returnForm").submit(function() {
+			if($("input:checkbox[name=book_code2]").is(":checked") == false) {
+				alert("체크값 있음");	
+				return false;
+	 		}
+		})
 		var flag = true;
 		$("#allCheck").click(function() {
 			/* if (flag%2 == 0) { */
@@ -101,7 +115,7 @@
 			</div>
 			<div id="overdueBtn">
 				<p>
-					<button id="allCheck" class="btnOrange">모두 선택/모두 해제</button>
+					<button id="allCheck" type="button" class="btnOrange">모두 선택/모두 해제</button>
 					<button id="emailSend" class="btnLightBlue">이메일 보내기</button>
 				</p>
 			</div>

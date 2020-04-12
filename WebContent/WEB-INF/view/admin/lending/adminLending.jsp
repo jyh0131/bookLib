@@ -87,12 +87,12 @@
 	}
 	
 	#book_table td, #book_table th {
-		border: 1px solid steelblue;
+		border: 1px solid #476fad;
 		width: 120px;
 	}
 	#rentSubmit {
 		background-color :#476fad;
-		width:1127px;
+		width:1128px;
 		border: 1px solid #476fad;
 	}
 	#rentSubmit button{
@@ -100,6 +100,9 @@
 	}
 	tr:nth-of-type(even) {
 		background-color: #D9D9D9;
+	}
+	.pageTitle{
+		width: 1100px;
 	}
 </style>
 <script>
@@ -147,8 +150,8 @@
 		})
  		$("#rentForm").submit(function() {
  			/* var i = $("input [name='book_code']:checked").length; */
- 			if($("input:checkbox[name=book_code]").is(":checked") == false) {
- 				/* alert("체크값 없음"); */
+ 			if($("input:checkbox[name='book_code']").is(":checked") == false) {
+ 				alert("체크 해주세요");
  				return false;
  			}
  			/* alert("체크값 있음"); */
