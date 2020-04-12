@@ -120,8 +120,9 @@
 		float: left;
 		width: 160px;
 		height: 228px;
-		padding-left: 10px;
-		padding-right: 30px;
+		margin-left: 10px;
+		margin-right: 30px;
+		border: 1px solid #D9D9D9;
 	}
 	
 	.listArea .infoBox {
@@ -194,13 +195,13 @@
 							<c:forEach var="item" items="${schList }">
 								<div class="item">
 									<c:if test="${item.bookImgPath == null }">
-										<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
+										<a href="${pageContext.request.contextPath }/user/book/detail.do?no=${item.bookCode}"><img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" /></a>
 									</c:if>
 									<c:if test="${item.bookImgPath != null }">
-										<img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.bookImgPath}" alt="${item.bookName }" />
+										<a href="${pageContext.request.contextPath }/user/book/detail.do?no=${item.bookCode}"><img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.bookImgPath}" alt="${item.bookName }" /></a>
 									</c:if>
 									<div class="infoBox">
-										<p class="bookName fontW700">${item.bookName }</p>
+										<p class="bookName fontW700"><a href="${pageContext.request.contextPath }/user/book/detail.do?no=${item.bookCode}">${item.bookName }</a></p>
 										<p class="bookCode"><span class="gray">도서코드 : </span>${item.bookCode }</p>
 										<p class="wirter"><span class="gray">저자 : </span>${item.authrName } / <span class="gray">역자 : </span>${item.trnslrName }</p>
 										<p class="pls"><span class="gray">출판사 : </span>${item.pls.plsName }</p>

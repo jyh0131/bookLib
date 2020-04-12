@@ -28,6 +28,7 @@
 		width: 198px;
 		float: left;
 		margin-right: 30px;
+		border: 1px solid #D9D9D9;
 	}
 	
 	.info {
@@ -63,7 +64,7 @@
 			<div class="box">
 				<div class="infobox">
 					<c:if test="${item.bookCode.bookImgPath == null }">
-						<img src="${pageContext.request.contextPath }/images/no-image.png" alt="이미지없음" />
+						<img src="${pageContext.request.contextPath }/images/book-noImg.png" alt="이미지없음" />
 					</c:if>
 					<c:if test="${item.bookCode.bookImgPath != null }">
 						<img src="${pageContext.request.contextPath }/upload/${item.bookCode.bookImgPath}" alt="${item.bookCode.bookName }" />

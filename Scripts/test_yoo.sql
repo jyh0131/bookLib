@@ -141,3 +141,7 @@ select * from `member` m where mber_name ='유경진';
 
 update `member` set mber_pass = '' where mber_id = '';
 update librarian set lb_pass = '' where lb_id = '';
+
+select * from book;
+
+select rturn_due_date from lending where book_cd = '0502.001-1' and rturn_date is null;

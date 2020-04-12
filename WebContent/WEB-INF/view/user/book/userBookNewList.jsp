@@ -36,8 +36,9 @@
 		float: left;
 		width: 160px;
 		height: 228px;
-		padding-left: 10px;
-		padding-right: 30px;
+		margin-left: 10px;
+		margin-right: 30px;
+		border: 1px solid #D9D9D9;
 	}
 	
 	.listArea .infoBox {
@@ -64,20 +65,24 @@
 						<c:forEach var="item" items="${list }" varStatus="status">
 							<div class="item">
 								<div class="index">
-									<p>${status.index + 1 }.</p>
+									<p><fmt:formatNumber value="${status.index + 1 }" pattern="00"/>.</p>
 								</div>
 								<c:if test="${item.bookImgPath == null }">
-									<img class="loadImg"
-										src="${pageContext.request.contextPath }/images/book-noImg.png"
-										alt="book-noImg" />
+									<a href="${pageContext.request.contextPath }/user/book/detail.do?no=${item.bookCode}">
+										<img class="loadImg" src="${pageContext.request.contextPath }/images/book-noImg.png" alt="book-noImg" />
+									</a>
 								</c:if>
 								<c:if test="${item.bookImgPath != null }">
-									<img class="loadImg"
-										src="${pageContext.request.contextPath }/upload/${item.bookImgPath}"
-										alt="${item.bookName }" />
+									<a href="${pageContext.request.contextPath }/user/book/detail.do?no=${item.bookCode}">
+										<img class="loadImg" src="${pageContext.request.contextPath }/upload/${item.bookImgPath}" alt="${item.bookName }" />
+									</a>
 								</c:if>
 								<div class="infoBox">
-									<p class="bookName fontW700">${item.bookName }</p>
+									<p class="bookName fontW700">
+										<a href="${pageContext.request.contextPath }/user/book/detail.do?no=${item.bookCode}">
+											${item.bookName }
+										</a>
+									</p>
 									<p class="wirter">
 										<span class="gray">저자 : </span>${item.authrName } / <span
 											class="gray">역자 : </span>${item.trnslrName }</p>
