@@ -66,9 +66,6 @@ public class FindPwHandler implements CommandHandler {
 					req.setAttribute("libPw", libPw);
 					req.setAttribute("type", "lib");
 					
-					System.out.println("newPw : " + newPw);
-					System.out.println("libPw : " + libPw);
-					
 					return "/WEB-INF/view/login/temporaryPwMail.jsp";
 				}
 				
@@ -82,12 +79,7 @@ public class FindPwHandler implements CommandHandler {
 				req.setAttribute("toPw", newPw);
 				req.setAttribute("mberPw", mberPw);
 				req.setAttribute("type", "mber");
-
-				System.out.println("toName : " + member.getMberName());
-				System.out.println("toId : " + mberId);
-				System.out.println("toPw : " + newPw);
-				System.out.println("mberPw : " + mberPw);
-				
+	
 				return "/WEB-INF/view/login/temporaryPwMail.jsp";
 
 			} catch (Exception e) {

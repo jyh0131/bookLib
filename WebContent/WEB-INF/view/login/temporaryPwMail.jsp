@@ -34,8 +34,10 @@
 	System.out.println("mtoPw : " + toPw);
 	System.out.println("type : " + type);
 	
-	String subject = "3조 도서관에서 임시 비밀번호 발급 안내";
-	String content = toName + "님의 임시 비밀번호 입니다. 임시비밀번호 : " + toPw;
+	String subject = "[3조 도서관] 임시 비밀번호 발급 안내";
+	String content = "<div align='center' style='border:1px solid #aaa; padding: 10px'><h3>"
+					 + toName + "님의 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요.</h3><p style='font-size: 18px;'>임시비밀번호 : <strong>" 
+					 + toPw + "</strong></p></div>";
 	
 	
 	Properties p = new Properties(); // 정보를 담을 객체
