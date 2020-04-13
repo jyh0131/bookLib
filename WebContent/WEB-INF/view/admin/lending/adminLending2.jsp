@@ -10,25 +10,39 @@
 	}
 	
 	#mber_form_container {
-		border: 1px solid #476fad;
-		background-color : #476fad;
-		color : #fff;
-		width: 350px;
-		height: 150px;
+		/* border: 1px solid #476fad; */
+		color : #476fad;
+		width: 500px;
+		height:150px;
 		float: left;
 	}
 	
 	#mber_form_container p {
-		margin: 10px;
-		font-size: 1.5em;
-		color: #fff;
+		margin: 10px 0;
+		/* font-size: 2.0em; */
+		font-size:2em;
+		color: #476fad;
 	}
 	
-	#mber_form_container input[type='radio'] {
-		margin: 25px;
-		color: #fff;
+	#mber_form_container p input[type='radio'] {
+		margin: 25px 35px 25px 0;
+		/* color: #fff; */
+		font-size: 2em;
 	}
-	
+	#mber_form_container p input[type='radio']:nth-child(2) {
+		margin: 25px 35px 25px 70px;
+	}
+	#mber_form_container p input[type='text']{
+		height: 50px;
+		width: 360px;
+		/* margin-left: 20px; */
+		border:none;
+		border-bottom: 1px solid #476fad;
+	}
+	#mber_form_container p #mber_search {
+		width: 60px;
+		height: 52px;
+	}
 	#mber_form_container input[type='text'] {
 		height: 50px;
 		width: 240px;
@@ -39,25 +53,34 @@
 		height: 52px;
 	}
 	
-	#mber_form_container2 {
-		border: 1px solid #476fad;
-		background-color : #476fad;
-		width: 350px;
-		height: 150px;
+	
+	
+	#hide_lending_mber {
+		width: 500px;
+		/* height:150px; */
+		/* border: 1px solid #476fad; */
+		display: none;
 		float: right;
-		color: #fff;
 	}
 	
-	#mber_form_container2 p {
-		margin: 8px;
-		
+	#hide_lending_mber p {
+		margin: 4.496px;
 	}
 	
-	#mber_form_container2 p label {
-		width: 150px;
+	#hide_lending_mber p label {
+		font-size: 20px;
+		color: #476fad;
 		float: left;
-		color: #fff;
+		width: 250px;
 	}
+	#hide_lending_mber p input{
+		border: none;
+		font-size: 20px;
+		color: #476fad;
+	}
+	
+	
+	
 	#book_form_container p {
 		margin: 10px;
 	}
@@ -75,6 +98,7 @@
 		display: block;
 		margin-top:45px;
 		text-align: center;
+		border-collapse: collapse;
 	}
 	#book_table tr:first-child th {
 		padding: 10px;
@@ -86,13 +110,16 @@
 	}
 	
 	#book_table td, #book_table th {
-		border: 1px solid #476fad;
+		border: 1px solid black;
 		width: 120px;
 	}
 	#returnSubmit {
 		background-color :#476fad;
-		width:1128px;
-		border: 1px solid #476fad;
+		width:1127px;
+		border: none;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+		border-bottom: 1px solid black;
 		overflow: hidden;
 	}
 	#returnSubmit p{
@@ -106,6 +133,9 @@
 	}
 	.pageTitle{
 		width: 1100px;
+	}
+	#noResult td{
+		height: 200px;
 	}
 </style>
 <script>
@@ -121,6 +151,9 @@
 			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
 			var url = "${pageContext.request.contextPath}/admin/lending/Member.do?choice=" + choiceValue + "&text=" + searchText;
 			window.open(url, "2", popOption);
+			$("input[name='memberSearch']").val("");
+			$("#noResult").show();
+			$("#hide_lending_mber").hide();
 		})
 		$("#cancel").on("click", function(){
 			alert("btnCancel on click function");
@@ -151,12 +184,12 @@
 		<div id="mber_form_container">
 			<p>
 				<input type="radio" name="choiceMemberColums" value="id">회원ID
-				<input type="radio" name="choiceMemberColums" value="name">회원명
+				<input type="radio" name="choiceMemberColums" value="name" checked="checked">회원명
 				<input type="text" name="memberSearch">
 				<button id="mber_search" class="btnLightBlue">검색</button>
 			</p>
 		</div>
-		<div id="mber_form_container2">
+		<div id="hide_lending_mber">
 			<p>
 				<label>회원ID</label> <input type="text" name="mber_id" id="mber_id" readonly="readonly">
 			</p>
@@ -186,13 +219,18 @@
 				<th>반납예정일</th>
 				<th>선택</th>
 			</tr>
+			<tr id="noResult">
+				<td colspan="8">
+					도서 반납할 회원을 검색해주세요.
+				</td>
+			</tr>
 		</table>
 		<div id="returnSubmit">
-			<!-- <p> -->
+			<p>
 				<button id="cancel" type="button" class="btnOrange">취소</button>
 				<button id="return" class="btnLightBlue">반납</button> 
 				<input type="hidden" value="" name="member_id" id="member_id">
-			<!-- </p> -->
+			</p>
 		</div>
 	</form>
 </article>

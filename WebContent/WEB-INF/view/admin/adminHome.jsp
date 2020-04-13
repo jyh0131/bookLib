@@ -103,8 +103,9 @@
 	}
 	
 	.bookCdtInfo p{
-		line-height: 30px;
+		line-height: 35px;
 		padding-left: 20px;
+		font-size: 18px;
 	}
 	
 	.bookBox i{
@@ -217,35 +218,35 @@
 			<h3>도서현황(월별)</h3>
 			<c:choose>
 				<c:when test="${newRes>0}">
-					<p>신착도서<span class="updown">증가 <i class="fas fa-caret-up">${newRes}권</i></span></p>	
+					<p>신착도서<span class="updown">증가 <i class="fas fa-caret-up cntUp">(${newRes}권)</i></span></p>	
 				</c:when>
 				<c:when test="${newRes<0}">
-					<p>신착도서<span class="updown">감소 <i class="fas fa-caret-down" >${newRes}권</i></span></p>	
+					<p>신착도서<span class="updown">감소 <i class="fas fa-caret-down cntDown" >(${newRes}권)</i></span></p>	
 				</c:when>
 				<c:when test="${newRes==0}">
-					<p>신착도서<span class="updown">-- <i>${newRes}권</i></span></p>	
+					<p>신착도서<span class="updown"> -- (${newRes}권)</span></p>	
 				</c:when>				
 			</c:choose>
 			<c:choose>
 				<c:when test="${lendingRes>0}">
-					<p>대여도서<span class="updown"> 증가 <i class="fas fa-caret-up" class="cntUp">${lendingRes}권</i></span></p>	
+					<p>대여도서<span class="updown"> 증가 <i class="fas fa-caret-up cntUp">(${lendingRes}권)</i></span></p>	
 				</c:when>
 				<c:when test="${lendingRes<0}">
-					<p>대여도서<span class="updown"> 감소 <i class="fas fa-caret-down cntDown"></i>${lendingRes}권</span></p>	
+					<p>대여도서<span class="updown"> <i class="fas fa-caret-down cntDown"></i> (${lendingRes}권)</span></p>	
 				</c:when>
 				<c:when test="${lendingRes==0}">
-					<p>대여도서<span class="updown"> -- <i>${lendingRes}권</i></span></p>	
+					<p>대여도서<span class="updown"> -- (${lendingRes}권)</span></p>	
 				</c:when>				
 			</c:choose>
 			<c:choose>
 				<c:when test="${overdueRes>0}">
-					<p>연체도서<span class="updown"> 증가 <i class="fas fa-caret-up">${overdueRes}권</i></span></p>	
+					<p>연체도서<span class="updown"> 증가 <i class="fas fa-caret-up cntUp">(${overdueRes}권)</i></span></p>	
 				</c:when>
 				<c:when test="${overdueRes<0}">
-					<p>연체도서<span class="updown"> 감소 <i class="fas fa-caret-down">${overdueRes}권</i></span></p>	
+					<p>연체도서<span class="updown"> 감소 <i class="fas fa-caret-down cntDown">(${overdueRes}권)</i></span></p>	
 				</c:when>
 				<c:when test="${overdueRes==0}">
-					<p>연체도서<span class="updown"> -- <i>${overdueRes}권</i></span></p>	
+					<p>연체도서<span class="updown"> -- (${overdueRes}권)</span></p>	
 				</c:when>				
 			</c:choose>
 		</div>
