@@ -690,7 +690,7 @@ public class LendingDaoImpl implements LendingDao {
 
 	@Override
 	public int showOverdueBooCntMonth(Date date) {
-		String sql = "select count(*) as 'LendCntXBooks' from lending where overdue_cdt = 1 and lend_date between ? and DATE_sub(?, interval -1 month)";
+		String sql = "select count(*) as 'LendCntXBooks' from lending where overdue_cdt = 1 and rturn_date between ? and DATE_sub(?, interval -1 month)";
 		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
 			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
