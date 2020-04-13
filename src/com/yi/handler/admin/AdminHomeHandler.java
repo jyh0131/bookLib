@@ -73,7 +73,7 @@ public class AdminHomeHandler implements CommandHandler {
 			System.out.println("대여도서 비교 : "+lendingRes);
 			//월별 연체도서 비교를 위한 값 출력
 			int overdueCnt = lendingDao.showOverdueBooCntMonth(monthD);
-			int overdueCnt2 = lendingDao.showOverdueBooCntMonth(monthD);
+			int overdueCnt2 = lendingDao.showOverdueBooCntMonth(monthD2);
 			int overdueRes = overdueCnt - overdueCnt2;
 			System.out.println("연체도서 비교 : "+overdueRes);
 			//금년도 카운팅을 위한 날짜 생성

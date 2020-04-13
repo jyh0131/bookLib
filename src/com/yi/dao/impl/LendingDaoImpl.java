@@ -694,7 +694,10 @@ public class LendingDaoImpl implements LendingDao {
 		try (Connection con = JDBCUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setTimestamp(1, new Timestamp(date.getTime()));
 			pstmt.setTimestamp(2, new Timestamp(date.getTime()));
+			LogUtil.prnLog(pstmt);
+			System.out.println(pstmt);
 			ResultSet rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				return rs.getInt("LendCntXBooks");
 			}
