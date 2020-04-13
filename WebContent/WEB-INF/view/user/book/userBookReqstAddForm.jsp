@@ -94,10 +94,11 @@
 				success:function(res){
 					console.log(res);
 					if(res.result == "bookHave") {
-						alert("중복된 도서");
+						alert("보유된 도서입니다. 사서에게 문의해주세요.");
 						/* location.href = "${pageContext.request.contextPath}/user/book/requestAdd.do"; */
 						return false;
 					} else {
+						alert("신청되었습니다.")
 						$("#f1").submit();
 					}
 				}
