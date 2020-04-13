@@ -73,11 +73,41 @@
 	    display: block;
 	    height: 250px;
 	}
-	
+	.fa-check-circle:before {
+    content: "\f058";
+    color:#0CA0AE;
+	}
+	.overlepChkYes{
+		display: none;
+		font-size: 14px;
+	}
 </style>
 <script>
 	
 	$(function(){
+		
+		$("#IdCheck").click(function() {
+			var id = $("input[name='id']").val();
+			$.ajax({
+				url : "${pageContext.request.contextPath}/login/idCheck.do",
+				type : "get",
+				data : {"id" : id},
+				success : function(res) {
+					console.log(res);
+					
+					
+					if (res != null || $("input[name='id']").val() == "") {
+						alert("사용이 불가능한 아이디입니다");
+						$("input[name='id']").val("");
+						$(".overlepChkYes").css("display","inline");
+					}else if(res == null){
+						alert("사용가능한 아이디입니다.");
+						$(".overlepChkYes").css("display","inline");
+					}
+				}
+			})
+		})
+		
 		//정규표현식
 		$("form").submit(function(){
 			$(".error").hide();
@@ -121,29 +151,17 @@
 				errors(titleNo);
 				return false;
 			}
+			
+			var overlepYes = $(".overlepChkYes").is(":visible");
+			if(overlepYes == false) {
+				alert("아이디 중복체크 해주세요.");
+				return false;
+			}
 				
 				alert("[" +  $("#name").val() + "]님의 사서가입이 완료되었습니다.");
 		})
 		
-		$("#IdCheck").click(function() {
-			var id = $("input[name='id']").val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/login/idCheck.do",
-				type : "get",
-				data : {"id" : id},
-				success : function(res) {
-					console.log(res);
-					
-					
-					if (res != null) {
-						alert("중복되는 아이디입니다");
-						$("input[name='id']").val("");
-					}else if(res == null){
-						alert("사용가능한 아이디입니다.");
-					}
-				}
-			})
-		})
+
 	})
 	
 </script>
@@ -159,6 +177,8 @@
 					<button class="btnOrange plsSearch" type="button" id="IdCheck">중복확인</button>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">5~20자의 영문 소문자와 숫자,특수기호(@_-.)만 사용 가능합니다.</span>
+					<span class="overlepChkYes"><i class="fas fa-check-circle"></i></span>
+					
 				</p>
 				<p>
 					<label>이 름</label>

@@ -21,6 +21,7 @@ public class AdminProfileHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if (req.getMethod().equalsIgnoreCase("get")) {
 			String id = (String) req.getSession().getAttribute("LibId");
+			String name = (String) req.getSession().getAttribute("Lib");
 			String pass = (String)req.getSession().getAttribute("LibPass");
 
 			try {
@@ -54,8 +55,6 @@ public class AdminProfileHandler implements CommandHandler {
 			try {
 				LibrarianDao dao = LibrarianDaoImpl.getInstance();
 				Librarian lib = new Librarian();
-				
-				
 				lib.setLbId(multi.getParameter("id"));
 				String name=multi.getParameter("name");
 				lib.setLbName(name);
@@ -71,13 +70,19 @@ public class AdminProfileHandler implements CommandHandler {
 				lib.setLbBassAd(multi.getParameter("baseAddress"));
 				lib.setLbDetailAd(multi.getParameter("detailAddress"));
 				
-
 				if(multi.getFilesystemName("LibImgPath") != null ) {	
 					lib.setLibImgPath(multi.getFilesystemName("LibImgPath"));
 				}
 
 				dao.updateLibrarianJsp(lib);
 				
+				System.out.println(req.getSession().getAttribute("Lib") + ">>>>>>>>>>>>");
+				req.removeAttribute("Lib");
+				System.out.println(req.getSession().getAttribute("Lib") + "!!!!!!!!!!!!!!!!!!!");
+				req.setAttribute("Lib", name);
+				
+				System.out.println(req.getSession().getAttribute("Lib")+" -=---------------------");
+	
 				res.sendRedirect(req.getContextPath()+"/admin/home.do");
 				return null;
 				

@@ -181,6 +181,25 @@ function imageURL(input) {
 
 				
 	$(function() {
+		$("input[name='id']").on("keyup", function() {
+			var id = $("input[name='id']").val();
+			$.ajax({
+				url : "${pageContext.request.contextPath}/login/idCheck.do",
+				type : "get",
+				data : {"id" : id},
+				success : function(res) {
+					console.log(res);
+					
+					
+					if (res != null) {
+						$("input[name='id']").next().next().css("display", "block");
+					}else if(res == null){
+						$("input[name='id']").next().next().css("display", "none");
+					}
+				}
+			})
+		})
+		
 		//정규표현식 에러 떠있을때 가입 안되게 막음
 	
 		$("#id").blur(function() {
@@ -231,9 +250,14 @@ function imageURL(input) {
 			}) 
 			
 			$("form").submit(function(){
-			var errorMsg = $(".error").css("display");
-			
-			if(errorMsg == ("block")){
+			var idDuMsg = $("#idDuMsg").css("display");
+			var idMsg = $("#idMsg").css("display");
+			var passMsg = $("#passMsg").css("display");
+			var passCheckMsg = $("#passCheckMsg").css("display");
+			var nameMsg = $("#nameMsg").css("display");
+			var birthMsg = $("#birthMsg").css("display");
+
+			if(idDuMsg == "block" || idMsg =="block" || passMsg =="block" || passCheckMsg =="block" || nameMsg =="block" || birthMsg =="block"){
 				alert("입력창을 다시 확인해주세요.");
 				return false;
 			}else{
@@ -241,31 +265,7 @@ function imageURL(input) {
 			}
 			
 		})
-	
-
-
-		$("input[name='id']").on("keyup", function() {
-			var id = $("input[name='id']").val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/login/idCheck.do",
-				type : "get",
-				data : {"id" : id},
-				success : function(res) {
-					console.log(res);
-					
-					
-					if (res != null) {
-						$("input[name='id']").next().next().css("display", "block");
-					}else if(res == null){
-						$("input[name='id']").next().next().css("display", "none");
-					}
-				}
-			})
-		})
 	})
-		
-		
-
 </script>
 <article>
 	<div id="topPoint">
@@ -276,28 +276,28 @@ function imageURL(input) {
 			<div class="findIdField">
 				<div class="input-area" id="id-area">
 					<label>아이디</label> <input type="text" name="id" id="id" required>
-					<span class="error">5~20자의 영문 소문자와 숫자,특수기호(@_-.)만 사용 가능합니다.</span>
-					<span class="error">중복된 아이디입니다.</span>
+					<span class="error" id="idDuMsg">5~20자의 영문 소문자와 숫자,특수기호(@_-.)만 사용 가능합니다.</span>
+					<span class="error" id="idMsg">중복된 아이디입니다.</span>					
 				</div>
 				<div class="input-area">
 					<label>비밀번호</label> <input type="password" name="pass" id="pass" required>
-					<span class="error">8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span>
+					<span class="error" id="passMsg">8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span>
 				</div>
 				<div class="input-area">
 					<label>비밀번호 재확인</label>
 					 <input type="password" name="passCheck" id="passCheck"required> 
-					 <span class="error">비밀번호가 일치하지 않습니다.</span>
+					 <span class="error" id="passCheckMsg">비밀번호가 일치하지 않습니다.</span>
 				</div>
 				<div class="input-area">
 					<label>이름</label> <input type="text" name="name" required id="name">
-					<span class="error">한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)</span>
+					<span class="error" id="nameMsg">한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)</span>
 				</div>
 				<div class="input-area">
 					<label>생년월일</label> <input type="date" name="birthday" id="dateField" min="1900-01-01" required="required">
 				</div>
 				<div class="input-area">
 					<label>휴대전화</label> <input type="text" name="phone" id="phone" required>
-					<span class="error">형식에 맞지 않는 번호입니다.</span>
+					<span class="error" id="birthMsg">형식에 맞지 않는 번호입니다.</span>
 				</div>
 				<div class="input-area">
 					<label>주소</label><br> <input type="text" name="zipCode"

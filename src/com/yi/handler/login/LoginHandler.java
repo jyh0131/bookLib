@@ -39,15 +39,11 @@ public class LoginHandler implements CommandHandler {
 				libratian.setLbId(id);
 				libratian.setLbPass(password);
 				Librarian loginLib = libDao.loginLibrarian(libratian);
-
-		
+				
 				if(loginLib !=null) {
 					if(loginLib.getWorkCdt()==0) {
 						HttpSession session = req.getSession();
 						session.setAttribute("retire", "retire");
-						
-//						res.sendRedirect(req.getContextPath() + "/user/userLogin.do");
-//						return null;
 
 						return "/WEB-INF/view/login/login.jsp";
 					}
@@ -89,8 +85,7 @@ public class LoginHandler implements CommandHandler {
 				else {
 					HttpSession session = req.getSession();
 					session.setAttribute("notMatchId", "notMatchId");
-//					res.sendRedirect(req.getContextPath() + "/user/userLogin.do");
-//					return null;
+
 					
 					return "/WEB-INF/view/login/login.jsp";
 				}	
