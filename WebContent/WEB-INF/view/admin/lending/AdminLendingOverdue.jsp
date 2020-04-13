@@ -8,7 +8,7 @@
 		border-collapse: collapse;
 	}
 	#overdue_table td, #overdue_table th{
-		border: 1px solid #476fad;
+		border: 1px solid black;
 	}
 	#overdue_table tr:first-child th {
 		padding: 10px;

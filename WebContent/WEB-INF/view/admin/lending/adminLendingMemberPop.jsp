@@ -79,6 +79,9 @@
 					console.log(col6);
 					console.log("parentFind : "+parentFind);					
 					if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Return.do")){
+						/* window.opener.document.getElementById("hide_lending_mber").css("display", "block"); */
+						$("#hide_lending_mber", opener.document).css("display", "inline-block");
+
 						window.opener.document.getElementById("mber_id").value = col1;	
 						window.opener.document.getElementById("member_id").value = col1;	
 						window.opener.document.getElementById("mber_name").value = col2;	
@@ -119,6 +122,8 @@
 							}
 						})
 					}
+					/* window.opener.document.getElementById("hide_lending_mber").css("display", "block"); */
+					$()
 				}
 			}
 		})
