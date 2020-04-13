@@ -8,10 +8,22 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <style>
+	#pop_up_container{
+		width: 1150px;
+		height: 300px;
+		overflow: auto;
+		margin: 0 auto;
+	}
 	table{
 		border-collapse: collapse;
 		font-size: 15px;
+		/* width:1150px;
+		height: 250px;
+		overflow: auto; */
 		
+		display:block;
+		width:100%;
+		margin: 0 auto;
 	}
 	th{
 		border: 1px solid black;
@@ -27,9 +39,12 @@
 		overflow: hidden;
 	}
 
-	bookSubmit_container{
-		width: 629px;
-		margin: 0 auto;
+	
+	#bookSubmit_container p{
+		float: right;
+	}
+	#bookSubmit_container p button{
+		margin-right: 20px;
 	}
 	tr:nth-of-type(odd) {
 		background-color: #D9D9D9;
@@ -67,6 +82,8 @@
 			var ch = document.getElementsByName("chk");
 			for(var i=0; i<ch.length;i++){
 				if(ch[i].checked){
+					/* $("#noResult", opener.document).css("display", "none"); */
+					$("#noResult", opener.document).hide();
 					var col1 = "";
 				   	var col2 = "";
 				   	var col3 = "";
@@ -137,37 +154,39 @@
 </script>
 </head>
 <body>
-	<table>
-		<tr>
-			<th>도서코드</th>
-			<th>도서명</th>
-			<th>저자/역자</th>
-			<th>발행년도</th>
-			<th>출판사명</th>
-			<th>대여일</th>
-			<th>반납일</th>
-			<th>선택</th>
-		</tr>
-		<c:forEach var="book" items="${rentBook}">			
-			<c:if test="${book.lendPsbCdt==0 }">
-				<tr class="item">			
-					<td class="book_code">${book.bookCode}</td>
-					<td>${book.bookName }</td>
-					<c:if test="${book.trnslrName==null}">
-						<td>${book.authrName }</td>
-					</c:if>
-					<c:if test="${book.trnslrName!=null}">
-						<td>${book.authrName }/${book.trnslrName }</td>
-					</c:if>
-					<td><fmt:formatDate value="${book.pblicteYear}"/></td>
-					<td>${book.pls.plsName }</td>
-					<td class="lend_date"></td>
-					<td class="lend_due_date"></td>
-					<td><input type="checkbox" name="chk"></td>
-				</tr>
-			</c:if>
-		</c:forEach>
-	</table>
+	<div id="pop_up_container">
+		<table>
+			<tr>
+				<th>도서코드</th>
+				<th>도서명</th>
+				<th>저자/역자</th>
+				<th>발행년도</th>
+				<th>출판사명</th>
+				<th>대여일</th>
+				<th>반납일</th>
+				<th>선택</th>
+			</tr>
+			<c:forEach var="book" items="${rentBook}">			
+				<c:if test="${book.lendPsbCdt==0 }">
+					<tr class="item">			
+						<td class="book_code">${book.bookCode}</td>
+						<td>${book.bookName }</td>
+						<c:if test="${book.trnslrName==null}">
+							<td>${book.authrName }</td>
+						</c:if>
+						<c:if test="${book.trnslrName!=null}">
+							<td>${book.authrName }/${book.trnslrName }</td>
+						</c:if>
+						<td><fmt:formatDate value="${book.pblicteYear}"/></td>
+						<td>${book.pls.plsName }</td>
+						<td class="lend_date"></td>
+						<td class="lend_due_date"></td>
+						<td><input type="checkbox" name="chk"></td>
+					</tr>
+				</c:if>
+			</c:forEach>
+		</table>
+	</div>
 	<div id="bookSubmit_container">
 		<p>
 			<button id="bookSubmit" class="btnLightBlue">선택</button>
