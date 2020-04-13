@@ -104,10 +104,12 @@
 	}
 	
 	#book_table {
-		/* width: 969px; */
-		min-height:200px;
+		width:1128px;
+		/* min-height:200px; */
 		border-collapse: collapse;
 		display: block;
+		border-left: 1px solid #aaa;
+		border-right: 1px solid #aaa;
 		/* margin: 0 auto; */
 		text-align: center;
 	}
@@ -121,13 +123,16 @@
 	}
 	
 	#book_table td, #book_table th {
-		border: 1px solid #476fad;
+		border: 1px solid black;
 		width: 120px;
 	}
 	#rentSubmit {
 		background-color :#476fad;
 		width:1128px;
-		border: 1px solid #476fad;
+		border: none;
+		border-left:1px solid black;
+		border-right:1px solid black;
+		border-bottom:1px solid black;
 		overflow: hidden;
 	}
 	#rentSubmit p{
@@ -142,27 +147,30 @@
 	.pageTitle{
 		width: 1100px;
 	}
+	#noResult td{
+		height: 200px;
+	}
 </style>
 <script>
 	$(function() {
 		$("#mber_search").click(function() {
 			$("#book_table>tr").remove();
-			/* $("#book_table>tbody>tr:last-child").remove(); */
 			var choiceValue = $("input[name='choiceMemberColums']:checked").val();
 							if (choiceValue == undefined) {
 								alert("회원 아이디나 회원 명을 선택해주세요");
 								return;
 							}
-							var searchText = $("input[name='memberSearch']")
-									.val();
+							var searchText = $("input[name='memberSearch']").val();
 							var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
 							var url = "${pageContext.request.contextPath}/admin/lending/Member.do?choice="
 									+ choiceValue + "&text=" + searchText;
 							window.open(url, "2", popOption);
+							$("input[name='memberSearch']").val("");
+							$("#noResult").show();
+							$("#hide_lending_mber").hide();
 						})
-		$("#book_search")
-				.click(
-						function() {
+		$("#book_search").click(function() {
+			/* $("#noResult").remove(); */		
 							var choiceValue = $(
 									"input[name='choiceBookColums']:checked")
 									.val();
@@ -175,13 +183,13 @@
 								alert("회원 먼저 검색하고 오세요");
 								return;
 							}
-							var searchText = $("input[name='bookSearch']")
-									.val();
-							var popOption = "width=1100, height=360, resizable=no, scrollbars=no, status=no";
+							var searchText = $("input[name='bookSearch']").val();
+							var popOption = "width=1200, height=380, resizable=no, scrollbars=no, status=no";
 							var url = "${pageContext.request.contextPath}/admin/lending/Book.do?choice="
 									+ choiceValue + "&text=" + searchText;
 							window.open(url, "2", popOption);
-						})
+							$("input[name='bookSearch']").val("");
+		})
 		$("#cancel").click(function() {
 			$("#book_table input[type='checkbox']").prop("checked", false);
 		/* 	$("#book_table input[type='checkbox']").val(0); */
@@ -258,7 +266,11 @@
 				<th>반납일</th>
 				<th>선택</th>
 			</tr>
-			<!-- <tr><td colspan="8">검색결과없음</td></tr> -->
+			<tr id="noResult">
+				<td colspan="8">
+					대여 도서를 선택해 주세요.
+				</td>
+			</tr>
 		</table>
 		<div id="rentSubmit">
 			<p>

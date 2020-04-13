@@ -8,6 +8,12 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <style>
+	#pop_up_container{
+		width: 650px;
+		height: 300px;
+		overflow: auto;
+		margin: 0 auto;
+	}
 	table{
 		border-collapse: collapse;
 		font-size: 17px;
@@ -44,6 +50,9 @@
 		border-radius: 3px;
 		cursor: pointer;
 	}
+	#memberSubmit_container p{
+		float: right;
+	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
@@ -77,10 +86,11 @@
 					console.log(col4);
 					console.log(col5);
 					console.log(col6);
-					console.log("parentFind : "+parentFind);					
+					console.log("parentFind : "+parentFind);
+					$("#hide_lending_mber", opener.document).css("display", "inline-block");
 					if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Return.do")){
 						/* window.opener.document.getElementById("hide_lending_mber").css("display", "block"); */
-						$("#hide_lending_mber", opener.document).css("display", "inline-block");
+						
 
 						window.opener.document.getElementById("mber_id").value = col1;	
 						window.opener.document.getElementById("member_id").value = col1;	
@@ -91,6 +101,7 @@
 						self.close();				
 					}
 					else if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Rent.do")){
+						$("#noResult", opener.document).hide();
 						window.opener.document.getElementById("mber_id").value = col1;
 						window.opener.document.getElementById("member_id").value = col1;
 						window.opener.document.getElementById("mber_name").value = col2;
@@ -115,7 +126,8 @@
 									}
 									else{
 										newTr.innerHTML = "<tr><td>"+obj.bookCd.bookCode+"</td><td>"+obj.bookCd.bookName+"</td><td>"+obj.bookCd.authrName+"/"+obj.bookCd.trnslrName+"</td><td>"+pblicteYear.yyyymmdd()+"</td><td>"+obj.bookCd.pls.plsName+"</td><td>"+lendDate.yyyymmdd()+"</td><td>"+rturnDueDate.yyyymmdd()+"</td><td><input type='checkbox' name='book_code2' value='"+obj.bookCd.bookCode+"'></td></tr>";		
-									}		
+									}
+									$("#noResult", opener.document).css("display", "none");
 									window.opener.document.getElementById("book_table").appendChild(newTr);		
 									self.close();
 								})
@@ -131,33 +143,35 @@
 </script>
 </head>
 <body>
-	<table>
-		<tr>
-			<th>회원ID</th>
-			<th>회원이름</th>
-			<th>회원등급</th>
-			<th>대여가능여부</th>
-			<th>대여가능권수</th>
-			<th>연체횟수</th>
-			<th>선택</th>
-		</tr>
-		<c:forEach var="member" items="${memberSel}">			
-				<tr class="item">
-					<td>${member.mberId}</td>
-					<td>${member.mberName }</td>
-					<td>${member.grade.gradeName }</td>
-						<c:if test="${member.lendPsbCdt==0}">
-							<td>정상</td>
-						</c:if>
-						<c:if test="${member.lendPsbCdt==1}">
-							<td>연체</td>
-						</c:if>						
-					<td>${member.grade.bookLeCnt - member.lendBookCnt}</td>
-					<td>${member.odCnt }</td>
-					<td><input type="radio" name="chk"></td>
-				</tr>
-		</c:forEach>
-	</table>
+	<div id="pop_up_container">
+		<table>
+			<tr>
+				<th>회원ID</th>
+				<th>회원이름</th>
+				<th>회원등급</th>
+				<th>대여가능여부</th>
+				<th>대여가능권수</th>
+				<th>연체횟수</th>
+				<th>선택</th>
+			</tr>
+			<c:forEach var="member" items="${memberSel}">			
+					<tr class="item">
+						<td>${member.mberId}</td>
+						<td>${member.mberName }</td>
+						<td>${member.grade.gradeName }</td>
+							<c:if test="${member.lendPsbCdt==0}">
+								<td>정상</td>
+							</c:if>
+							<c:if test="${member.lendPsbCdt==1}">
+								<td>연체</td>
+							</c:if>						
+						<td>${member.grade.bookLeCnt - member.lendBookCnt}</td>
+						<td>${member.odCnt }</td>
+						<td><input type="radio" name="chk"></td>
+					</tr>
+			</c:forEach>
+		</table>
+	</div>
 	<div id="memberSubmit_container">
 		<p>
 			<button id="memberSubmit" class="btnLightBlue">선택</button>

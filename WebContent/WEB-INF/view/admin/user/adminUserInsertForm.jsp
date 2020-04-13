@@ -75,6 +75,17 @@
 		font-size: 14px;
 		color: red;
 		display: none;
+		
+	}
+	
+	.overlepChkYes{
+		display: none;
+		font-size: 14px;
+	}
+	
+	.fa-check-circle:before {
+    content: "\f058";
+    color:#0CA0AE;
 	}
 
 	.getImg {
@@ -146,6 +157,33 @@ function address() {
 	
 	$(function(){
 		//정규표현식
+	
+		
+
+		$("#IdCheck").click(function() {
+			var idOverCheck = false;
+			var id = $("input[name='id']").val();
+			$.ajax({
+				url : "${pageContext.request.contextPath}/login/idCheck.do",
+				type : "get",
+				data : {"id" : id},
+				success : function(res) {
+					console.log(res);
+					
+					if (res != null || $("input[name='id']").val() == "") {
+						alert("사용 불가능한 아이디입니다");
+						$("input[name='id']").val("");
+						$(".overlepChkYes").css("display","inline");
+					}else if(res == null){
+						alert("사용가능한 아이디입니다.");
+						$(".overlepChkYes").css("display","inline");
+					}
+					
+					
+				}
+			})
+		})
+		
 		$("form").submit(function(){
 			$(".error").hide();
 			$(".fas").css("color", "#D9D9D9");
@@ -189,37 +227,23 @@ function address() {
 				return false;
 			}
 		
-				var phoneReg = /^(010|011|017|018|019)-?[0-9]{3,4}-?[0-9]{4}$/;
-				var phone = $("input[name='phone']");
-				if (phoneReg.test(phone.val()) == false || phone.val() == "") {
-					errors(phone);
-					return false;
-				}
-				
-				alert("[" +  $("#name").val() + "]님의 회원가입이 완료되었습니다.");
+			var phoneReg = /^(010|011|017|018|019)-?[0-9]{3,4}-?[0-9]{4}$/;
+			var phone = $("input[name='phone']");
+			if (phoneReg.test(phone.val()) == false || phone.val() == "") {
+				errors(phone);
+				return false;
+			}
+			
+			var overlepYes = $(".overlepChkYes").is(":visible");
+			if(overlepYes == false) {
+				alert("아이디 중복체크 해주세요.");
+				return false;
+			}
+			
+			alert("[" +  $("#name").val() + "]님의 회원가입이 완료되었습니다.");
 		})
 		
-		$("#IdCheck").click(function() {
-			var id = $("input[name='id']").val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/login/idCheck.do",
-				type : "get",
-				data : {"id" : id},
-				success : function(res) {
-					console.log(res);
-					
-					
-					if (res != null) {
-						alert("중복되는 아이디입니다");
-						$("input[name='id']").val("");
-					}else if(res == null){
-						alert("사용가능한 아이디입니다.");
-					}
-				}
-			})
-		})
-	})
-	
+})
 </script>
 <article class="contentWrap">
 	<div class="wrap">
@@ -227,16 +251,17 @@ function address() {
 		
 		<div class="addBox">
 			<form action="userAdd.do" method="post" enctype="multipart/form-data" autocomplete="off">
-				<p>
+				<p class="idWrap">
 					<label>아이디 </label>
 					<input type="text" name="id" id="id" placeholder="회원아이디"/>
 					<button class="btnOrange plsSearch" type="button" id="IdCheck">중복확인</button>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">5~20자의 영문 소문자와 숫자,특수기호(@_-.)만 사용 가능합니다.</span>
+					<span class="overlepChkYes"><i class="fas fa-check-circle"></i></span>
 				</p>
 				<p>
 					<label>이 름</label>
-					<input class="w395" type="text" name="name" id="name" placeholder="이름"/>
+					<input class="w395" type="text" name="name" id="name" placeholder="이름" autocomplete="off"/>
 					<i class="fas fa-feather-alt"></i>
 					<span class="error">한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)</span>
 				</p>
