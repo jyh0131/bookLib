@@ -60,7 +60,7 @@
 			location.href = "${pageContext.request.contextPath}/user/home.do";
 		})
 		
-		$("form").submit(function() {
+		$("#addBtn").click(function() {
 			$(".error").css("visibility", "hidden");
 			
 			var bookName = $("input[name='bookName']");
@@ -85,7 +85,24 @@
 				return false;
 			}
 			
-			alert("희망도서가 신청되었습니다.");
+			$.ajax({
+				url:"${pageContext.request.contextPath}/user/book/requestOverlap.do",
+				type:"post",
+				data:{bookName:$("input[name='bookName']").val(), authr :$("input[name='authr']").val(), 
+					trnslr :$("input[name='trnslr']").val(), pls :$("input[name='pls']").val()},
+				datatype: "json", 
+				success:function(res){
+					console.log(res);
+					if(res.result == "bookHave") {
+						alert("중복된 도서");
+						/* location.href = "${pageContext.request.contextPath}/user/book/requestAdd.do"; */
+						return false;
+					} else {
+						$("#f1").submit();
+					}
+				}
+			})
+			
 		})
 	})
 </script>
@@ -94,7 +111,7 @@
 		<div class="wrap">
 			<h3 class="pageTitle">희망도서신청</h3>
 			<div class="formWrap">
-				<form action="requestAdd.do" method="post">
+				<form action="requestAdd.do" method="post" id="f1">
 					<p>신청도서명</p>
 					<p>
 						<input type="text" name="bookName"/> 
@@ -123,7 +140,7 @@
 					
 					<p class="btns">
 						<input type="button" value="취소" class="btnPink cancel"/>
-						<input type="submit" value="신청" class="btnBlue"/>
+						<input type="button" value="신청" class="btnBlue" id="addBtn"/>
 					</p>
 				</form>
 			</div>
