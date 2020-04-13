@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yi.dao.BookDao;
 import com.yi.dao.LendingDao;
+import com.yi.dao.LibrarianDao;
 import com.yi.dao.RecommendationDao;
 import com.yi.dao.impl.BookDaoImpl;
 import com.yi.dao.impl.LendingDaoImpl;
+import com.yi.dao.impl.LibrarianDaoImpl;
 import com.yi.dao.impl.RecommendationDaoImpl;
+import com.yi.model.Librarian;
 import com.yi.model.Recommendation;
 import com.yi.mvc.CommandHandler;
 
@@ -23,6 +26,12 @@ public class AdminHomeHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		try {
+			String result =  (String)req.getSession().getAttribute("Lib");
+			if(result==null) {
+				System.out.println("세션없다-------------------");
+			}else {
+				System.out.println("세션있다-------------------");
+			}
 			
 			/*추천도서*/
 			RecommendationDao dao = RecommendationDaoImpl.getInstance();
@@ -39,6 +48,10 @@ public class AdminHomeHandler implements CommandHandler {
 			//Dao 객체 생성
 			BookDao bookDao = BookDaoImpl.getInstance();
 			LendingDao lendingDao = LendingDaoImpl.getInstance();
+			
+			
+			LibrarianDao libDao = LibrarianDaoImpl.getInstance();
+			
 			//월별 비교 위한 날짜 생성
 			String monthDate = y+"-"+m+"-01";
 			String monthDate2 = y+"-"+m2+"-01";
@@ -79,9 +92,16 @@ public class AdminHomeHandler implements CommandHandler {
 			req.setAttribute("lendYearCnt", lendYearCnt);
 			req.setAttribute("overdueYearCnt", overdueYearCnt);
 			req.setAttribute("y", y);
+			
+/*			String id = (String) req.getSession().getAttribute("Lib");
+			Librarian lib = libDao.selectLibrarianById(new Librarian(id));
+			req.removeAttribute("Lib");
+			req.setAttribute("Lib", lib);
+			System.out.println(req.getSession().getAttribute("Lib"));*/
+			
 			/*---------------------------------------------*/
 			
-			
+
 
 			return "/WEB-INF/view/admin/adminHome.jsp";
 		} catch (Exception e) {

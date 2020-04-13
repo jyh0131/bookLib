@@ -78,8 +78,6 @@ public class UserMemberProfileHandler implements CommandHandler {
 				dao.updateMember(member);
 				
 				//프로필 수정시 이름바뀌는 부분
-			
-				
 				String nameRe = (String)req.getSession().getAttribute("Mem");
 				nameRe = name;
 				req.setAttribute("Mem", nameRe);
