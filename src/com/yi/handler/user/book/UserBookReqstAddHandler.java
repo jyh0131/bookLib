@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.yi.dao.BookDao;
 import com.yi.dao.RequestBookDao;
+import com.yi.dao.impl.BookDaoImpl;
 import com.yi.dao.impl.RequestBookDaoImpl;
+import com.yi.model.Book;
 import com.yi.model.Member;
 import com.yi.model.RequestBook;
 import com.yi.mvc.CommandHandler;
@@ -56,13 +59,18 @@ public class UserBookReqstAddHandler implements CommandHandler {
 		} else if(req.getMethod().equalsIgnoreCase("post")) {
 			String bookName = req.getParameter("bookName");
 			String authr = req.getParameter("authr");
-			String trnslr = req.getParameter("trnslr").equals("") ? null : req.getParameter("trnslr");
+			String trnslr = req.getParameter("trnslr");
 			String pls = req.getParameter("pls");
 			String id = (String)req.getSession().getAttribute("MemId");
-			
-			System.out.println("id : " + id);
+			System.out.println("trnslr: " + trnslr);
 			
 			try {
+				BookDao bookDao = BookDaoImpl.getInstance();	
+				System.out.println("trnslr : " + trnslr);
+				Book chkBook = bookDao.selectBookByNameAndWriterNameAndPls(bookName, authr, trnslr, pls);
+				System.out.println(chkBook);
+				System.out.println("111");
+				System.out.println("33");
 				RequestBook rb = new RequestBook();
 				rb.setRequestBookName(bookName);
 				rb.setRequestBookAuthor(authr);
@@ -73,9 +81,10 @@ public class UserBookReqstAddHandler implements CommandHandler {
 				rb.setWhCdt(0);
 				
 				RequestBookDao dao = RequestBookDaoImpl.getInstance();
+				
 				dao.insertRequestBook(rb);
 				
-				res.sendRedirect(req.getContextPath()+"/user/book/requestList.do ");
+				res.sendRedirect(req.getContextPath()+"/user/book/requestList.do");
 				return null;
 				
 			} catch (Exception e) {

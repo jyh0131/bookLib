@@ -1,5 +1,12 @@
 select user(), database();
 
+select b.book_name , b.authr_name , b.trnslr_name , pls.pls_name 
+	from book b left join publishing_company pls on b.pls = pls.pls_no 
+	where b.book_name = '아몬드' and b.authr_name = '손원평' and pls.pls_name = '창비'
+	group by b.book_name;
+
+select * from book;
+
 select * from book where book_code like '0901.051%';
 
 select * from vw_book group by book_name order by pblicte_year desc limit 10;

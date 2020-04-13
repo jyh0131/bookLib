@@ -611,24 +611,29 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public Book selectBookByNameAndWriterNameAndPls(String bookName, String authr, String trnslr, String pls) {
-		String sql = "select b.book_name , b.authr_name , b.trnslr_name , pls.pls_name \r\n" + 
+		StringBuilder sql = new StringBuilder("select b.book_name , b.authr_name , b.trnslr_name , pls.pls_name \r\n" + 
 				"	from book b left join publishing_company pls on b.pls = pls.pls_no \r\n" + 
-				"	where b.book_name = ? and b.authr_name = ? and b.trnslr_name like ? and pls.pls_name like ? \r\n" + 
-				"	group by b.book_name";
+				"	where b.book_name = ? and b.authr_name = ? and pls.pls_name = ? \r\n");
+		if(trnslr == null || trnslr.equals(""))sql.append("and b.trnslr_name is null");
+		if(trnslr != null && !trnslr.equals(""))sql.append("and b.trnslr_name = ? ");
+		sql.append("	group by b.book_name");
+		
 		try (Connection con = JDBCUtil.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
+				PreparedStatement pstmt = con.prepareStatement(sql.toString())) {
 			pstmt.setString(1, bookName);
 			pstmt.setString(2, authr);
-			pstmt.setString(3, "%"+trnslr+"%");
-			pstmt.setString(4, "%"+pls+"%");
+			pstmt.setString(3, pls);
+			if(trnslr != null && !trnslr.equals("")) pstmt.setString(4, trnslr);
 			LogUtil.prnLog(pstmt);
+			System.out.println("pstmt: " + pstmt);
 			try (ResultSet rs = pstmt.executeQuery()){
 				if(rs.next()) {
 					Book checkBook = new Book();
 					checkBook.setBookName(rs.getString(1));
 					checkBook.setAuthrName(rs.getString(2));
-					checkBook.setTrnslrName(rs.getString(3));
-					checkBook.setPls(new PublishingCompany(rs.getString(4)));
+					checkBook.setPls(new PublishingCompany(rs.getString(3)));
+					if(trnslr != null && !trnslr.equals("")) checkBook.setTrnslrName(rs.getString(4));
+					System.out.println("chk : "+checkBook);
 					return checkBook;
 				}
 			}
