@@ -94,5 +94,5 @@
 		return;
 	}
 	
-	out.println("<script>alert('임시비밀번호가 메일로 발송되었습니다.');location.href='http://localhost:8080/bookLib/login/login.do';</script>");
+	out.println("<script>alert('임시비밀번호가 메일로 발송되었습니다.'); location.href = 'login.do';</script>");
 %>
