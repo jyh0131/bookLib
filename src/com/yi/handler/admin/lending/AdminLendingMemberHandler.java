@@ -23,14 +23,17 @@ public class AdminLendingMemberHandler implements CommandHandler {
 			MemberDao memberDao = MemberDaoImpl.getInstance();
 			String sel = req.getParameter("choice");
 			String text = req.getParameter("text");
+			String parent = req.getParameter("parent");
 			if (sel.equals("id")) {
 				Member member = new Member(text);
 				List<Member> list2 = memberDao.selectMemberByCodeName(member);
 				req.setAttribute("memberSel", list2);
+				req.setAttribute("parent", parent);
 			} else if (sel.equals("name")) {
 				Member member = new Member(text, new Date());
 				List<Member> list2 = memberDao.selectMemberByCodeName2(member);
 				req.setAttribute("memberSel", list2);
+				req.setAttribute("parent", parent);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

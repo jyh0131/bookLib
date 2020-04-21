@@ -88,7 +88,8 @@
 					console.log(col6);
 					console.log("parentFind : "+parentFind);
 					$("#hide_lending_mber", opener.document).css("display", "inline-block");
-					if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Return.do")){
+					/* if(parentFind.indexOf("${pageContext.request.contextPath}/admin/lending/Renturn.do")){ */
+					if(${parent} == "1"){
 						/* window.opener.document.getElementById("hide_lending_mber").css("display", "block"); */
 						
 
@@ -100,7 +101,8 @@
 						window.opener.document.getElementById("lendBookCnt").value = col5;
 						self.close();				
 					}
-					else if(parentFind.indexOf("http://localhost:8080/bookLib/admin/lending/Rent.do")){
+					/* else if(parentFind.indexOf("${pageContext.request.contextPath}/admin/lending/Rent.do")){ */
+					else{
 						$("#noResult", opener.document).hide();
 						window.opener.document.getElementById("mber_id").value = col1;
 						window.opener.document.getElementById("member_id").value = col1;

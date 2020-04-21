@@ -149,7 +149,7 @@
 			}
 			var searchText = $("input[name='memberSearch']").val();
 			var popOption = "width=700, height=360, resizable=no, scrollbars=no, status=no ";
-			var url = "${pageContext.request.contextPath}/admin/lending/Member.do?choice=" + choiceValue + "&text=" + searchText;
+			var url = "${pageContext.request.contextPath}/admin/lending/Member.do?choice=" + choiceValue + "&text=" + searchText+"&parent="+2;
 			window.open(url, "2", popOption);
 			$("input[name='memberSearch']").val("");
 			$("#noResult").show();

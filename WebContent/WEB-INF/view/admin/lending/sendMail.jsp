@@ -95,7 +95,8 @@ try{
 }
 System.out.println("sendMail.jsp에서 이제 전송전"); 
 /* out.println("<script>alert('Send Mail Success!!');location.href='${pageContext.request.contextPath}/admin/lending/AdminLendingOverdue.jsp';</script>"); */
-out.println("<script>alert('Send Mail Success!!');location.href='http://localhost:8080/bookLib/admin/lending/Overdue.do';</script>");
+/* out.println("<script>alert('Send Mail Success!!');location.href='http://localhost:8080/bookLib/admin/lending/Overdue.do';</script>"); */
+out.println("<script>alert('Send Mail Success!!');location.href='Overdue.do';</script>");
 // 성공 시
 %>
 
