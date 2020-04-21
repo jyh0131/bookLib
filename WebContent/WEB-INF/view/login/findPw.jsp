@@ -150,7 +150,7 @@ $(function() {
 			%>
 		</c:when>
 		
-		<c:when test="${Lib !=null}">
+		<%-- <c:when test="${Lib !=null}">
 			<script>
 
 				var flag =confirm("비밀번호는 [ ${Lib} ]입니다. 로그인화면으로 이동하시겠어요?");
@@ -182,7 +182,7 @@ $(function() {
 			<%
 				session.removeAttribute("Mem");
 			%>
-		</c:when>
+		</c:when> --%>
 	</c:choose>
 </article>
 
