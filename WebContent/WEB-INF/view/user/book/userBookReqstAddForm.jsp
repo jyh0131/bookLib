@@ -61,6 +61,13 @@
 		})
 		
 		$("#addBtn").click(function() {
+			var memNotLogin = ${Mem == null};
+			if(memNotLogin){
+				alert("로그인 후 이용 가능합니다.");
+				location.href = "${pageContext.request.contextPath}/login/login.do";
+				return false;
+			}
+			
 			$(".error").css("visibility", "hidden");
 			
 			var bookName = $("input[name='bookName']");
@@ -95,7 +102,6 @@
 					console.log(res);
 					if(res.result == "bookHave") {
 						alert("보유된 도서입니다. 사서에게 문의해주세요.");
-						/* location.href = "${pageContext.request.contextPath}/user/book/requestAdd.do"; */
 						return false;
 					} else {
 						alert("신청되었습니다.")

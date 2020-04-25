@@ -20,39 +20,7 @@ public class UserMemberProfilePwCheckHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			String id = (String)req.getSession().getAttribute("MemId");
-			String libId = (String)req.getSession().getAttribute("Lib");
-			String pass = (String)req.getSession().getAttribute("MemPass");
-			
-			if(libId != null) {
-				Map<String, String> map = new HashMap<>();
-				map.put("result", "libLogin");
-				
-				ObjectMapper om = new ObjectMapper();
-				String json = om.writeValueAsString(map);
-				res.setContentType("application/json;charset=UTF-8");
-				PrintWriter pw = res.getWriter();
-				pw.print(json);
-				pw.flush(); 
-				
-				return null;
-			}
-			
-			if(id == null) {
-				Map<String, String> map = new HashMap<>();
-				map.put("result", "notLogin");
-				
-				ObjectMapper om = new ObjectMapper();
-				String json = om.writeValueAsString(map);
-				res.setContentType("application/json;charset=UTF-8");
-				PrintWriter pw = res.getWriter();
-				pw.print(json);
-				pw.flush(); 
-				
-				return null;
-			}
-			
-			
-			
+					
 			try {
 				MemberDao memDao = MemberDaoImpl.getInstance();
 				Member member = new Member(id);

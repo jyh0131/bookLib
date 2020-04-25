@@ -45,93 +45,21 @@
 		// 로그인 회원만 이동 가능 [관리자, 비회원은 들어갈 수 없도록 함]
 		$(".joinMem").click(function() {
 			var isMenu = $(this).text();
+			var memNotLogin = ${Mem == null};
+			var libLogin = ${Lib != null};
 			
-			if(isMenu == "도서관서비스" || isMenu == "희망도서신청"){
-				$.ajax({
-					url:"${pageContext.request.contextPath}/user/book/requestAdd.do",
-					type:"get",
-					datatype: "json", 
-					success:function(res){
-						console.log(res);
-						if(res.result == "notLogin") {
-							alert("로그인 후 이용가능합니다.");
-							location.href = "${pageContext.request.contextPath}/login/login.do";
-							return false;
-						}
-						
-						if(res.result == "libLogin") {
-							alert("회원에게 제공되는 서비스입니다.");
-							location.href = "${pageContext.request.contextPath}/user/home.do";
-							return false;
-						}
+			if(isMenu == "도서관서비스" || isMenu == "희망도서신청" || isMenu == "나의도서관" || isMenu == "내정보수정" 
+					|| isMenu == "이용현황" || isMenu == "희망도서신청현황"){
+				if(memNotLogin) {
+					if(libLogin) {
+						alert("회원에게 제공되는 서비스입니다.");
+						location.href = "${pageContext.request.contextPath}/user/home.do";
+						return false;
 					}
-				})
-			}
-			
-			if(isMenu == "나의도서관" || isMenu == "내정보수정"){
-				$.ajax({
-					url:"${pageContext.request.contextPath}/user/member/profilePwCheck.do",
-					type:"get",
-					datatype: "json", 
-					success:function(res){
-						console.log(res);
-						if(res.result == "notLogin") {
-							alert("로그인 후 이용가능합니다.");
-							location.href = "${pageContext.request.contextPath}/login/login.do";
-							return false;
-						}
-						
-						if(res.result == "libLogin") {
-							alert("회원에게 제공되는 서비스입니다.");
-							location.href = "${pageContext.request.contextPath}/user/home.do";
-							return false;
-						}
-					}
-				})
-			}
-			
-			if(isMenu == "이용현황"){
-				$.ajax({
-					url:"${pageContext.request.contextPath}/user/member/uesList.do",
-					type:"get",
-					datatype: "json", 
-					success:function(res){
-						console.log(res);
-						if(res.result == "notLogin") {
-							alert("로그인 후 이용가능합니다.");
-							location.href = "${pageContext.request.contextPath}/login/login.do";
-							return false;
-						}
-						
-						if(res.result == "libLogin") {
-							alert("회원에게 제공되는 서비스입니다.");
-							location.href = "${pageContext.request.contextPath}/user/home.do";
-							return false;
-						}
-					}
-				})
-			}
-			
-			if(isMenu == "희망도서신청현황"){
-				$.ajax({
-					url:"${pageContext.request.contextPath}/user/book/requestList.do",
-					type:"get",
-					datatype: "json", 
-					success:function(res){
-						console.log(res);
-						if(res.result == "notLogin") {
-							alert("로그인 후 이용가능합니다.");
-							location.href = "${pageContext.request.contextPath}/login/login.do";
-							return false;
-						}
-						
-						if(res.result == "libLogin") {
-							alert("회원에게 제공되는 서비스입니다.");
-							location.href = "${pageContext.request.contextPath}/user/home.do";
-							return false;
-						}
-					}
-				})
+					alert("로그인 후 이용 가능합니다.");
+					location.href = "${pageContext.request.contextPath}/login/login.do";
+					return false;
+				}
 			}
 		})
 	})
