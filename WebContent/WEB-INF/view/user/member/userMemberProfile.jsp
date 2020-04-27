@@ -258,7 +258,7 @@ function address() {
 		$("#cancel").click(function() {
 			var cancel = confirm("회원정보 수정을 취소하시겠어요?");
 			if(cancel){
-				location.href="${pageContext.request.contextPath}/admin/user/userList.do";
+				location.href="${pageContext.request.contextPath}/user/home.do";
 				return false;
 			}
 			return false;
