@@ -38,7 +38,7 @@
 		float: left;
 	    width: 30%;
 	    padding: 20px 0;
-	    margin: 0 9px;
+	    margin: 0 5px;
 	    text-align: center;
 	    border: 1px solid #aaa;
 	    border-radius: 10px;
